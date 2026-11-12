@@ -1,19 +1,15 @@
 {
-  "_note": "Theme 03 master clock (seconds, start-to-start). Scene order follows 'My Scripts In Khmer'. scripts/generate-editorial-soundtrack.mjs reads this file.",
+  "_note": "Theme 03 master clock (seconds, start-to-start) — JAKUBEE Zesty Lemon Toothpaste. Scene order follows the client script. scripts/generate-editorial-soundtrack.mjs reads this file.",
   "scenes": [
-    { "id": "e01-two-editions", "duration": 5.5 },
-    { "id": "e02-blueberry", "duration": 5.5, "transition": { "kind": "circle", "duration": 0.8 } },
-    { "id": "e03-oily-acne", "duration": 7.0, "transition": { "kind": "card", "duration": 0.9 } },
-    { "id": "e04-cleansing", "duration": 6.0, "transition": { "kind": "gradientWipe", "duration": 0.8 } },
-    { "id": "e05-green", "duration": 5.5, "transition": { "kind": "colorMorph", "duration": 1.0 } },
-    { "id": "e06-dry-skin", "duration": 6.5, "transition": { "kind": "card", "duration": 0.9 } },
-    { "id": "e07-daily-makeup", "duration": 6.0, "transition": { "kind": "focus", "duration": 0.7 } },
-    { "id": "e08-foam", "duration": 5.5, "transition": { "kind": "push", "duration": 0.7 } },
-    { "id": "e09-glow", "duration": 5.0, "transition": { "kind": "lightLeak", "duration": 1.0 } },
-    { "id": "e10-price", "duration": 5.5, "transition": { "kind": "split", "duration": 0.8 } },
-    { "id": "e11-bundle", "duration": 6.5, "transition": { "kind": "card", "duration": 0.9 } },
-    { "id": "e12-wholesale", "duration": 6.0, "transition": { "kind": "gradientWipe", "duration": 0.8 } },
-    { "id": "e13-guarantee", "duration": 5.0, "transition": { "kind": "circle", "duration": 0.8 } },
-    { "id": "e14-finale", "duration": 6.5, "transition": { "kind": "lightLeak", "duration": 1.0 } }
+    { "id": "t01-intro", "duration": 6.0 },
+    { "id": "t02-zesty-lemon", "duration": 5.5, "transition": { "kind": "circle", "duration": 0.8 } },
+    { "id": "t03-clean-fresh", "duration": 6.5, "transition": { "kind": "gradientWipe", "duration": 0.8 } },
+    { "id": "t04-stains-whitening", "duration": 6.5, "transition": { "kind": "card", "duration": 0.9 } },
+    { "id": "t05-tartar", "duration": 6.0, "transition": { "kind": "push", "duration": 0.7 } },
+    { "id": "t06-fluoride-enamel", "duration": 6.5, "transition": { "kind": "focus", "duration": 0.7 } },
+    { "id": "t07-sensitivity-gums", "duration": 7.0, "transition": { "kind": "card", "duration": 0.9 } },
+    { "id": "t08-fresh-breath", "duration": 5.5, "transition": { "kind": "lightLeak", "duration": 1.0 } },
+    { "id": "t09-daily-care", "duration": 6.0, "transition": { "kind": "circle", "duration": 0.8 } },
+    { "id": "t10-finale", "duration": 7.0, "transition": { "kind": "lightLeak", "duration": 1.0 } }
   ]
 }

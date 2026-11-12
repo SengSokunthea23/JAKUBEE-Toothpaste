@@ -1,38 +1,31 @@
-// Theme 03 timeline. Timing lives in timing.json (shared with the soundtrack generator).
+// Theme 03 timeline — JAKUBEE Zesty Lemon Toothpaste. Timing lives in timing.json
+// (shared with the soundtrack generator).
 import React from 'react';
 import { frames } from '../lib/anim';
 import timing from './timing.json';
 import type { EdTransition } from './transitions';
-import { E01TwoEditions } from './scenes/E01TwoEditions';
-import { E02Blueberry } from './scenes/E02Blueberry';
-import { E03OilyAcne } from './scenes/E03OilyAcne';
-import { E04Cleansing } from './scenes/E04Cleansing';
-import { E05Green } from './scenes/E05Green';
-import { E06DrySkin } from './scenes/E06DrySkin';
-import { E07DailyMakeup } from './scenes/E07DailyMakeup';
-import { E08Foam } from './scenes/E08Foam';
-import { E09Glow } from './scenes/E09Glow';
-import { E10Price } from './scenes/E10Price';
-import { E11Bundle } from './scenes/E11Bundle';
-import { E12Wholesale } from './scenes/E12Wholesale';
-import { E13Guarantee } from './scenes/E13Guarantee';
-import { E14Finale } from './scenes/E14Finale';
+import { T01Intro } from './scenes/T01Intro';
+import { T02ZestyLemon } from './scenes/T02ZestyLemon';
+import { T03CleanFresh } from './scenes/T03CleanFresh';
+import { T04StainsWhitening } from './scenes/T04StainsWhitening';
+import { T05Tartar } from './scenes/T05Tartar';
+import { T06FluorideEnamel } from './scenes/T06FluorideEnamel';
+import { T07SensitivityGums } from './scenes/T07SensitivityGums';
+import { T08FreshBreath } from './scenes/T08FreshBreath';
+import { T09DailyCare } from './scenes/T09DailyCare';
+import { T10Finale } from './scenes/T10Finale';
 
 const COMPONENTS: Record<string, React.FC> = {
-  'e01-two-editions': E01TwoEditions,
-  'e02-blueberry': E02Blueberry,
-  'e03-oily-acne': E03OilyAcne,
-  'e04-cleansing': E04Cleansing,
-  'e05-green': E05Green,
-  'e06-dry-skin': E06DrySkin,
-  'e07-daily-makeup': E07DailyMakeup,
-  'e08-foam': E08Foam,
-  'e09-glow': E09Glow,
-  'e10-price': E10Price,
-  'e11-bundle': E11Bundle,
-  'e12-wholesale': E12Wholesale,
-  'e13-guarantee': E13Guarantee,
-  'e14-finale': E14Finale,
+  't01-intro': T01Intro,
+  't02-zesty-lemon': T02ZestyLemon,
+  't03-clean-fresh': T03CleanFresh,
+  't04-stains-whitening': T04StainsWhitening,
+  't05-tartar': T05Tartar,
+  't06-fluoride-enamel': T06FluorideEnamel,
+  't07-sensitivity-gums': T07SensitivityGums,
+  't08-fresh-breath': T08FreshBreath,
+  't09-daily-care': T09DailyCare,
+  't10-finale': T10Finale,
 };
 
 export type EdScene = { id: string; component: React.FC; duration: number; transition?: { kind: EdTransition; duration: number } };

@@ -1,121 +1,87 @@
-// ALL on-screen copy for Theme 03, taken from "My Scripts In Khmer" in README.md.
-// Khmer phrases are lifted from the narration (spelling normalised, e.g. ពណ៍ → ពណ៌,
-// ខ្យោយ → ខ្សោយ, សដោះគ → សដោះគោ). English lines are short supporting keywords only.
-// No claim appears here that is not spoken in the script.
-
-export const OFFER = {
-  price1: '$5',
-  bundle: '$20',
-  wholesale: '$26',
-  provinces: 25,
-};
+// ALL on-screen copy for Theme 03 — JAKUBEE Zesty Lemon Toothpaste.
+// Khmer lines are taken word-for-word from the client script (spelling kept as supplied).
+// English lines are short supporting keywords; the four pack claims are printed on the tube.
+// No claim appears here that is not in the script or on the packaging.
 
 export const T = {
   intro: {
-    eyebrow: 'JAKUBEE  ·  FACIAL FOAM',
-    kh1: 'ហ្វូមលាងមុខ Jakubee',
-    kh2: 'ឥឡូវមាន ២ ពណ៌',
-    hl: '២ ពណ៌',
-    en: 'TWO EDITIONS',
-    blue: 'BLUEBERRY',
-    green: 'GREEN',
+    eyebrow: 'JAKUBEE  ·  ORAL CARE',
+    en1: 'ZESTY LEMON',
+    en2: 'TOOTHPASTE',
+    kh1: 'ជាប្រភេទថ្នាំដុសធ្មេញ',
+    kh2: 'ប្រហើរក្លិននៃក្រូចឆ្មា',
   },
-  blue: {
-    eyebrow: 'EDITION 01  ·  BLUE',
-    title: 'Blueberry',
-    kh: 'ហ្វូមលាងមុខ Jakubee Blueberry',
-    tag: 'ពណ៌ខៀវ',
-    note: 'អត្ថប្រយោជន៍ល្អខ្លាំង',
-  },
-  oily: {
-    eyebrow: 'SUITABLE FOR',
-    kh: 'សាកសមជាមួយ',
-    words: ['OILY SKIN', 'ACNE', 'SUN-EXPOSED SKIN'],
-    cards: [
-      { icon: 'drop', en: 'VERY OILY SKIN', kh: 'ស្បែកមុខប្រេងខ្លាំង ឡើងខ្លាញ់' },
-      { icon: 'dot', en: 'ACNE', kh: 'មុនតូច · មុនធំ · មុនអង្កាម · មុនកប់សាច់' },
-      { icon: 'spark', en: 'ITCHY SKIN', kh: 'អាសារោលរមាស់' },
-      { icon: 'sun', en: 'SUN-EXPOSED SKIN', kh: 'ស្បែកមុខខ្លោចដោយសារកម្តៅថ្ងៃ' },
-    ] as const,
+  lemon: {
+    eyebrow: 'ZESTY LEMON',
+    title: 'Zesty Lemon',
+    kh: 'ប្រហើរក្លិននៃក្រូចឆ្មា (Zesty Lemon)',
+    chip1: 'FLUORIDE 1500PPM',
+    chip2: 'FRESH LEMON',
   },
   clean: {
-    queries: ['SKINCARE', 'FRESHNESS', 'DAILY CLEANSING'],
-    title: 'Deep clean',
-    kh1: 'ធូលីដី កាកសំណល់ផ្សេងៗ',
-    kh2: 'សម្អាតបានយ៉ាងល្អ',
-    chip: 'សាច់ហ្វូមល្មួត',
-    chipEn: 'SMOOTH FOAM',
+    queries: ['CLEAN TEETH', 'FRESH BREATH', 'ZESTY LEMON'],
+    title: 'Clean & fresh',
+    kh1: 'ជួយសម្អាតធ្មេញ',
+    kh2: 'និងបំបាត់បញ្ហាក្លិនមាត់',
+    kh3: 'បានយ៉ាងមានប្រសិទ្ធភាព',
   },
-  green: {
-    eyebrow: 'EDITION 02  ·  GREEN',
-    title: 'Green',
-    badge: 'NEW IN STOCK',
-    badgeKh: 'កូនពៅ ទើបចូលស្តុក',
-    hot: 'លក់ដាច់មែនទែន',
-    tag: 'ពណ៌បៃតង',
+  stains: {
+    eyebrow: 'WHITENING',
+    en: 'Brighter smile',
+    kh1: 'ជួយកាត់បន្ថយស្នាម ឬ ស្ចឹមលឿង',
+    kh2: 'និងស្នាម ឬស្ចឹមប្រឡាក់លើផ្ទៃធ្មេញ',
+    words: ['សស្អាត', 'រឹងមាំ', 'ភ្លឺរលោង'],
+    kh3: 'ជួយឱ្យធ្មេញសស្អាតរឹងមាំ និងភ្លឺរលោងជាងមុន',
   },
-  dry: {
-    eyebrow: 'SUITABLE FOR',
-    kh: 'សាកសមជាមួយ',
-    cards: [
-      { icon: 'drop', en: 'VERY DRY SKIN', kh: 'ស្បែកមុខស្អួតខ្លាំង' },
-      { icon: 'crack', en: 'CRACKED · FLAKY', kh: 'ស្អួតបែកក្រហែង · ស្អួតបែកស្រកា' },
-      { icon: 'dot', en: 'DARK SPOTS · FRECKLES', kh: 'មុខជាំ · អាចម៍រុយ' },
-      { icon: 'shield', en: 'WEAK SKIN BARRIER', kh: 'Skin barrier ខ្សោយ' },
+  tartar: {
+    eyebrow: 'TARTAR REMOVAL',
+    kh1: 'ជួយសម្អាតកំណកកំបោរ (Tartar) ធ្មេញ',
+    kh2: 'ដែលបង្កពីបារី តែ និងកាហ្វេ',
+    kh3: 'បានស្អាតល្អ',
+    causes: [
+      { icon: 'cigarette', en: 'CIGARETTES', kh: 'បារី' },
+      { icon: 'tea', en: 'TEA', kh: 'តែ' },
+      { icon: 'coffee', en: 'COFFEE', kh: 'កាហ្វេ' },
     ] as const,
   },
-  makeup: {
-    eyebrow: 'EVERY DAY',
-    en: 'DAILY MAKEUP',
-    kh1: 'អត់មានបញ្ហាស្បែក',
-    kh2: 'តែ make up ជារៀងរាល់ថ្ងៃ',
-    kh3: 'ក៏អាចជ្រើសរើសពណ៌បៃតងដែរ',
-    foam: [
-      { en: 'MILKY WHITE', kh: 'សាច់ហ្វូមពណ៌សដោះគោ' },
-      { en: 'COOL FEELING', kh: 'អារម្មណ៍ត្រជាក់' },
-      { en: 'REMOVES MAKEUP', kh: 'កម្ចាត់ធូលីដី ជាតិកខ្វក់ គ្រឿង make up' },
+  strong: {
+    eyebrow: 'FLUORIDE  ·  ENAMEL',
+    layers: ['ENAMEL', 'FLUORIDE', 'STRONG TEETH'],
+    lines: [
+      { en: 'ANTI-CAVITY', kh: 'ជួយបង្ការធ្មេញពុកដោយមានសារធាតុ Fluoride' },
+      { en: 'ENAMEL', kh: 'ជួយពង្រឹងស្រទាប់ Enamel និងថែរក្សាសុខភាពធ្មេញ' },
+      { en: 'STRONG TEETH', kh: 'ជួយថែរក្សា និងការពារធ្មេញឱ្យរឹងមាំ' },
     ],
   },
-  glow: {
-    line1: 'Glow',
-    line2: 'glass skin',
-    kh1: 'មុខម៉ដ្ឋ ស ទន់រលោង',
-    kh2: 'មានសំណើមដូចលាបសេរ៉ូម',
+  gums: {
+    eyebrow: 'SENSITIVITY  ·  GUMS',
+    kh: 'ថែរក្សាធ្មេញ និងអញ្ចាញធ្មេញ',
+    cards: [
+      { icon: 'tooth', en: 'ANTI-SENSITIVITY', kh: 'ជួយកាត់បន្ថយបញ្ហាសៀវធ្មេញ' },
+      { icon: 'drop', en: 'GUM BLEEDING', kh: 'ឈាមចេញតាមអញ្ចាញធ្មេញ' },
+      { icon: 'shield', en: 'GUM CARE', kh: 'ជួយថែរក្សាអញ្ចាញធ្មេញ' },
+      { icon: 'bacteria', en: 'BAD-BREATH BACTERIA', kh: 'កាត់បន្ថយបាក់តេរីដែលបណ្តាលឱ្យមានក្លិនមាត់' },
+    ] as const,
   },
-  price: {
-    eyebrow: 'SPECIAL PRICE',
-    kh: 'តម្លៃពិសេសមែនទែន',
-    each: 'ទិញ ១ ទីប',
-    same: 'ពណ៌ខៀវ ពណ៌បៃតង តម្លៃដូចគ្នា',
+  breath: {
+    line1: 'Fresh',
+    line2: 'breath',
+    kh1: 'ជួយឱ្យខ្យល់ដង្ហើមស្រស់ស្រាយ',
+    kh2: 'និងផ្តល់អារម្មណ៍ស្រស់ថ្លាក្នុងមាត់',
   },
-  bundle: {
-    eyebrow: 'BUNDLE OFFER',
-    kh: 'ចាប់ពី ៤ ទីប',
-    tubes: '4 TUBES',
-    delivery: 'ដឹកជញ្ជូនឥតគិតថ្លៃ ២៥ ខេត្តក្រុង',
-    deliveryEn: 'FREE DELIVERY',
-    condition: 'ទិញ ២ ទីប មិនមានដឹកជញ្ជូនឥតគិតថ្លៃ',
-  },
-  wholesale: {
-    eyebrow: 'WHOLESALE',
-    kh: 'ចង់យកទៅលក់បន្ត?',
-    places: ['តាមផ្សារ', 'តាមតូប', 'ហាងគ្រឿងក្រអូប'],
-    deal: 'ចាយត្រឹមតែ',
-    dealAfter: 'បានតម្លៃបោះដុំ',
-    any: 'ពណ៌មួយណាក៏បាន · សម្រាប់អ្នកប្រើប្រាស់ជាប្រចាំផងដែរ',
-  },
-  guarantee: {
-    eyebrow: 'FULL REFUND GUARANTEE',
-    kh1: 'ប្រើហើយមិនបានផល',
-    kh2: 'ជូនលុយវិញគ្រប់ចំនួន',
-    sub: 'ហ្វូមលាងមុខ ពណ៌ខៀវ និង ពណ៌បៃតង',
+  daily: {
+    eyebrow: 'EVERY DAY',
+    kh1: 'ស័ក្តិសមសម្រាប់ការប្រើប្រាស់ជាប្រចាំថ្ងៃ',
+    kh2: 'ជួយរក្សាអនាម័យមាត់ធ្មេញបានល្អ',
+    days: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+    en: 'DAILY ORAL CARE',
   },
   end: {
-    eyebrow: 'JAKUBEE  ·  FACIAL FOAM',
-    kh: 'កុម្ម៉ង់ឥឡូវនេះ',
-    en: 'ORDER NOW',
-    chips: ['១ ទីប $5', '៤ ទីប $20', 'លក់ដុំ $26'],
-    delivery: 'ចាប់ពី ៤ ទីប · ដឹកជញ្ជូនឥតគិតថ្លៃ ២៥ ខេត្តក្រុង',
-    cta: 'ផ្ញើសារមកកាន់យើងឥឡូវនេះ',
+    eyebrow: 'JAKUBEE  ·  ZESTY LEMON TOOTHPASTE',
+    kh1: 'ប្រហើរក្លិននៃក្រូចឆ្មា (Zesty Lemon)',
+    kh2: 'ផ្តល់នូវខ្យល់ដង្ហើមស្រស់ស្រាយ បំបាត់អារម្មណ៍ធ្ងន់ក្នុងមាត់',
+    kh3: 'និងជួយឱ្យ មាត់មានអារម្មណ៍ស្អាត បន្ទាប់ពីដុសធ្មេញរួច។',
+    claims: ['WHITENING', 'ANTI-CAVITY', 'ANTI-SENSITIVITY', 'ANTI-PLAQUE'], // printed on the tube
+    cta: 'កុម្ម៉ង់ឥឡូវនេះ',
   },
 };

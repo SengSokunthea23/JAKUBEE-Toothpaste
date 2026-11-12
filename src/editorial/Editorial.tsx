@@ -14,7 +14,7 @@ export type EditorialProps = {
   musicVolume?: number;
 };
 
-/** Theme 03 — Cinematic Editorial × Premium Digital Experience. */
+/** Theme 03 — Cinematic Editorial × Premium Digital Experience · JAKUBEE Zesty Lemon Toothpaste. */
 export const Editorial: React.FC<EditorialProps> = ({ voiceover, musicVolume }) => {
   const level = musicVolume ?? (voiceover ? 0.3 : 1);
   const total = ED_TOTAL_FRAMES;

@@ -123,7 +123,7 @@ npm run soundtrack:cinematic   # rebuild public/audio/cinematic-soundtrack.wav (
 
 ## Theme 03: Cinematic Editorial × Premium Digital (`JakubeeEditorial`)
 
-The facial foam film (Blueberry and Green Facial Foam). Its scene order and on-screen Khmer come from **My Scripts In Khmer** below. It's in Remotion Studio under the **Editorial** folder. 82 seconds, 1080×1920, 30 fps.
+A **JAKUBEE Zesty Lemon Toothpaste** ad (one product only). The scene order and all on-screen Khmer follow the Zesty Lemon script below. It uses the real product photos `zesty-lemon-tube.png` and `zesty-lemon-pack.png`. It's in Remotion Studio under the **Editorial** folder. 62.5 seconds, 1080×1920, 30 fps.
 
 ```bash
 npm run dev                     # Studio → Editorial / JakubeeEditorial
@@ -132,47 +132,54 @@ npm run still:editorial         # → out/stills-editorial/*.png (one frame per 
 npm run soundtrack:editorial    # rebuild public/audio/editorial-soundtrack.wav  (--cues prints the cue sheet)
 ```
 
-### Adding the facial foam photos (required before the final render)
-
-The two product photos aren't in the project yet. Until they are, every scene shows a clearly marked **PRODUCT IMAGE** slot. It is never toothpaste and never invented packaging. To add them:
-
-1. Put transparent PNG cut-outs in `public/products/`, for example `foam-blueberry.png` and `foam-green.png`.
-2. In `src/editorial/assets.ts`, set `file` for each edition, and set `aspect` to the image's width ÷ height.
-
-Every scene then uses the real photos automatically.
-
 ### Storyboard
 
-| # | Start | Script (Khmer narration) | Visual and technique | Transition in | Sound |
+| # | Start | Script line | Visual and technique | Transition in | Sound |
 |---|---|---|---|---|---|
-| 01 | 0:00.0 | ហ្វូមលាងមុខ Jakubee ឥឡូវមាន ២ ពណ៌ | Warm blurred-gradient intro, camera pull-back, two floating product cards, geometric pieces lock into place, green underline under "២ ពណ៌" | — | Swell, card whooshes, soft impact, pops, shimmer |
-| 02 | 0:05.5 | Blueberry · ពណ៌ខៀវ · អត្ថប្រយោជន៍ល្អខ្លាំង | Blue light, blueberries and water beads at several depths, product turns into place, floating label cards | Circle mask | Whoosh, reveal impact, droplets |
-| 03 | 0:11.0 | ស្បែកមុខប្រេងខ្លាំង · មុនតូច មុនធំ មុនអង្កាម មុនកប់សាច់ · អាសារោលរមាស់ · ខ្លោចដោយសារកម្តៅថ្ងៃ | Keywords highlighted one by one, four benefit panels with icons | Floating card | Clicks on each keyword, panel pops |
-| 04 | 0:18.0 | ធូលីដី កាកសំណល់ · សម្អាតបានយ៉ាងល្អ · សាច់ហ្វូមល្មួត | Search bar types SKINCARE → FRESHNESS → DAILY CLEANSING, then a result card opens | Gradient wipe | Keystrokes, enter click, bubbles (drums drop to hats) |
-| 05 | 0:24.0 | កូនពៅ ទើបចូលស្តុក · លក់ដាច់មែនទែន · ពណ៌បៃតង | Blue light changes to green, botanical leaves, "NEW IN STOCK" badge with a live dot | Color morph | Riser, sweep, shimmer, leaf air |
-| 06 | 0:29.5 | ស្បែកស្អួតខ្លាំង · ស្អួតបែកក្រហែង / ស្រកា · មុខជាំ អាចម៍រុយ · skin barrier ខ្សោយ | Water ripples spread out from the product, four benefit panels | Floating card | Ripple drops, panel pops |
-| 07 | 0:36.0 | អត់មានបញ្ហា តែ make up ជារៀងរាល់ថ្ងៃ → ក៏អាចជ្រើសរើសពណ៌បៃតងដែរ | A floating phone plays the green edition, with floating chips | Blur-to-focus | Phone whoosh and thump, pops |
-| 08 | 0:42.0 | សាច់ហ្វូមពណ៌សដោះគោ · អារម្មណ៍ត្រជាក់ · កម្ចាត់ធូលីដី ជាតិកខ្វក់ គ្រឿង make up | Macro foam bank and bubbles, three foam panels | Camera push | Bubble texture, pops |
-| 09 | 0:47.5 | មុខម៉ដ្ឋ ស ទន់រលោង · មានសំណើមដូចលាបសេរ៉ូម · glow glass skin | Large editorial headline, glow halo, warm light | Light leak | Swell, glow impact, sparkle (drums out) |
-| 10 | 0:52.5 | ទិញ ១ ទីប $5 · ពណ៌ខៀវ ពណ៌បៃតង តម្លៃដូចគ្នា | Blue / green split screen, $5 on each side | Split reveal | Two panel whooshes, two price impacts (panned left and right) |
-| 11 | 0:58.0 | ២ ទីប មិនមានដឹកឥតគិតថ្លៃ · ចាប់ពី ៤ ទីប $20 · ដឹកជញ្ជូនឥតគិតថ្លៃ ២៥ ខេត្តក្រុង | Four tube cards, $20, province counter, delivery condition shown | Floating card | Rising pops, price impact, counter ticks |
-| 12 | 1:04.5 | ចង់យកទៅលក់បន្ត? តាមផ្សារ តាមតូប ហាងគ្រឿងក្រអូប · ចាយត្រឹមតែ $26 បានតម្លៃបោះដុំ | Isometric pedestals rise, products land on them, berry and leaf props | Gradient wipe | Thumps, droplets, clicks, price impact |
-| 13 | 1:10.5 | ប្រើហើយមិនបានផល ជូនលុយវិញគ្រប់ចំនួន | Guarantee card, shield and check draw themselves | Circle mask | Ring swell, chime (drums out) |
-| 14 | 1:15.5 | Offers recap + កុម្ម៉ង់ឥឡូវនេះ | Geometric shapes assemble around both editions, offer chips, CTA button | Light leak | Riser, hero impact, shimmer, CTA click, final chord |
+| 01 | 0:00.0 | JAKUBEE ZESTY LEMON TOOTHPASTE · ជាប្រភេទថ្នាំដុសធ្មេញ ប្រហើរក្លិននៃក្រូចឆ្មា | Warm lemon gradient intro, camera pull-back, tube and pack in floating cards, geometric pieces lock into place, lemon underline | — | Swell, card whooshes, soft impact, pops, shimmer |
+| 02 | 0:06.0 | ប្រហើរក្លិននៃក្រូចឆ្មា (Zesty Lemon) | Lemon slices and water beads at several depths, hero tube turns into place, "FLUORIDE 1500PPM" and "FRESH LEMON" label cards | Circle mask | Whoosh, reveal impact, droplets |
+| 03 | 0:11.5 | ជួយសម្អាតធ្មេញ និងបំបាត់បញ្ហាក្លិនមាត់បានយ៉ាងមានប្រសិទ្ធភាព | Search bar types CLEAN TEETH → FRESH BREATH → ZESTY LEMON, then a result card opens | Gradient wipe | Keystrokes, enter click (drums drop to hats) |
+| 04 | 0:18.0 | ជួយកាត់បន្ថយស្នាម ឬ ស្ចឹមលឿង… · ជួយឱ្យធ្មេញសស្អាតរឹងមាំ និងភ្លឺរលោងជាងមុន | Illustrated tooth: yellow stains fade, a light sweeps the enamel, Khmer keywords highlighted one by one | Floating card | Soft fizz, shine shimmer, highlight clicks |
+| 05 | 0:24.5 | ជួយសម្អាតកំណកកំបោរ (Tartar) ធ្មេញដែលបង្កពីបារី តែ និងកាហ្វេ បានស្អាតល្អ | Cigarette, tea and coffee cards float in, a cleansing sweep clears them, the pack is revealed | Camera push | Pops, cleansing whoosh, reveal impact |
+| 06 | 0:30.5 | ជួយបង្ការធ្មេញពុកដោយមានសារធាតុ Fluoride · ពង្រឹងស្រទាប់ Enamel · ការពារធ្មេញឱ្យរឹងមាំ | Three isometric layers build up, the tube lands on top, three benefit panels | Blur-to-focus | Layer thumps, ticks, landing impact, pops |
+| 07 | 0:37.0 | សៀវធ្មេញ · ឈាមចេញតាមអញ្ចាញធ្មេញ · ថែរក្សាអញ្ចាញធ្មេញ · បាក់តេរីក្លិនមាត់ | Floating icon ecosystem around the tube, four benefit panels | Floating card | Icon pops, panel pops |
+| 08 | 0:44.0 | ជួយឱ្យខ្យល់ដង្ហើមស្រស់ស្រាយ និងផ្តល់អារម្មណ៍ស្រស់ថ្លាក្នុងមាត់ | "Fresh breath" headline, airy breath ribbons, lemon and water, glow halo | Light leak | Swell, air, glow impact, droplets (drums out) |
+| 09 | 0:49.5 | ស័ក្តិសមសម្រាប់ការប្រើប្រាស់ជាប្រចាំថ្ងៃ · ជួយរក្សាអនាម័យមាត់ធ្មេញបានល្អ | Floating phone with a week of daily checkmarks, floating chips | Circle mask | Phone whoosh and thump, a tick for each day |
+| 10 | 0:55.5 | ប្រហើរក្លិននៃក្រូចឆ្មា… មាត់មានអារម្មណ៍ស្អាត បន្ទាប់ពីដុសធ្មេញរួច។ | Geometric finale: pack and tube, lemon slices, the four claims printed on the pack, Khmer CTA | Light leak | Riser, hero impact, shimmer, CTA click, final chord |
 
-**Music:** an original 110 BPM bed (Emaj9 · C#m9 · Amaj9 · B6/9) with airy pads, soft keys through an echo delay, light kick, snap and hats, and gentle bass. The music dips briefly under each kick. The drums drop out for the search typing, the glow scene and the guarantee. The sound effects are generated in code: UI clicks, keystrokes, card whooshes, droplets, bubbles, price impacts and shimmer.
+**Copy:** all text is in `src/editorial/copy.ts`, taken word for word from the Zesty Lemon script. Please have a native speaker proofread it, especially **សៀវធ្មេញ** (the usual spelling is ស្រៀវធ្មេញ) and **ស្ចឹម**. The English supporting words are short labels that match the script or what's printed on the pack. The closing CTA "កុម្ម៉ង់ឥឡូវនេះ" is not in the script. Remove it in `copy.ts` and `scenes/T10Finale.tsx` if you don't want it. There are no prices in this theme, because the script has none.
+
+**Music:** an original 110 BPM bed (Emaj9 · C#m9 · Amaj9 · B6/9) with airy pads, soft keys through an echo delay, light kick, snap and hats, and gentle bass. The music dips briefly under each kick. The drums drop out for the search typing and the fresh-breath scene. The sound effects are generated in code and timed to the picture.
 
 **Voice-over:** add one with `--props='{"voiceover":"audio/voiceover.mp3"}'`. Music and effects then drop to 30%.
 
-**Copy:** all text is in `src/editorial/copy.ts`. I normalized some spellings from the spoken script: ពណ៍ → ពណ៌, ខ្យោយ → ខ្សោយ, សដោះគ → សដោះគោ, ម៉ដ្ឋសទុន → ម៉ដ្ឋ ស ទន់. Colloquial terms such as អាសារោលរមាស់ are kept exactly as spoken. Please have a native speaker proofread this file before the final render.
-
 **Code:** the theme lives in `src/editorial/`:
-- `assets.ts`: product photos
 - `copy.ts`: all on-screen text
 - `timing.json`: scene durations and transitions
-- `ui/`: backdrop, cards, foam product, typography, search bar, phone, isometric objects
+- `ui/`: backdrop, cards, product photos, typography, search bar, phone, isometric objects, lemon slices, tooth
 - `transitions.tsx`
-- `scenes/`
+- `scenes/T01…T10`
+
+### Zesty Lemon script (source)
+
+```
+JAKUBEE ZESTY LEMON TOOTHPASTE
+ជាប្រភេទថ្នាំដុសធ្មេញប្រហើរក្លិននៃក្រូចឆ្មា (Zesty Lemon)
+ជួយសម្អាតធ្មេញ និងបំបាត់បញ្ហាក្លិនមាត់បានយ៉ាងមានប្រសិទ្ធភាព
+ជួយកាត់បន្ថយស្នាម ឬ ស្ចឹមលឿង និងស្នាម ឬស្ចឹមប្រឡាក់លើផ្ទៃធ្មេញ
+ជួយថែរក្សា និងការពារធ្មេញឱ្យរឹងមាំ
+ជួយឱ្យធ្មេញសស្អាតរឹងមាំ និងភ្លឺរលោងជាងមុន
+ជួយសម្អាតកំណកកំបោរ (Tartar) ធ្មេញដែលបង្កពីបារី តែ និងកាហ្វេ បានស្អាតល្អ
+ជួយបង្ការធ្មេញពុកដោយមានសារធាតុ Fluoride
+ជួយពង្រឹងស្រទាប់ Enamel និងថែរក្សាសុខភាពធ្មេញ
+ជួយកាត់បន្ថយបញ្ហាសៀវធ្មេញ ឈាមចេញតាមអញ្ចាញធ្មេញ
+ជួយថែរក្សាអញ្ចាញធ្មេញ កាត់បន្ថយបាក់តេរីដែលបណ្តាលឱ្យមានក្លិនមាត់
+ជួយឱ្យខ្យល់ដង្ហើមស្រស់ស្រាយ និងផ្តល់អារម្មណ៍ស្រស់ថ្លាក្នុងមាត់
+ជួយរក្សាអនាម័យមាត់ធ្មេញបានល្អ
+ស័ក្តិសមសម្រាប់ការប្រើប្រាស់ជាប្រចាំថ្ងៃ
+ប្រហើរក្លិននៃក្រូចឆ្មា (Zesty Lemon) ផ្តល់នូវខ្យល់ដង្ហើមស្រស់ស្រាយ បំបាត់អារម្មណ៍ធ្ងន់ក្នុងមាត់ និងជួយឱ្យ មាត់មានអារម្មណ៍ស្អាត បន្ទាប់ពីដុសធ្មេញរួច។
+```
+
 
 ## Product integrity
 

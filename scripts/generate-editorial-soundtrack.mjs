@@ -1,10 +1,10 @@
-// Original soundtrack + UI sound design for Theme 03 (Cinematic Editorial × Premium Digital).
+// Original soundtrack + UI sound design for Theme 03 — JAKUBEE Zesty Lemon Toothpaste.
 // Reads src/editorial/timing.json so every cue follows the picture.
 // Run: npm run soundtrack:editorial   (add --cues to print the cue sheet)
 //
 // Music: 110 BPM clean electronic pop — Emaj9 · C#m9 · Amaj9 · B6/9; airy pads,
 // FM-style keys, light kick/snap/hats, gentle sidechain. SFX: UI clicks, keystrokes,
-// card whooshes, droplets, bubbles, price impacts, shimmer.
+// card whooshes, droplets, layer thumps, shimmer, reveal impacts.
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -30,22 +30,19 @@ const CHORDS = [
 const chordAt = (t) => CHORDS[Math.floor(t / BAR) % 4];
 
 const drumLevel = (t) => {
-  if (t < T('e02-blueberry', 0.2)) return 0;
-  if (t < T('e04-cleansing')) return 1;
-  if (t < T('e05-green', 0.3)) return 0.5; // search typing: hats only, keystrokes lead
-  if (t < T('e09-glow')) return 1;
-  if (t < T('e10-price', 0.3)) return 0; // glow: breathing room
-  if (t < T('e13-guarantee')) return 1;
-  if (t < T('e14-finale', 0.6)) return 0; // guarantee: drums out
-  return t < TOTAL - 1.6 ? 1 : 0;
+  if (t < T('t02-zesty-lemon', 0.2)) return 0;
+  if (t < T('t03-clean-fresh')) return 1;
+  if (t < T('t04-stains-whitening', 0.3)) return 0.5; // search typing: hats only, keystrokes lead
+  if (t < T('t08-fresh-breath')) return 1;
+  if (t < T('t09-daily-care', 0.3)) return 0; // fresh breath: breathing room
+  if (t < TOTAL - 1.6) return 1;
+  return 0;
 };
 const keysLevel = (t) => {
   if (t < 1.0) return 0;
-  if (t < T('e02-blueberry')) return 1;
-  if (t < T('e09-glow')) return 2;
-  if (t < T('e10-price')) return 1;
-  if (t < T('e13-guarantee')) return 2;
-  if (t < T('e14-finale')) return 1;
+  if (t < T('t02-zesty-lemon')) return 1;
+  if (t < T('t08-fresh-breath')) return 2;
+  if (t < T('t09-daily-care')) return 1;
   return t < TOTAL - 1.2 ? 2 : 0;
 };
 
@@ -59,8 +56,7 @@ for (let b = 0; b < nBars; b++) {
 }
 filterBus(MUSIC, 'lp', (t) => {
   let c = 900 + 2300 * clamp(t / 5);
-  if (t > T('e09-glow') - 0.3 && t < T('e10-price')) c = 1700;
-  if (t > T('e13-guarantee') && t < T('e14-finale')) c = 1500;
+  if (t > T('t08-fresh-breath') - 0.3 && t < T('t09-daily-care')) c = 1700; // breath: softer, airy
   return c;
 }, 0.7);
 
@@ -126,123 +122,90 @@ const S = (label, sig, t, gain, pan = 0, send = 0.2) => { put(SFX, sig, t, gain,
 const W = (label, sig, t, gain, p0, p1) => { putPan(SFX, sig, t, gain, p0, p1); putPan(SEND, sig, t, gain * 0.2, p0, p1); cue.push([t, label]); };
 const cardWhoosh = (label, t, pan = 0) => { W(label, K.whoosh(0.55, 500, 2600), t, 0.14, pan - 0.3, pan + 0.3); };
 
-// 01 — two editions
+// 01 — intro: Zesty Lemon Toothpaste
 S('Reverse swell — gradient intro', K.swell([64, 71, 75], 1.0), 0.0, 0.06, 0, 0.5);
-cardWhoosh('Product card A rises', T('e01-two-editions', 0.45), -0.4);
-cardWhoosh('Product card B rises', T('e01-two-editions', 0.65), 0.4);
-S('Soft impact — cards land', K.impact(0.55), T('e01-two-editions', 1.05), 0.3);
-[1.3, 1.45, 1.55].forEach((d, i) => S('Geometric piece snaps in', K.pop(700 + i * 120), T('e01-two-editions', d + 0.2), 0.08, [-0.6, 0.6, 0.5][i]));
-W('Underline draw', K.whoosh(0.4, 1500, 5000), T('e01-two-editions', 2.0), 0.08, -0.4, 0.4);
-S('Shimmer — light sweep', K.shimmer(), T('e01-two-editions', 2.6), 0.06, 0, 0.6);
+[0.4, 0.6].forEach((d, i) => S('Headline word accent', K.pop(620 + i * 140), T('t01-intro', d + 0.15), 0.07, i ? 0.2 : -0.2));
+cardWhoosh('Pack card rises', T('t01-intro', 0.45), 0.4);
+cardWhoosh('Tube card rises', T('t01-intro', 0.7), -0.4);
+S('Soft impact — cards land', K.impact(0.55), T('t01-intro', 1.15), 0.3);
+[1.4, 1.5, 1.6].forEach((d, i) => S('Geometric piece snaps in', K.pop(700 + i * 120), T('t01-intro', d + 0.2), 0.08, [-0.6, 0.6, 0.5][i]));
+W('Underline draw', K.whoosh(0.4, 1500, 5000), T('t01-intro', 2.0), 0.08, -0.4, 0.4);
+S('Shimmer — light sweep', K.shimmer(), T('t01-intro', 2.6), 0.06, 0, 0.6);
 
-// 02 — blueberry (circle reveal)
-W('Circle-reveal whoosh', K.whoosh(0.8, 300, 2800), T('e02-blueberry', -0.1), 0.24, 0, 0);
-S('Product reveal impact', K.impact(0.8), T('e02-blueberry', 0.75), 0.36);
-for (let k = 0; k < 6; k++) S('Water droplet', K.droplet(700 + rnd() * 700), T('e02-blueberry', 0.9 + k * 0.6 + rnd() * 0.2), 0.05, rnd() * 1.2 - 0.6, 0.4);
-S('Label card pop', K.pop(760), T('e02-blueberry', 1.55), 0.08, -0.4);
-S('Label card pop', K.pop(860), T('e02-blueberry', 1.95), 0.08, -0.3);
-S('Shimmer — sweep', K.shimmer([88, 92, 95, 99]), T('e02-blueberry', 2.0), 0.045, 0.3, 0.6);
+// 02 — zesty lemon (circle reveal)
+W('Circle-reveal whoosh', K.whoosh(0.8, 300, 2800), T('t02-zesty-lemon', -0.1), 0.24, 0, 0);
+S('Product reveal impact', K.impact(0.8), T('t02-zesty-lemon', 0.75), 0.36);
+for (let k = 0; k < 6; k++) S('Water droplet', K.droplet(700 + rnd() * 700), T('t02-zesty-lemon', 0.9 + k * 0.6 + rnd() * 0.2), 0.05, rnd() * 1.2 - 0.6, 0.4);
+S('Label card pop', K.pop(760), T('t02-zesty-lemon', 1.55), 0.08, -0.4);
+S('Label card pop', K.pop(860), T('t02-zesty-lemon', 1.95), 0.08, -0.3);
+S('Shimmer — sweep', K.shimmer([88, 92, 95, 99]), T('t02-zesty-lemon', 2.0), 0.045, 0.3, 0.6);
 
-// 03 — oily / acne (floating-card transition)
-W('Card transition — layered whoosh', K.whoosh(0.9, 250, 2200), T('e03-oily-acne', -0.1), 0.22, 0.2, -0.2);
-[0, 1, 2].forEach((i) => S('Keyword highlight click', K.click(1600 + i * 200), T('e03-oily-acne', 1.0 + i * 0.4), 0.12, -0.3 + i * 0.3, 0));
-[0, 1, 2, 3].forEach((i) => S(`Benefit panel ${i + 1}`, K.pop(620 + i * 80), T('e03-oily-acne', 1.75 + i * 0.32), 0.08, 0.2));
+// 03 — clean & fresh: search interface
+W('Gradient-wipe sweep', K.whoosh(0.8, 600, 4200), T('t03-clean-fresh', -0.1), 0.18, -0.7, 0.7);
+cardWhoosh('Search bar slides in', T('t03-clean-fresh', 0.5));
+['CLEAN TEETH', 'FRESH BREATH', 'ZESTY LEMON'].forEach((q, qi) => {
+  for (let c = 0; c < q.length; c++) if (q[c] !== ' ') S('Keystroke', K.key(), T('t03-clean-fresh', 0.95 + qi * 0.9 + c * 0.045), 0.09, 0.1, 0);
+});
+S('Search enter click', K.click(1400), T('t03-clean-fresh', 3.05), 0.16, 0, 0);
+cardWhoosh('Result card rises', T('t03-clean-fresh', 3.15));
+S('Result lands', K.impact(0.45), T('t03-clean-fresh', 3.5), 0.22);
+[0, 1].forEach((i) => S('Keyword pill pop', K.pop(760 + i * 120), T('t03-clean-fresh', 4.65 + i * 0.12), 0.07, -0.2 + i * 0.4));
 
-// 04 — cleansing: search interface
-W('Gradient-wipe sweep', K.whoosh(0.8, 600, 4200), T('e04-cleansing', -0.1), 0.18, -0.7, 0.7);
-cardWhoosh('Search bar slides in', T('e04-cleansing', 0.5));
-{
-  const qs = ['SKINCARE', 'FRESHNESS', 'DAILY CLEANSING'];
-  qs.forEach((q, qi) => {
-    for (let c = 0; c < q.length; c++) {
-      const tt = T('e04-cleansing', 0.5 + 0.45 + qi * 0.9 + c * 0.045);
-      if (q[c] !== ' ') S('Keystroke', K.key(), tt, 0.09, 0.1, 0);
-    }
-  });
-}
-S('Search enter click', K.click(1400), T('e04-cleansing', 3.05), 0.16, 0, 0);
-cardWhoosh('Result card rises', T('e04-cleansing', 3.15));
-S('Result lands', K.impact(0.45), T('e04-cleansing', 3.5), 0.22);
-for (let k = 0; k < 10; k++) S('Bubbles', K.droplet(1200 + rnd() * 1300), T('e04-cleansing', 3.8 + rnd() * 1.6), 0.03, rnd() * 1.4 - 0.7, 0.3);
+// 04 — stains & whitening (floating card)
+W('Card transition — layered whoosh', K.whoosh(0.9, 250, 2200), T('t04-stains-whitening', -0.1), 0.22, 0.2, -0.2);
+S('Tooth appears', K.thump(), T('t04-stains-whitening', 0.6), 0.16);
+S('Stains dissolve — soft fizz', K.filter(K.make(1.4, (t) => K.noise() * Math.sin((Math.PI * t) / 1.4) ** 2), 'bp', (t) => 2500 + 2000 * t, 0.8), T('t04-stains-whitening', 1.6), 0.05, 0, 0.3);
+S('Enamel shine', K.shimmer([88, 92, 95, 100]), T('t04-stains-whitening', 2.95), 0.07, 0, 0.7);
+[0, 1, 2].forEach((i) => S('Word highlight click', K.click(1600 + i * 200), T('t04-stains-whitening', 3.35 + i * 0.35), 0.12, -0.3 + i * 0.3, 0));
+S('Caption pop', K.pop(700), T('t04-stains-whitening', 4.3), 0.08);
 
-// 05 — green (colour morph)
-S('Riser into colour change', K.riser(0.9), T('e05-green', -0.75), 0.14, 0, 0.4);
-W('Colour-morph sweep', K.whoosh(1.2, 200, 1800), T('e05-green', 0.0), 0.2, 0.5, -0.5);
-S('Shimmer — green light', K.shimmer([76, 80, 83, 87, 90]), T('e05-green', 0.5), 0.06, 0, 0.7);
-S('Product reveal impact', K.impact(0.75), T('e05-green', 0.85), 0.32);
-[1.25, 1.5, 1.95].forEach((d, i) => S('Badge pop', K.pop(700 + i * 100), T('e05-green', d), 0.08, 0.4));
-S('Airy leaf texture', K.filter(K.make(2.4, (t) => K.noise() * Math.sin((Math.PI * t) / 2.4) ** 2), 'bp', (t) => 900 + 600 * Math.sin(t * 2), 0.6), T('e05-green', 0.6), 0.04, 0, 0.3);
+// 05 — tartar (camera push)
+W('Camera push whoosh', K.whoosh(0.7, 400, 3600), T('t05-tartar', -0.2), 0.22, 0.3, -0.3);
+[0, 1, 2].forEach((i) => S(`Cause card ${i + 1}`, K.pop(600 + i * 90), T('t05-tartar', 1.15 + i * 0.25), 0.08, -0.5 + i * 0.5));
+W('Cleansing sweep', K.whoosh(1.0, 500, 5200), T('t05-tartar', 3.2), 0.2, -0.8, 0.8);
+S('Sparkle clean', K.shimmer([86, 90, 93, 98]), T('t05-tartar', 3.9), 0.05, 0, 0.6);
+S('Pack reveal impact', K.impact(0.7), T('t05-tartar', 3.75), 0.3);
 
-// 06 — dry skin
-W('Card transition — layered whoosh', K.whoosh(0.9, 250, 2200), T('e06-dry-skin', -0.1), 0.22, -0.2, 0.2);
-for (let k = 0; k < 6; k++) S('Hydration ripple drop', K.droplet(820 + k * 30), T('e06-dry-skin', 0.85 + k * 0.74), 0.05, -0.5, 0.5);
-[0, 1, 2, 3].forEach((i) => S(`Benefit panel ${i + 1}`, K.pop(620 + i * 80), T('e06-dry-skin', 1.35 + i * 0.32), 0.08, 0.3));
+// 06 — fluoride & enamel (isometric layers)
+W('Focus-pull sweep', K.whoosh(0.6, 400, 2400), T('t06-fluoride-enamel', -0.05), 0.16, 0, 0);
+[0, 1, 2].forEach((i) => S(`Layer ${i + 1} assembles`, K.thump(), T('t06-fluoride-enamel', 0.6 + i * 0.3), 0.14, 0, 0.05));
+[0, 1, 2].forEach((i) => S('Layer label tick', K.click(1700 + i * 150), T('t06-fluoride-enamel', 0.9 + i * 0.3), 0.08, 0.5, 0));
+S('Tube lands on the stack', K.impact(0.6), T('t06-fluoride-enamel', 1.85), 0.3);
+[0, 1, 2].forEach((i) => S(`Benefit panel ${i + 1}`, K.pop(640 + i * 90), T('t06-fluoride-enamel', 2.75 + i * 0.35), 0.08));
 
-// 07 — daily makeup (phone)
-W('Focus-pull sweep', K.whoosh(0.6, 400, 2400), T('e07-daily-makeup', -0.05), 0.16, 0, 0);
-W('Phone rises — 3D whoosh', K.whoosh(0.9, 200, 2000), T('e07-daily-makeup', 0.85), 0.22, 0.4, -0.1);
-S('Phone settles', K.thump(), T('e07-daily-makeup', 1.45), 0.18);
-W('Underline draw', K.whoosh(0.4, 1500, 5000), T('e07-daily-makeup', 1.3), 0.07, -0.4, 0.4);
-S('Chip pop', K.pop(780), T('e07-daily-makeup', 2.15), 0.08, -0.6);
-S('Chip pop', K.pop(880), T('e07-daily-makeup', 2.45), 0.08, 0.6);
-S('CTA pill pop', K.pop(700), T('e07-daily-makeup', 2.85), 0.09);
+// 07 — sensitivity & gums (floating card)
+W('Card transition — layered whoosh', K.whoosh(0.9, 250, 2200), T('t07-sensitivity-gums', -0.1), 0.22, -0.2, 0.2);
+for (let i = 0; i < 6; i++) S('Icon orbit pop', K.pop(820 + i * 60), T('t07-sensitivity-gums', 0.75 + i * 0.1), 0.05, -0.6 + i * 0.24);
+[0, 1, 2, 3].forEach((i) => S(`Benefit panel ${i + 1}`, K.pop(620 + i * 80), T('t07-sensitivity-gums', 1.75 + i * 0.35), 0.08, 0.2));
 
-// 08 — foam
-W('Camera push whoosh', K.whoosh(0.7, 400, 3600), T('e08-foam', -0.2), 0.22, 0.3, -0.3);
-for (let k = 0; k < 30; k++) S('Foam bubbles', K.droplet(1200 + rnd() * 1500), T('e08-foam', 0.3 + rnd() * 2.0), 0.028, rnd() * 1.6 - 0.8, 0.3);
-[0, 1, 2].forEach((i) => S(`Foam panel ${i + 1}`, K.pop(680 + i * 90), T('e08-foam', 0.75 + i * 0.35), 0.08));
+// 08 — fresh breath (light leak)
+S('Light-leak swell', K.swell([76, 80, 83, 88], 1.0), T('t08-fresh-breath', -0.2), 0.06, 0, 0.7);
+W('Breath ribbon air', K.whoosh(1.6, 300, 1800), T('t08-fresh-breath', 0.4), 0.12, -0.8, 0.8);
+S('Glow impact', K.impact(0.6), T('t08-fresh-breath', 0.7), 0.28);
+S('Fresh shimmer', K.shimmer([83, 87, 90, 95, 99]), T('t08-fresh-breath', 0.75), 0.07, 0, 0.8);
+for (let k = 0; k < 6; k++) S('Water droplet', K.droplet(800 + rnd() * 700), T('t08-fresh-breath', 1.2 + k * 0.5), 0.045, rnd() * 1.2 - 0.6, 0.4);
 
-// 09 — glow (light leak)
-S('Light-leak swell', K.swell([76, 80, 83, 88], 1.0), T('e09-glow', -0.2), 0.06, 0, 0.7);
-S('Glow impact', K.impact(0.6), T('e09-glow', 0.65), 0.28);
-S('Glow shimmer', K.shimmer([83, 87, 90, 95, 99]), T('e09-glow', 0.7), 0.07, 0, 0.8);
-S('Sparkle', K.shimmer([95, 99, 102]), T('e09-glow', 1.7), 0.04, 0.4, 0.7);
+// 09 — daily care (phone)
+W('Circle-reveal whoosh', K.whoosh(0.8, 300, 2400), T('t09-daily-care', -0.1), 0.2, 0, 0);
+W('Phone rises — 3D whoosh', K.whoosh(0.9, 200, 2000), T('t09-daily-care', 0.55), 0.22, 0.4, -0.1);
+S('Phone settles', K.thump(), T('t09-daily-care', 1.15), 0.18);
+for (let i = 0; i < 7; i++) S('Day check tick', K.click(1500 + i * 120), T('t09-daily-care', 1.85 + i * 0.18), 0.1, -0.6 + i * 0.2, 0);
+S('Chip pop', K.pop(780), T('t09-daily-care', 2.35), 0.08, -0.6);
+S('Chip pop', K.pop(880), T('t09-daily-care', 2.65), 0.08, 0.6);
+S('Caption pop', K.pop(700), T('t09-daily-care', 2.95), 0.09);
 
-// 10 — price split screen
-W('Split — panel down', K.whoosh(0.7, 300, 2400), T('e10-price', -0.05), 0.18, -0.7, -0.5);
-W('Split — panel up', K.whoosh(0.7, 300, 2400), T('e10-price', 0.0), 0.18, 0.7, 0.5);
-S('Short rising sweep', K.riser(0.5), T('e10-price', 1.0), 0.14);
-S('Price impact — blue', K.impact(0.75), T('e10-price', 1.55), 0.34, -0.4);
-S('Price impact — green', K.impact(0.75), T('e10-price', 1.7), 0.3, 0.4);
-S('Price accent', K.shimmer([88, 92, 95]), T('e10-price', 2.2), 0.045, 0, 0.6);
-S('Note pop', K.pop(820), T('e10-price', 2.1), 0.08);
-
-// 11 — bundle
-W('Card transition — layered whoosh', K.whoosh(0.9, 250, 2200), T('e11-bundle', -0.1), 0.22, 0.2, -0.2);
-[0, 1, 2, 3].forEach((i) => S(`Tube card ${i + 1}`, K.pop([660, 740, 830, 990][i]), T('e11-bundle', 0.5 + i * 0.22 + 0.35), 0.1, -0.6 + i * 0.4));
-S('Short rising sweep', K.riser(0.55), T('e11-bundle', 1.25), 0.15);
-S('Bundle price impact', K.impact(0.8), T('e11-bundle', 1.85), 0.38);
-cardWhoosh('Delivery card rises', T('e11-bundle', 2.6));
-for (let k = 0; k < 12; k++) { const p = k / 11; S('Province counter tick', K.click(2000 + k * 70), T('e11-bundle', 2.9 + 1.1 * (1 - Math.sqrt(1 - p))), 0.07, 0, 0); }
-S('Condition note pop', K.pop(640), T('e11-bundle', 3.45), 0.07);
-
-// 12 — wholesale (isometric)
-W('Gradient-wipe sweep', K.whoosh(0.8, 600, 4200), T('e12-wholesale', -0.1), 0.18, 0.7, -0.7);
-[0.3, 0.5, 0.6].forEach((d, i) => S('Pedestal rises', K.thump(), T('e12-wholesale', d + 0.35), 0.14, [-0.4, 0, 0.4][i], 0.05));
-[0.3, 0.5, 0.6].forEach((d, i) => S('Product lands', K.droplet(760 + i * 90), T('e12-wholesale', d + 1.0), 0.07, [-0.4, 0, 0.4][i], 0.3));
-[0, 1, 2].forEach((i) => S('Place pill', K.click(1500 + i * 150), T('e12-wholesale', 0.65 + i * 0.15), 0.09, -0.4 + i * 0.4, 0));
-S('Wholesale price impact', K.impact(0.8), T('e12-wholesale', 1.75), 0.36);
-S('Shimmer — sweep', K.shimmer([86, 90, 93, 98]), T('e12-wholesale', 2.2), 0.045, 0, 0.6);
-cardWhoosh('Offer card rises', T('e12-wholesale', 2.0));
-
-// 13 — guarantee
-W('Circle-reveal whoosh', K.whoosh(0.8, 300, 2400), T('e13-guarantee', -0.1), 0.2, 0, 0);
-S('Ring draw swell', K.swell([69, 76, 81], 1.0), T('e13-guarantee', 0.4), 0.05, 0, 0.6);
-S('Guarantee chime', K.shimmer([81, 85, 88, 93, 97]), T('e13-guarantee', 1.5), 0.08, 0, 0.8);
-S('Soft impact', K.impact(0.45), T('e13-guarantee', 1.5), 0.2);
-W('Underline draw', K.whoosh(0.4, 1500, 5000), T('e13-guarantee', 2.0), 0.07, -0.4, 0.4);
-
-// 14 — finale
-S('Riser into finale', K.riser(1.0), T('e14-finale', -0.9), 0.2, 0, 0.3);
-S('Light-leak swell', K.swell([64, 71, 75, 78], 0.9), T('e14-finale', -0.3), 0.05, 0, 0.6);
-[0.1, 0.9, 1.0, 1.1, 1.2].forEach((d, i) => S('Geometric piece snaps in', K.pop(600 + i * 90), T('e14-finale', d + 0.25), 0.07, -0.6 + i * 0.3));
-S('Premium hero impact', K.impact(1.05), T('e14-finale', 0.85), 0.5);
-S('Elegant shimmer', K.shimmer([80, 83, 87, 92, 95, 99]), T('e14-finale', 0.9), 0.065, 0, 0.8);
-[0, 1, 2].forEach((i) => S(`Offer chip ${i + 1}`, K.pop(650 + i * 120), T('e14-finale', 1.65 + i * 0.15), 0.09, -0.5 + i * 0.5));
-S('CTA click', K.click(1400), T('e14-finale', 2.45), 0.15, 0, 0);
-S('CTA accent', K.impact(0.4), T('e14-finale', 2.5), 0.18);
-S('CTA shimmer', K.shimmer([88, 92, 95, 100]), T('e14-finale', 2.5), 0.05, 0, 0.7);
+// 10 — finale
+S('Riser into finale', K.riser(1.0), T('t10-finale', -0.9), 0.2, 0, 0.3);
+S('Light-leak swell', K.swell([64, 71, 75, 78], 0.9), T('t10-finale', -0.3), 0.05, 0, 0.6);
+[0.1, 0.9, 1.0, 1.1, 1.2].forEach((d, i) => S('Geometric piece snaps in', K.pop(600 + i * 90), T('t10-finale', d + 0.25), 0.07, -0.6 + i * 0.3));
+S('Premium hero impact', K.impact(1.05), T('t10-finale', 0.8), 0.5);
+S('Elegant shimmer', K.shimmer([80, 83, 87, 92, 95, 99]), T('t10-finale', 0.85), 0.065, 0, 0.8);
+[0, 1, 2, 3].forEach((i) => S(`Pack claim ${i + 1}`, K.pop(650 + i * 100), T('t10-finale', 1.85 + i * 0.15), 0.08, -0.6 + i * 0.4));
+S('CTA click', K.click(1400), T('t10-finale', 3.05), 0.15, 0, 0);
+S('CTA accent', K.impact(0.4), T('t10-finale', 3.1), 0.18);
+S('CTA shimmer', K.shimmer([88, 92, 95, 100]), T('t10-finale', 3.1), 0.05, 0, 0.7);
 S('Final resolve chord', K.make(3.0, (t) => ([64, 68, 71, 75, 80].reduce((a, m) => a + Math.sin(2 * Math.PI * mtof(m) * t), 0) / 5) * clamp(t / 0.05) * Math.exp(-t * 0.9)), TOTAL - 2.0, 0.08, 0, 0.8);
+
 
 // very quiet air bed
 put(SFX, K.filter(K.make(TOTAL, () => K.noise()), 'bp', (t) => 600 + 300 * Math.sin(t * 0.3), 0.5).map((x, i) => x * clamp(i / SR / 1.5)), 0, 0.01);

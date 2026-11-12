@@ -4,7 +4,7 @@ import { AbsoluteFill } from 'remotion';
 import { hexA } from '../../cinematic/fx/Stage';
 import { BLUE, GREEN, INK } from '../theme';
 
-export type Mood = 'warm' | 'blue' | 'green' | 'dual' | 'white';
+export type Mood = 'warm' | 'blue' | 'green' | 'dual' | 'white' | 'lemon';
 
 const MOODS: Record<Mood, { base: string; blobs: [string, number, number, number, number][] }> = {
   // [colour, x, y, radius, alpha]
@@ -12,6 +12,7 @@ const MOODS: Record<Mood, { base: string; blobs: [string, number, number, number
   blue: { base: '#EEF6FB', blobs: [[BLUE.ice, 820, 380, 600, 0.75], [BLUE.aqua, 120, 1400, 560, 0.4], [INK.warmSoft, 200, 260, 380, 0.55], [BLUE.pale, 900, 1600, 520, 0.9]] },
   green: { base: '#F1F6EC', blobs: [[GREEN.sage, 220, 400, 620, 0.75], [GREEN.fresh, 960, 1450, 520, 0.35], [INK.warmSoft, 900, 260, 400, 0.6], [GREEN.cream, 160, 1650, 560, 0.9]] },
   dual: { base: INK.base, blobs: [[BLUE.ice, 120, 700, 620, 0.6], [GREEN.sage, 960, 1100, 620, 0.6], [INK.warm, 600, 180, 420, 0.4], [INK.warmSoft, 520, 1750, 480, 0.6]] },
+  lemon: { base: '#F6F5EF', blobs: [['#FFE27A', 860, 360, 560, 0.55], [BLUE.ice, 160, 1450, 620, 0.55], [INK.warmSoft, 220, 380, 420, 0.7], [BLUE.pale, 900, 1650, 520, 0.9]] },
   white: { base: '#F7F6F3', blobs: [[INK.warmSoft, 860, 260, 520, 0.6], [BLUE.pale, 140, 1500, 560, 0.7], [GREEN.cream, 960, 1600, 500, 0.8]] },
 };
 

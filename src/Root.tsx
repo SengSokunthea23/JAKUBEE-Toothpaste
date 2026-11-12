@@ -52,7 +52,7 @@ export const RemotionRoot: React.FC = () => (
       <Still id="CinematicThumbnail" component={CINE_SCENES[CINE_SCENES.length - 1].component} width={WIDTH} height={HEIGHT} />
     </Folder>
 
-    {/* ───── Theme 03 — Cinematic Editorial × Premium Digital (facial foam) ───── */}
+    {/* ───── Theme 03 — Cinematic Editorial × Premium Digital (Zesty Lemon toothpaste) ───── */}
     <Folder name="Editorial">
       <Composition id="JakubeeEditorial" component={Editorial} durationInFrames={ED_TOTAL_FRAMES} fps={FPS} width={WIDTH} height={HEIGHT} defaultProps={edDefaults} />
       {ED_SCENES.map((s) => (

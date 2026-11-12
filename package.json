@@ -1,0 +1,34 @@
+{
+  "name": "jakubee-commercial",
+  "version": "1.0.0",
+  "private": true,
+  "description": "JAKUBEE Toothpaste premium commercial — 9:16 Khmer motion-graphics ad built with React + Remotion",
+  "scripts": {
+    "start": "remotion studio",
+    "dev": "remotion studio",
+    "render": "remotion render JakubeeCommercial out/JAKUBEE_Toothpaste_Commercial_9x16.mp4 --codec=h264 --crf=17",
+    "render:preview":"remotion render JakubeeCommercial out/JAKUBEE_preview.mp4 --codec=h264 --scale=0.5",
+    "still": "node scripts/render-stills.mjs",
+    "soundtrack": "python3 scripts/generate_soundtrack.py",
+    "render:cinematic": "remotion render JakubeeCinematic out/JAKUBEE_Cinematic_9x16.mp4 --codec=h264 --crf=16",
+    "soundtrack:cinematic": "node scripts/generate-cinematic-soundtrack.mjs",
+    "still:cinematic": "node scripts/render-stills.mjs cinematic",
+    "render:editorial": "remotion render JakubeeEditorial out/JAKUBEE_Editorial_9x16.mp4 --codec=h264 --crf=16",
+    "soundtrack:editorial": "node scripts/generate-editorial-soundtrack.mjs",
+    "still:editorial": "node scripts/render-stills.mjs editorial",
+    "typecheck": "tsc --noEmit",
+    "upgrade": "remotion upgrade"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.543",
+    "@remotion/fonts": "4.0.543",
+    "@remotion/transitions": "4.0.543",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "remotion": "4.0.543"
+  },
+  "devDependencies": {
+    "@types/react": "19.1.8",
+    "typescript": "5.8.3"
+  }
+}

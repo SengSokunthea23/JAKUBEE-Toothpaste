@@ -1,0 +1,14 @@
+{
+  "_note": "Commercial theme master clock (seconds, start-to-start). Content follows 'Jakubee Toothpaste script (source)' in README.md. 39 s cut on a 100 BPM grid: every duration is a whole number of beats (0.6 s = 18 frames), so every scene change lands on the beat. 'speed' plays a scene's animation faster than authored (1 = original timing). scripts/generate-commercial-soundtrack.mjs reads this file.",
+  "scenes": [
+    { "id": "01-intro", "duration": 4.2, "speed": 1.1 },
+    { "id": "02-zesty-lemon", "duration": 4.2, "speed": 1.24, "transition": { "kind": "ripple", "duration": 0.6 } },
+    { "id": "03-herbal-mint", "duration": 4.2, "speed": 1.24, "transition": { "kind": "wave", "duration": 0.6 } },
+    { "id": "05-fresh-breath", "duration": 4.2, "speed": 1.1, "transition": { "kind": "fade", "duration": 0.6 } },
+    { "id": "07-whitening", "duration": 4.2, "speed": 1.19, "transition": { "kind": "ripple", "duration": 0.6 } },
+    { "id": "08-tartar", "duration": 4.8, "speed": 1.17, "transition": { "kind": "wipe", "duration": 0.6 } },
+    { "id": "09-fluoride", "duration": 4.2, "speed": 1.19, "transition": { "kind": "fade", "duration": 0.6 } },
+    { "id": "10-gums", "duration": 4.2, "speed": 1.24, "transition": { "kind": "ripple", "duration": 0.6 } },
+    { "id": "11-end-card", "duration": 4.8, "speed": 1.33, "transition": { "kind": "wave", "duration": 0.6 } }
+  ]
+}

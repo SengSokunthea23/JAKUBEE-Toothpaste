@@ -13,8 +13,8 @@ import { At, Eyebrow, Headline, Highlight, KhLine, khmer } from '../ui/Type';
 import { BLUE, INK, ease } from '../theme';
 import { LEMON } from './T01Intro';
 
-/** 04 — Reduces yellow stains; whiter, stronger, shinier teeth: illustrative tooth clears under a light sweep. */
-export const T04StainsWhitening: React.FC = () => {
+/** 05 — Reduces yellow stains; whiter, stronger, shinier teeth: illustrative tooth clears under a light sweep, both tubes. */
+export const T05StainsWhitening: React.FC = () => {
   const t = useTime();
   const c = T.stains;
   const stain = 1 - ease.inOut(prog(t, 1.6, 3.0));
@@ -30,7 +30,8 @@ export const T04StainsWhitening: React.FC = () => {
         <div style={{ position: 'absolute', inset: 0, opacity: glow }}>
           <Dust t={t} seed={401} n={22} color={BLUE.ice} />
         </div>
-        <Product shot="tube" x={870} y={1200 + 100 * (1 - ease.outExpo(prog(t, 0.8, 1.8)))} height={480} rotate={10} opacity={ease.outExpo(prog(t, 0.8, 1.8))} />
+        <Product shot="tube" x={200} y={1170 + 100 * (1 - ease.outExpo(prog(t, 0.8, 1.8)))} height={440} rotate={-10} opacity={ease.outExpo(prog(t, 0.8, 1.8))} />
+        <Product shot="herbal-tube" x={880} y={1170 + 100 * (1 - ease.outExpo(prog(t, 0.95, 1.95)))} height={430} rotate={10} opacity={ease.outExpo(prog(t, 0.95, 1.95))} />
       </Cam>
       <At x={90} y={280} align="left">
         <Eyebrow text={c.eyebrow} p={prog(t, 0.2, 0.9)} dash={LEMON} />
@@ -44,7 +45,7 @@ export const T04StainsWhitening: React.FC = () => {
       <At x={90} y={560} align="left">
         <KhLine text={c.kh2} t={t} at={0.95} size={36} weight={600} color={INK.slate} />
       </At>
-      <At x={330} y={1440}>
+      <At x={540} y={1440}>
         <span style={{ opacity: clamp((t - 3.2) / 0.3) }}>
           <Highlight words={c.words} t={t} at={3.3} every={0.35} size={36} color={BLUE.royal} khmerFont />
         </span>

@@ -2,40 +2,40 @@
 // (shared with the soundtrack generator).
 import React from 'react';
 import { frames } from '../lib/anim';
+import { TimeScale } from '../lib/useTime';
 import timing from './timing.json';
 import type { EdTransition } from './transitions';
 import { T01Intro } from './scenes/T01Intro';
 import { T02ZestyLemon } from './scenes/T02ZestyLemon';
-import { T03CleanFresh } from './scenes/T03CleanFresh';
-import { T04StainsWhitening } from './scenes/T04StainsWhitening';
-import { T05Tartar } from './scenes/T05Tartar';
-import { T06FluorideEnamel } from './scenes/T06FluorideEnamel';
-import { T07SensitivityGums } from './scenes/T07SensitivityGums';
-import { T08FreshBreath } from './scenes/T08FreshBreath';
-import { T09DailyCare } from './scenes/T09DailyCare';
-import { T10HerbalMint } from './scenes/T10HerbalMint';
+import { T03HerbalMint } from './scenes/T03HerbalMint';
+import { T04CleanFresh } from './scenes/T04CleanFresh';
+import { T05StainsWhitening } from './scenes/T05StainsWhitening';
+import { T06Tartar } from './scenes/T06Tartar';
+import { T07FluorideEnamel } from './scenes/T07FluorideEnamel';
+import { T08SensitivityGums } from './scenes/T08SensitivityGums';
 import { T11Finale } from './scenes/T11Finale';
 
 const COMPONENTS: Record<string, React.FC> = {
   't01-intro': T01Intro,
   't02-zesty-lemon': T02ZestyLemon,
-  't03-clean-fresh': T03CleanFresh,
-  't04-stains-whitening': T04StainsWhitening,
-  't05-tartar': T05Tartar,
-  't06-fluoride-enamel': T06FluorideEnamel,
-  't07-sensitivity-gums': T07SensitivityGums,
-  't08-fresh-breath': T08FreshBreath,
-  't09-daily-care': T09DailyCare,
-  't10-herbal-mint': T10HerbalMint,
+  't03-herbal-mint': T03HerbalMint,
+  't04-clean-fresh': T04CleanFresh,
+  't05-stains-whitening': T05StainsWhitening,
+  't06-tartar': T06Tartar,
+  't07-fluoride-enamel': T07FluorideEnamel,
+  't08-sensitivity-gums': T08SensitivityGums,
   't11-finale': T11Finale,
 };
 
-export type EdScene = { id: string; component: React.FC; duration: number; transition?: { kind: EdTransition; duration: number } };
+export type EdScene = { id: string; component: React.FC; duration: number; speed: number; transition?: { kind: EdTransition; duration: number } };
 
 export const ED_SCENES: EdScene[] = timing.scenes.map((s) => {
-  const component = COMPONENTS[s.id];
-  if (!component) throw new Error(`No component for editorial scene "${s.id}"`);
-  return { id: s.id, component, duration: s.duration, transition: s.transition as EdScene['transition'] };
+  const Scene = COMPONENTS[s.id];
+  if (!Scene) throw new Error(`No component for editorial scene "${s.id}"`);
+  const speed = (s as { speed?: number }).speed ?? 1;
+  // Each scene was authored at speed 1; `speed` plays its whole animation faster so it fits a shorter slot.
+  const component: React.FC = () => React.createElement(TimeScale, { speed, children: React.createElement(Scene) });
+  return { id: s.id, component, duration: s.duration, speed, transition: s.transition as EdScene['transition'] };
 });
 
 export const ED_TOTAL_FRAMES = ED_SCENES.reduce((n, s) => n + frames(s.duration), 0);

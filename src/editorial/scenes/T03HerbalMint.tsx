@@ -11,8 +11,8 @@ import { Product } from '../ui/Product';
 import { At, Eyebrow, Headline, KhLine, khmer, latin } from '../ui/Type';
 import { GREEN, INK, ease } from '../theme';
 
-/** 10 — Herbal Mint (Green Edition): botanical environment, hero tube with its pack, floating labels. */
-export const T10HerbalMint: React.FC = () => {
+/** 03 — Herbal Mint (Green Edition): botanical environment, hero tube with its pack, floating labels. */
+export const T03HerbalMint: React.FC = () => {
   const t = useTime();
   const c = T.herbal;
   const enter = ease.outExpo(prog(t, 0.3, 1.5));

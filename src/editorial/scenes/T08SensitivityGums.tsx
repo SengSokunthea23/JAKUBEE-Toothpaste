@@ -12,8 +12,8 @@ import { At, Eyebrow, KhLine, khmer, latin } from '../ui/Type';
 import { BLUE, INK, ease } from '../theme';
 import { LEMON } from './T01Intro';
 
-/** 07 — Sensitivity, gum bleeding, gum care, odour bacteria: floating icon ecosystem + benefit panels. */
-export const T07SensitivityGums: React.FC = () => {
+/** 08 — Sensitivity, gum bleeding, gum care, odour bacteria: floating icon ecosystem + benefit panels. */
+export const T08SensitivityGums: React.FC = () => {
   const t = useTime();
   const c = T.gums;
   const enter = ease.outExpo(prog(t, 0.4, 1.4));
@@ -23,7 +23,8 @@ export const T07SensitivityGums: React.FC = () => {
       <Cam t={t} dur={7} from={1} to={1.04}>
         <BeadField t={t} seed={701} n={10} tint={BLUE.ice} p={0.7} />
         <IconCloud t={t} p={prog(t, 0.6, 1.6)} cx={540} cy={640} r={330} icons={['tooth', 'drop', 'shield', 'bacteria', 'spark', 'wind']} color={BLUE.royal} size={78} />
-        <Product shot="tube" x={540} y={650 + 80 * (1 - enter)} height={430} opacity={enter} shadow={false} sweep={prog(t, 1.6, 2.4)} />
+        <Product shot="tube" x={478} y={650 + 80 * (1 - enter)} height={410} rotate={-6} opacity={enter} shadow={false} sweep={prog(t, 1.6, 2.4)} />
+        <Product shot="herbal-tube" x={602} y={655 + 80 * (1 - enter)} height={400} rotate={6} opacity={enter} shadow={false} sweep={prog(t, 1.75, 2.55)} />
       </Cam>
       <At x={540} y={270}>
         <Eyebrow text={c.eyebrow} p={prog(t, 0.2, 0.9)} dash={LEMON} />

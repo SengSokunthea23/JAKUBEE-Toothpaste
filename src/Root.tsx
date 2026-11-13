@@ -33,7 +33,7 @@ export const RemotionRoot: React.FC = () => (
       <Composition key={s.id} id={`Scene-${s.id}`} component={s.component} durationInFrames={frames(s.duration)} fps={FPS} width={WIDTH} height={HEIGHT} />
     ))}
     {/* Thumbnail / cover still */}
-    <Still id="Thumbnail" component={SCENES[10].component} width={WIDTH} height={HEIGHT} />
+    <Still id="Thumbnail" component={SCENES[SCENES.length - 1].component} width={WIDTH} height={HEIGHT} />
 
     {/* ───── Cinematic theme ───── */}
     <Folder name="Cinematic">

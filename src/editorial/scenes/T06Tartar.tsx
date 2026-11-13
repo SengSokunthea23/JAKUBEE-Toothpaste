@@ -12,8 +12,8 @@ import { At, Eyebrow, KhLine, Underline, khmer, latin } from '../ui/Type';
 import { BLUE, INK, ease } from '../theme';
 import { LEMON } from './T01Intro';
 
-/** 05 — Tartar from cigarettes, tea & coffee: three cause cards float in, then a cleansing sweep clears them. */
-export const T05Tartar: React.FC = () => {
+/** 06 — Tartar from cigarettes, tea & coffee: three cause cards float in, then a cleansing sweep clears them. */
+export const T06Tartar: React.FC = () => {
   const t = useTime();
   const c = T.tartar;
   const clear = prog(t, 3.2, 4.2);
@@ -23,7 +23,8 @@ export const T05Tartar: React.FC = () => {
       <Backdrop mood="lemon" t={t} />
       <Cam t={t} dur={6} from={1} to={1.04}>
         <BeadField t={t} seed={501} n={14} tint={BLUE.aqua} p={0.8} />
-        <Product shot="pack" x={540} y={1200 + 140 * (1 - enter)} height={640} opacity={enter} sweep={prog(t, 4.4, 5.2)} reflect />
+        <Product shot="pack" x={385} y={1210 + 140 * (1 - enter)} height={580} opacity={enter} sweep={prog(t, 4.4, 5.2)} reflect />
+        <Product shot="herbal-pack" x={695} y={1215 + 160 * (1 - enter)} height={575} opacity={enter} sweep={prog(t, 4.55, 5.35)} reflect />
       </Cam>
       <At x={540} y={280}>
         <Eyebrow text={c.eyebrow} p={prog(t, 0.2, 0.9)} dash={LEMON} />

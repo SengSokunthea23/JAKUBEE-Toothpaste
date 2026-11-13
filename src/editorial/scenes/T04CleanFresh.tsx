@@ -12,8 +12,8 @@ import { At, Headline, KhLine, Underline, latin } from '../ui/Type';
 import { BLUE, INK } from '../theme';
 import { LEMON } from './T01Intro';
 
-/** 03 — Cleans teeth & stops bad breath: search interface types keywords, a result card resolves into the product. */
-export const T03CleanFresh: React.FC = () => {
+/** 04 — Cleans teeth & stops bad breath: search interface types keywords, a result card resolves into the product. */
+export const T04CleanFresh: React.FC = () => {
   const t = useTime();
   const c = T.clean;
   const res = prog(t, 3.2, 4.0);
@@ -29,11 +29,12 @@ export const T03CleanFresh: React.FC = () => {
       <SearchBar t={t} at={0.5} queries={c.queries} x={540} y={520} w={900} accent={BLUE.royal} per={0.9} />
       <Card x={540} y={1060} w={900} h={700} p={res} t={t} float={4} radius={44}>
         <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: 330, background: `linear-gradient(170deg, ${BLUE.pale}, #FFFFFF)` }} />
-        <Product shot="tube" x={165} y={350} height={600} shadow={false} sweep={prog(t, 4.3, 5.1)} />
+        <Product shot="herbal-tube" x={225} y={370} height={530} rotate={6} shadow={false} sweep={prog(t, 4.45, 5.25)} />
+        <Product shot="tube" x={120} y={360} height={540} rotate={-5} shadow={false} sweep={prog(t, 4.3, 5.1)} />
         <div style={{ position: 'absolute', left: 370, top: 150, right: 40, display: 'flex', flexDirection: 'column', gap: 16 }}>
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: 10 }}>
             <Glyph name="search" size={26} color={BLUE.royal} stroke={2.4} />
-            <span style={latin(20, 800, BLUE.royal, 4)}>{c.queries[1]}</span>
+            <span style={latin(20, 800, BLUE.royal, 4)}>{c.queries[c.queries.length - 1]}</span>
           </span>
           <KhLine text={c.kh1} t={t} at={3.6} size={54} color={BLUE.navy} />
           <Underline p={prog(t, 4.3, 4.9)} color={LEMON} thickness={8} offset={8}>

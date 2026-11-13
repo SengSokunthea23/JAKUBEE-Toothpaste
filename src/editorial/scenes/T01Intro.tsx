@@ -13,7 +13,7 @@ import { BLUE, GREEN, INK, ease } from '../theme';
 
 export const LEMON = '#F5C211';
 
-/** 01 — JAKUBEE Zesty Lemon Toothpaste: gradient intro, floating product cards assembling into a hero layout. */
+/** 01 — JAKUBEE Toothpaste, two flavours: gradient intro, floating product cards assembling into a hero layout. */
 export const T01Intro: React.FC = () => {
   const t = useTime();
   const c = T.intro;

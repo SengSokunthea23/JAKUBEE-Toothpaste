@@ -46,7 +46,9 @@ export const khmer = (size: number, weight: 500 | 600 | 700 = 700, color: string
 const MaskWord: React.FC<{ p: number; children: React.ReactNode; style: React.CSSProperties }> = ({ p, children, style }) => {
   const e = ease.outExpo(clamp(p));
   return (
-    <span style={{ display: 'inline-block', overflow: 'hidden', verticalAlign: 'bottom', paddingBottom: '0.08em', paddingTop: '0.05em' }}>
+    // The mask is padded in the word's own font size (so descenders like "g" and Khmer subscripts are
+    // not clipped), and the negative margins keep the layout exactly where it was.
+    <span style={{ display: 'inline-block', overflow: 'hidden', verticalAlign: 'bottom', fontSize: style.fontSize, padding: '0.14em 0.04em 0.26em', margin: '-0.14em -0.04em -0.26em' }}>
       <span style={{ ...style, display: 'inline-block', transform: `translateY(${(1 - e) * 110}%)`, opacity: clamp(p * 3) }}>{children}</span>
     </span>
   );

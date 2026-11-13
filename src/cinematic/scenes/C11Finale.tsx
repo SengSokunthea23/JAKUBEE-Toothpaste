@@ -2,19 +2,16 @@ import React from 'react';
 import { AbsoluteFill } from 'remotion';
 import { Icon } from '../../components/Icons';
 import { clamp, prog } from '../../lib/anim';
-import { COPY, OFFER } from '../../lib/copy';
-import { FONTS } from '../../lib/theme';
+import { COPY } from '../../lib/copy';
 import { useTime } from '../../lib/useTime';
 import { Dust, FloorRipple } from '../fx/Elements';
 import { HeroProduct } from '../fx/HeroProduct';
 import { Glass } from '../fx/Panels';
 import { Bokeh, Glow, Plane, Stage, hexA } from '../fx/Stage';
-import { Eyebrow, Kh, KhIn, Pos, TitleIn } from '../fx/Type';
+import { Eyebrow, Kh, KhIn, Lt, Pos, TitleIn } from '../fx/Type';
 import { BLUE, GREEN, ease } from '../theme';
 
-const L: React.FC<{ children: React.ReactNode }> = ({ children }) => <span style={{ fontFamily: FONTS.latin, fontWeight: 800 }}>{children}</span>;
-
-/** 11 — Hero end card: both editions (pack + tube), offers, delivery and the Khmer CTA. */
+/** 11 — Hero end card: both editions, daily use + oral hygiene (script), pack claims, Khmer CTA. */
 export const C11Finale: React.FC = () => {
   const t = useTime();
   const c = COPY.end;
@@ -23,22 +20,8 @@ export const C11Finale: React.FC = () => {
   const tubes = ease.outQuint(prog(t, 0.3, 1.4));
   const bob = 6 * Math.sin(t * 1.4);
   const sweep = prog(t, 1.6, 2.5);
-  const chips = [
-    <>
-      <L>{OFFER.pricePerTube}</L>
-      {c.perTube}
-    </>,
-    <>
-      {c.tubesKh}
-      <L>{OFFER.bundlePrice}</L>
-    </>,
-    <>
-      {c.wholesaleKh}
-      <L>{OFFER.wholesalePrice}</L>
-    </>,
-  ];
-  const xs = [205, 540, 875];
-  const tint = [BLUE.aqua, '#FFFFFF', GREEN.sage];
+  const xs = [140, 375, 640, 915];
+  const ws = [210, 230, 280, 230];
   return (
     <AbsoluteFill>
       <Stage tone="dual" t={t} floorY={1190} focusY={900} />
@@ -71,25 +54,23 @@ export const C11Finale: React.FC = () => {
         <Eyebrow text={c.label} p={prog(t, 0.3, 1.0)} />
       </Pos>
       <Pos x={540} y={370}>
-        <KhIn text={c.kh} t={t} at={0.45} size={92} />
+        <KhIn text={c.kh} t={t} at={0.45} size={54} />
       </Pos>
       <Pos x={540} y={478}>
         <TitleIn text={c.en} t={t} at={0.75} size={44} trackFrom={40} trackTo={16} fill={`linear-gradient(90deg, ${BLUE.ice}, ${GREEN.sage})`} />
       </Pos>
-      {chips.map((chip, i) => (
-        <Glass key={i} x={xs[i]} y={1290} w={300} h={88} p={prog(t, 1.4 + i * 0.15, 2.0 + i * 0.15)} radius={44} tint={tint[i]}>
-          <Kh size={38} weight={600}>
-            {chip}
-          </Kh>
+      {c.claims.map((cl, i) => (
+        <Glass key={cl} x={xs[i]} y={1290} w={ws[i]} h={72} p={prog(t, 1.4 + i * 0.12, 2.0 + i * 0.12)} radius={36} tint={i % 2 ? GREEN.sage : BLUE.aqua}>
+          <Lt size={18} weight={800} tracking={2}>
+            {cl}
+          </Lt>
         </Glass>
       ))}
       <Pos x={540} y={1390}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 14, opacity: clamp((t - 1.95) / 0.5) }}>
-          <Icon name="truck" size={42} color={GREEN.sage} />
-          <Kh size={32} weight={600} color={GREEN.cream}>
-            {c.delivery[0]}
-            <span style={{ fontFamily: FONTS.latin, margin: '0 14px', color: 'rgba(255,255,255,0.5)' }}>·</span>
-            {c.delivery[1]}
+          <Icon name="tooth" size={40} color={GREEN.sage} />
+          <Kh size={34} weight={600} color={GREEN.cream}>
+            {c.hygiene}
           </Kh>
         </div>
       </Pos>

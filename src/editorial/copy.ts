@@ -6,15 +6,16 @@
 export const T = {
   intro: {
     eyebrow: 'JAKUBEE  ·  ORAL CARE',
-    en1: 'ZESTY LEMON',
+    en1: 'JAKUBEE',
     en2: 'TOOTHPASTE',
-    kh1: 'ជាប្រភេទថ្នាំដុសធ្មេញ',
-    kh2: 'ប្រហើរក្លិននៃក្រូចឆ្មា',
+    kh1: 'ថ្នាំដុសធ្មេញ ឥឡូវមាន',
+    kh2: '២ រសជាតិ',
   },
   lemon: {
     eyebrow: 'ZESTY LEMON',
     title: 'Zesty Lemon',
     kh: 'ប្រហើរក្លិននៃក្រូចឆ្មា (Zesty Lemon)',
+    kh2: 'ផ្តល់នូវខ្យល់ដង្ហើមស្រស់ស្រាយ បំបាត់អារម្មណ៍ធ្ងន់ក្នុងមាត់',
     chip1: 'FLUORIDE 1500PPM',
     chip2: 'FRESH LEMON',
   },
@@ -57,41 +58,28 @@ export const T = {
     eyebrow: 'SENSITIVITY  ·  GUMS',
     kh: 'ថែរក្សាធ្មេញ និងអញ្ចាញធ្មេញ',
     cards: [
-      { icon: 'tooth', en: 'ANTI-SENSITIVITY', kh: 'ជួយកាត់បន្ថយបញ្ហាសៀវធ្មេញ' },
+      { icon: 'tooth', en: 'ANTI-SENSITIVITY', kh: 'ជួយកាត់បន្ថយបញ្ហាស្រៀវធ្មេញ' },
       { icon: 'drop', en: 'GUM BLEEDING', kh: 'ឈាមចេញតាមអញ្ចាញធ្មេញ' },
       { icon: 'shield', en: 'GUM CARE', kh: 'ជួយថែរក្សាអញ្ចាញធ្មេញ' },
       { icon: 'bacteria', en: 'BAD-BREATH BACTERIA', kh: 'កាត់បន្ថយបាក់តេរីដែលបណ្តាលឱ្យមានក្លិនមាត់' },
     ] as const,
   },
-  breath: {
-    line1: 'Fresh',
-    line2: 'breath',
-    kh1: 'ជួយឱ្យខ្យល់ដង្ហើមស្រស់ស្រាយ',
-    kh2: 'និងផ្តល់អារម្មណ៍ស្រស់ថ្លាក្នុងមាត់',
-  },
-  daily: {
-    eyebrow: 'EVERY DAY',
-    kh1: 'ស័ក្តិសមសម្រាប់ការប្រើប្រាស់ជាប្រចាំថ្ងៃ',
-    kh2: 'ជួយរក្សាអនាម័យមាត់ធ្មេញបានល្អ',
-    days: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
-    en: 'DAILY ORAL CARE',
-  },
-  // Herbal Mint (Green Edition): the Zesty Lemon script has no Herbal lines, so this uses only
-  // the copy already approved in src/lib/copy.ts and the text printed on the Herbal pack.
+  // Herbal Mint (Green Edition): uses the general "JAKUBEE Toothpaste" list in the script
+  // (it applies to both flavours) plus the text printed on the Herbal pack.
   herbal: {
     eyebrow: 'VARIANT 02  ·  GREEN EDITION',
     title: 'Herbal Mint',
-    kh1: 'រុក្ខជាតិ',
-    kh2: 'ក្លិនជីអង្កាមស្រស់',
+    kh1: 'ក្លិនជីអង្កាមស្រស់',
+    kh2: 'ជួយរក្សាអនាម័យមាត់ធ្មេញបានល្អ',
     chip1: 'FLUORIDE 1500PPM',
     chip2: 'FRESH MINT',
     pack: ['TARTAR REMOVAL', 'FRESH BREATH'], // printed on the Herbal pack
   },
   end: {
     eyebrow: 'JAKUBEE  ·  ZESTY LEMON  ·  HERBAL MINT',
-    kh1: 'ប្រហើរក្លិននៃក្រូចឆ្មា (Zesty Lemon)',
-    kh2: 'ផ្តល់នូវខ្យល់ដង្ហើមស្រស់ស្រាយ បំបាត់អារម្មណ៍ធ្ងន់ក្នុងមាត់',
-    kh3: 'និងជួយឱ្យ មាត់មានអារម្មណ៍ស្អាត បន្ទាប់ពីដុសធ្មេញរួច។',
+    kh1: 'ថ្នាំដុសធ្មេញ JAKUBEE ២ រសជាតិ',
+    kh2: 'ស័ក្តិសមសម្រាប់ការប្រើប្រាស់ជាប្រចាំថ្ងៃ',
+    kh3: 'ជួយរក្សាអនាម័យមាត់ធ្មេញបានល្អ',
     claims: ['WHITENING', 'ANTI-CAVITY', 'ANTI-SENSITIVITY', 'ANTI-PLAQUE'], // printed on both tubes
     cta: 'កុម្ម៉ង់ឥឡូវនេះ',
   },

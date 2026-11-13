@@ -2,7 +2,7 @@
 // Pure Node (no dependencies). Reads src/cinematic/timing.json so every cue
 // follows the picture.  Run: npm run soundtrack:cinematic
 //
-// Music: 100 BPM modern ambient-pop bed — Amaj9 · F#m9 · Dmaj9 · E6/9,
+// Music: 90 BPM (scene durations in timing.json are whole beats, so every cut is on the beat) modern ambient-pop bed — Amaj9 · F#m9 · Dmaj9 · E6/9,
 // wavetable pads, dotted-eighth delay plucks, light kick/clap/hats with
 // gentle sidechain pump. SFX: risers, impacts, whooshes, water, shimmer, pops.
 import fs from 'node:fs';
@@ -22,7 +22,11 @@ for (const s of timing.scenes) {
 }
 const TOTAL = fr / FPS;
 const N = Math.ceil((TOTAL + 0.3) * SR);
-const T = (id, dt = 0) => START[id] + dt;
+// Scenes may play faster than authored (timing.json "speed"); cue offsets are authored at speed 1.
+const SPEED = Object.fromEntries(timing.scenes.map((s) => [s.id, s.speed ?? 1]));
+const T = (id, dt = 0) => START[id] + dt / SPEED[id];
+// Transitions are not sped up: their cues use real seconds from the cut.
+const TR = (id, dt = 0) => START[id] + dt;
 
 /* ---------------- utilities ---------------- */
 let seed = 1234567;
@@ -108,9 +112,9 @@ for (let h = 1; h <= 24; h++) for (let i = 0; i < TBL; i++) SAW[i] += (Math.sin(
 const sawAt = (ph) => { const x = (ph - Math.floor(ph)) * TBL; const i = x | 0; const fr2 = x - i; return SAW[i] + (SAW[(i + 1) % TBL] - SAW[i]) * fr2; };
 
 /* ---------------- arrangement ---------------- */
-const BPM = 100;
-const BEAT = 60 / BPM; // 0.6 s
-const BAR = BEAT * 4; // 2.4 s
+const BPM = 90;
+const BEAT = 60 / BPM; // 2/3 s = 20 frames
+const BAR = BEAT * 4; // 2.67 s
 const CHORDS = [
   { root: 45, notes: [57, 61, 64, 68, 71] }, // Amaj9
   { root: 42, notes: [54, 57, 61, 64, 68] }, // F#m9
@@ -122,12 +126,12 @@ const chordAt = (t) => CHORDS[Math.floor(t / BAR) % 4];
 /** Drum intensity by time: 0 off, 0.5 hats only, 1 full groove. */
 const drumLevel = (t) => {
   if (t < T('c02-blue-edition', 0.4)) return 0;
-  if (t < T('c03-macro')) return 1;
-  if (t < T('c04-green-edition', 0.4)) return 0.5;
-  if (t < T('c07-price')) return 1;
-  if (t < T('c07-price', 0.9)) return 0; // breath before the price hit
-  if (t < T('c10-guarantee')) return 1;
-  if (t < T('c11-finale', 0.3)) return 0; // guarantee: drums out
+  if (t < T('c04-green-edition')) return 1;
+  if (t < T('c04-green-edition', 0.6)) return 0.5; // colour shift: hats only
+  if (t < T('c07-whitening')) return 1;
+  if (t < T('c07-whitening', 0.9)) return 0; // breath while the tooth appears
+  if (t < T('c10-gums')) return 1;
+  if (t < T('c11-finale', 0.3)) return 0; // gums: drums out, the shield draws itself
   if (t < TOTAL - 1.4) return 1;
   return 0;
 };
@@ -135,9 +139,9 @@ const drumLevel = (t) => {
 const arpLevel = (t) => {
   if (t < T('c01-hero', 2.4)) return 0;
   if (t < T('c02-blue-edition')) return 1;
-  if (t < T('c03-macro')) return 2;
-  if (t < T('c04-green-edition')) return 1;
-  if (t < T('c10-guarantee')) return 2;
+  if (t < T('c04-green-edition')) return 2;
+  if (t < T('c06-fresh')) return 1; // green edition: bells
+  if (t < T('c10-gums')) return 2;
   if (t < T('c11-finale')) return 1;
   return t < TOTAL - 1.2 ? 2 : 0;
 };
@@ -162,13 +166,13 @@ for (let b = 0; b < nBars; b++) {
     put(SEND, sig, t0, 0.02, 0);
   });
 }
-// pad brightness automation: dark intro → open; dips at the colour change and guarantee
+// pad brightness automation: dark intro → open; dips at the colour change and the gums scene
 const padCut = (t) => {
   const base = 600 + 1900 * clamp((t - 0.5) / 4.5);
   let c = base;
   const shift = T('c04-green-edition');
   if (t > shift - 1.2 && t < shift + 1.4) c *= 0.45 + 0.55 * Math.abs((t - shift) / 1.3);
-  if (t > T('c10-guarantee') && t < T('c11-finale')) c *= 0.6;
+  if (t > T('c10-gums') && t < T('c11-finale')) c *= 0.6;
   if (t > T('c11-finale')) c = 3200;
   return c;
 };
@@ -243,6 +247,12 @@ for (let k = 0; k * (BEAT / 4) < TOTAL; k++) {
   if (lv === 1 && (step === 4 || step === 12)) { put(DRUMS, clap, tt, 0.16, 0.05); put(SEND, clap, tt, 0.08); }
   if (step % 2 === 0) put(DRUMS, hat, tt, (step % 4 === 2 ? 0.06 : 0.03) * (lv === 1 ? 1 : 0.8), 0.25);
   if (lv === 1 && step % 2 === 1) put(DRUMS, shaker, tt, 0.018, -0.3);
+}
+// every scene change is on the beat: mark it with a kick so cut and music hit together
+for (const sc of timing.scenes.slice(1)) {
+  const tt = START[sc.id];
+  if (kicks.some((k) => Math.abs(k - tt) < 0.01)) continue;
+  put(DRUMS, kick, tt, 0.45); kicks.push(tt);
 }
 // sidechain pump on the music bus
 {
@@ -332,92 +342,91 @@ S('Reverse swell', reverseSwell([57, 64, 71], 0.9), T('c01-hero', 0.55), 0.07, 0
 S('Text accent', pop(620), T('c01-hero', 1.35), 0.09, -0.2);
 S('Text accent', pop(760), T('c01-hero', 1.7), 0.09, 0.2);
 S('Floor ripple droplet', droplet(820), T('c01-hero', 1.5), 0.12);
+S('Khmer line', pop(820), T('c01-hero', 2.3), 0.08);
 S('Shimmer — light sweep', shimmer(), T('c01-hero', 2.6), 0.07, 0, 0.6);
 
 // 02 — blue edition (liquid transition in)
-W('Liquid whoosh', whoosh(0.9, 250, 2400), T('c02-blue-edition', -0.15), 0.32, -0.5, 0.4);
+W('Liquid whoosh', whoosh(0.9, 250, 2400), TR('c02-blue-edition', -0.15), 0.32, -0.5, 0.4);
 S('Splash', splash(), T('c02-blue-edition', 0.55), 0.22);
 S('Title accent', pop(680), T('c02-blue-edition', 0.85), 0.08, -0.4);
+S('Title accent', pop(780), T('c02-blue-edition', 1.1), 0.08, 0.4);
+S('Khmer line', pop(720), T('c02-blue-edition', 1.75), 0.08);
+S('Khmer line', pop(840), T('c02-blue-edition', 2.0), 0.07);
 S('Shimmer — sweep', shimmer([88, 92, 95, 100]), T('c02-blue-edition', 2.0), 0.05, 0.3, 0.6);
 S('Label tick', tick(2200), T('c02-blue-edition', 2.35), 0.1, -0.5);
 S('Label tick', tick(2600), T('c02-blue-edition', 2.75), 0.1, -0.5);
 for (let k = 0; k < 7; k++) S('Water droplet', droplet(700 + rnd() * 700), T('c02-blue-edition', 1.2 + k * 0.55 + rnd() * 0.2), 0.06, rnd() * 1.4 - 0.7, 0.4);
 
-// 03 — macro (camera push in)
-W('Camera push whoosh', whoosh(0.7, 400, 3600), T('c03-macro', -0.2), 0.3, 0.3, -0.3);
-S('Soft impact', impact(0.6), T('c03-macro', 0.35), 0.25);
-for (let k = 0; k < 5; k++) S('Condensation droplet', droplet(1000 + rnd() * 600), T('c03-macro', 0.8 + k * 0.45), 0.05, rnd() - 0.5, 0.5);
-S('Focus bracket — digital accent', tick(3000), T('c03-macro', 2.75), 0.14);
-S('Focus bracket — digital accent', tick(3600), T('c03-macro', 2.83), 0.1);
-S('Info chip pop', pop(820), T('c03-macro', 3.05), 0.09);
-
 // 04 — blue → green colour shift
-S('Riser into colour change', riser(1.0), T('c04-green-edition', -0.9), 0.18, 0, 0.4);
-W('Colour-shift sweep', whoosh(1.4, 200, 2000), T('c04-green-edition', -0.1), 0.26, 0.5, -0.5);
+S('Riser into colour change', riser(1.0), TR('c04-green-edition', -0.8), 0.18, 0, 0.4);
+W('Colour-shift sweep', whoosh(1.4, 200, 2000), TR('c04-green-edition', 0), 0.26, 0.5, -0.5);
 S('Shimmer — green light', shimmer([76, 80, 83, 88, 90]), T('c04-green-edition', 0.3), 0.08, 0, 0.7);
 S('Title accent', pop(640), T('c04-green-edition', 0.85), 0.08, 0.4);
+S('Title accent', pop(760), T('c04-green-edition', 1.1), 0.08, -0.4);
+S('Khmer line', pop(720), T('c04-green-edition', 1.75), 0.08);
+S('Khmer line', pop(840), T('c04-green-edition', 2.0), 0.07);
 S('Label tick', tick(2200), T('c04-green-edition', 2.35), 0.1, 0.5);
 S('Label tick', tick(2600), T('c04-green-edition', 2.75), 0.1, 0.5);
 S('Airy leaf texture', filter(make(2.5, (t) => noise() * Math.sin(Math.PI * t / 2.5) ** 2), 'bp', (t) => 900 + 600 * Math.sin(t * 2), 0.6), T('c04-green-edition', 1.0), 0.05, 0, 0.3);
 
-// 05 — benefits (light sweep in)
-W('Light-sweep whoosh', whoosh(0.8, 800, 5000), T('c05-benefits', -0.1), 0.24, -0.7, 0.7);
-S('Shimmer', shimmer([81, 85, 88, 93]), T('c05-benefits', 0.3), 0.05, 0, 0.6);
-for (let k = 0; k < 4; k++) S(`Benefit card ${k + 1} pop`, pop(600 + k * 90), T('c05-benefits', 1.75 + k * 0.28), 0.1, k % 2 ? 0.35 : -0.35);
-
 // 06 — fresh (iris in)
-W('Iris whoosh', whoosh(0.8, 300, 2600), T('c06-fresh', -0.1), 0.26, 0, 0);
-for (let k = 0; k < 26; k++) S('Foam bubbles', droplet(1100 + rnd() * 1400), T('c06-fresh', 0.5 + rnd() * 2.2), 0.035, rnd() * 1.6 - 0.8, 0.3);
-S('Title accent', pop(700), T('c06-fresh', 0.5), 0.08);
-S('Pill pop', pop(860), T('c06-fresh', 2.0), 0.1);
+W('Iris whoosh', whoosh(0.8, 300, 2600), TR('c06-fresh', -0.1), 0.26, 0, 0);
+for (let k = 0; k < 20; k++) S('Fresh bubbles', droplet(1100 + rnd() * 1400), T('c06-fresh', 0.5 + rnd() * 2.2), 0.035, rnd() * 1.6 - 0.8, 0.3);
+S('Title accent', pop(700), T('c06-fresh', 0.45), 0.08);
+S('Title accent', pop(800), T('c06-fresh', 0.7), 0.08);
+S('Khmer line', pop(840), T('c06-fresh', 1.35), 0.08);
+S('Pill pop', pop(860), T('c06-fresh', 1.95), 0.1);
+S('Tube light sweep', shimmer([86, 90, 93, 98]), T('c06-fresh', 2.6), 0.04, 0, 0.6);
 
-// 07 — price (directional blur slide in)
-W('Whip-pan whoosh', whoosh(0.6, 500, 4200), T('c07-price', -0.05), 0.34, 0.8, -0.8);
-S('Short rising sweep', riser(0.55), T('c07-price', 0.45), 0.2, 0, 0.2);
-S('Clean price impact', impact(0.85), T('c07-price', 1.0), 0.5);
-S('Price accent', shimmer([88, 92, 95]), T('c07-price', 1.0), 0.05, 0, 0.6);
-S('Tube landing', thump(), T('c07-price', 1.17), 0.3, -0.2, 0.1);
-S('Tube landing', thump(), T('c07-price', 1.32), 0.26, 0.2, 0.1);
-S('Floor ripple', droplet(760), T('c07-price', 1.35), 0.08);
-S('Promotion tag pop', pop(900), T('c07-price', 1.65), 0.1, 0.5);
-S('Shimmer — sweep', shimmer([93, 97, 100]), T('c07-price', 1.9), 0.04, 0, 0.6);
+// 07 — whitening (directional blur slide in)
+W('Whip-pan whoosh', whoosh(0.6, 500, 4200), TR('c07-whitening', -0.1), 0.34, 0.8, -0.8);
+S('Title accent', pop(700), T('c07-whitening', 0.4), 0.07);
+S('Khmer line', pop(820), T('c07-whitening', 0.65), 0.07);
+S('Tooth reveal — soft impact', impact(0.6), T('c07-whitening', 0.75), 0.3);
+S('Stains dissolve — airy fizz', filter(make(1.4, (t) => noise() * Math.sin((Math.PI * t) / 1.4) ** 2), 'bp', (t) => 2500 + 2000 * t, 0.8), T('c07-whitening', 1.3), 0.05, 0, 0.3);
+S('Enamel shine', shimmer([88, 92, 95, 100]), T('c07-whitening', 2.6), 0.07, 0, 0.7);
+S('Tube landing', thump(), T('c07-whitening', 1.25), 0.22, -0.4, 0.1);
+S('Tube landing', thump(), T('c07-whitening', 1.4), 0.2, 0.4, 0.1);
+S('Title accent', pop(720), T('c07-whitening', 2.75), 0.08);
+S('Caption card pop', pop(820), T('c07-whitening', 3.05), 0.08);
 
-// 08 — bundle
-W('Camera push whoosh', whoosh(0.7, 400, 3600), T('c08-bundle', -0.2), 0.28, -0.3, 0.3);
-[0, 1, 2, 3].forEach((i) => {
-  S(`Tube ${i + 1} landing`, thump(), T('c08-bundle', 0.5 + i * 0.22 + 0.17), 0.24, -0.6 + i * 0.4, 0.1);
-  S(`Tube ${i + 1} note`, droplet([700, 830, 990, 1180][i]), T('c08-bundle', 0.5 + i * 0.22 + 0.2), 0.08, -0.6 + i * 0.4, 0.4);
-});
-S('Short rising sweep', riser(0.6), T('c08-bundle', 1.35), 0.2, 0, 0.2);
-S('Clean price impact', impact(0.85), T('c08-bundle', 1.95), 0.48);
-W('Panel whoosh', whoosh(0.5, 600, 3000), T('c08-bundle', 2.55), 0.16, -0.4, 0.4);
-for (let k = 0; k < 12; k++) {
-  const p = k / 11; // ticks slow down with the counter's ease-out
-  S('Province counter tick', tick(2000 + k * 60), T('c08-bundle', 2.9 + 1.2 * (1 - Math.pow(1 - p, 0.5)) * 0.9), 0.07, 0, 0);
-}
-S('Counter lands', pop(980), T('c08-bundle', 4.0), 0.1);
+// 08 — tartar (camera push)
+W('Camera push whoosh', whoosh(0.8, 400, 3600), TR('c08-tartar', -0.15), 0.28, -0.3, 0.3);
+[0, 1, 2].forEach((i) => S(`Cause panel ${i + 1}`, pop(620 + i * 100), T('c08-tartar', 0.75 + i * 0.2), 0.08, -0.5 + i * 0.5));
+W('Cleansing light sweep', whoosh(1.0, 500, 5200), T('c08-tartar', 2.5), 0.24, -0.8, 0.8);
+S('Sparkle clean', shimmer([86, 90, 93, 98]), T('c08-tartar', 3.1), 0.05, 0, 0.6);
+S('Khmer line', pop(760), T('c08-tartar', 3.35), 0.08);
+S('Khmer line', pop(700), T('c08-tartar', 0.4), 0.07);
+S('Tube landing', thump(), T('c08-tartar', 3.15), 0.3, -0.2, 0.1);
+S('Tube landing', thump(), T('c08-tartar', 3.3), 0.26, 0.2, 0.1);
+S('Floor ripple', droplet(760), T('c08-tartar', 3.35), 0.08);
+for (let k = 0; k < 8; k++) S('Bubbles', droplet(1100 + rnd() * 1200), T('c08-tartar', 3.4 + rnd() * 1.6), 0.035, rnd() * 1.4 - 0.7, 0.3);
 
-// 09 — wholesale (liquid in)
-W('Liquid whoosh', whoosh(0.8, 250, 2400), T('c09-wholesale', -0.1), 0.28, 0.5, -0.4);
-S('Splash', splash(), T('c09-wholesale', 0.45), 0.16);
-for (let i = 0; i < 5; i++) S('Pack settles', thump(), T('c09-wholesale', 0.85 + [0, 0.1, 0.25, 0.35, 0.45][i]), 0.12, -0.5 + i * 0.25, 0.05);
-S('Clean price impact', impact(0.8), T('c09-wholesale', 1.2), 0.46);
-S('Shimmer — sweep', shimmer([86, 90, 93, 98]), T('c09-wholesale', 1.8), 0.045, 0, 0.6);
-S('Chip pop', pop(820), T('c09-wholesale', 1.7), 0.09);
+// 09 — fluoride (liquid in)
+W('Liquid whoosh', whoosh(0.8, 250, 2400), TR('c09-fluoride', -0.15), 0.28, 0.5, -0.4);
+S('Splash', splash(), T('c09-fluoride', 0.45), 0.16);
+S('Ring draw swell', reverseSwell([69, 76, 81], 1.0), T('c09-fluoride', 0.2), 0.05, 0, 0.6);
+S('1500 figure impact', impact(0.8), T('c09-fluoride', 0.85), 0.42);
+S('Shimmer — sweep', shimmer([86, 90, 93, 98]), T('c09-fluoride', 1.8), 0.045, 0, 0.6);
+[0, 1, 2].forEach((i) => S(`Benefit panel ${i + 1}`, pop(640 + i * 90), T('c09-fluoride', 1.25 + i * 0.35), 0.08));
 
-// 10 — guarantee (iris in, music breathes)
-W('Iris whoosh', whoosh(0.7, 300, 2200), T('c10-guarantee', -0.1), 0.22, 0, 0);
-S('Ring draw swell', reverseSwell([69, 76, 81], 1.0), T('c10-guarantee', 0.2), 0.06, 0, 0.6);
-S('Guarantee chime', shimmer([81, 85, 88, 93, 97]), T('c10-guarantee', 1.25), 0.09, 0, 0.8);
-S('Soft impact', impact(0.5), T('c10-guarantee', 1.25), 0.22);
+// 10 — sensitivity & gums (iris in, music breathes)
+W('Iris whoosh', whoosh(0.8, 300, 2200), TR('c10-gums', -0.1), 0.22, 0, 0);
+S('Ring draw swell', reverseSwell([69, 76, 81], 1.0), T('c10-gums', 0.2), 0.06, 0, 0.6);
+S('Shield chime', shimmer([81, 85, 88, 93, 97]), T('c10-gums', 1.05), 0.09, 0, 0.8);
+S('Soft impact', impact(0.5), T('c10-gums', 1.05), 0.22);
+S('Panel pop', pop(700), T('c10-gums', 1.55), 0.08, -0.2);
+S('Panel pop', pop(820), T('c10-gums', 2.0), 0.08, 0.2);
 
 // 11 — finale
-S('Riser into finale', riser(1.1), T('c11-finale', -1.0), 0.24, 0, 0.3);
-W('Light-sweep whoosh', whoosh(0.8, 800, 5000), T('c11-finale', -0.1), 0.24, 0.7, -0.7);
+S('Riser into finale', riser(1.0), TR('c11-finale', -0.9), 0.24, 0, 0.3);
+W('Light-sweep whoosh', whoosh(0.9, 800, 5000), TR('c11-finale', -0.1), 0.24, 0.7, -0.7);
 S('Premium cinematic impact', impact(1.1), T('c11-finale', 0.3), 0.6);
 S('Elegant shimmer', shimmer([81, 85, 88, 92, 95, 100]), T('c11-finale', 0.35), 0.07, 0, 0.8);
+S('Khmer line', pop(760), T('c11-finale', 0.5), 0.08);
+S('Title accent', pop(880), T('c11-finale', 0.8), 0.07);
 S('Floor ripple', droplet(800), T('c11-finale', 1.0), 0.08);
-for (let i = 0; i < 3; i++) S(`Offer chip ${i + 1}`, pop(650 + i * 120), T('c11-finale', 1.5 + i * 0.15), 0.1, -0.5 + i * 0.5);
+for (let i = 0; i < 4; i++) S(`Pack claim ${i + 1}`, pop(650 + i * 100), T('c11-finale', 1.45 + i * 0.12), 0.09, -0.6 + i * 0.4);
 S('CTA accent', impact(0.4), T('c11-finale', 2.3), 0.2);
 S('CTA shimmer', shimmer([88, 92, 95, 100]), T('c11-finale', 2.3), 0.06, 0, 0.7);
 S('Final resolve chord', make(3.2, (t) => [57, 64, 68, 71, 76].reduce((a, m) => a + Math.sin(2 * Math.PI * mtof(m) * t), 0) / 5 * clamp(t / 0.05) * Math.exp(-t * 0.9)), TOTAL - 2.0, 0.09, 0, 0.8);

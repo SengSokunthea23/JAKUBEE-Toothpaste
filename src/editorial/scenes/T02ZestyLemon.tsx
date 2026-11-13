@@ -47,9 +47,14 @@ export const T02ZestyLemon: React.FC = () => {
           <span style={latin(20, 800, INK.charcoal, 3)}>{c.chip2}</span>
         </span>
       </Card>
-      <At x={540} y={1560}>
+      <At x={540} y={1470}>
         <Pill size={24} style={{ opacity: prog(t, 2.2, 2.6) }}>
           <KhLine text={c.kh} t={t} at={2.2} size={34} color={BLUE.navy} />
+        </Pill>
+      </At>
+      <At x={540} y={1572}>
+        <Pill size={18} style={{ opacity: prog(t, 2.6, 3.0) }}>
+          <KhLine text={c.kh2} t={t} at={2.6} size={28} weight={600} color={INK.slate} stagger={0.06} />
         </Pill>
       </At>
     </AbsoluteFill>

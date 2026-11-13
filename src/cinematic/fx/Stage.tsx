@@ -228,3 +228,23 @@ export const hexA = (hex: string, a: number) => {
   const n = parseInt(hex.slice(1), 16);
   return `rgba(${(n >> 16) & 255}, ${(n >> 8) & 255}, ${n & 255}, ${Math.max(0, Math.min(1, a)).toFixed(3)})`;
 };
+
+/** Theatrical spotlight cone from above onto a pedestal. */
+export const Spotlight: React.FC<{ x: number; y: number; w: number; p: number; color?: string }> = ({ x, y, w, p, color = '#EAF6FF' }) => (
+  <>
+    <div
+      style={{
+        position: 'absolute',
+        left: x - w,
+        top: -100,
+        width: w * 2,
+        height: y + 100,
+        clipPath: `polygon(${w - 70}px 0, ${w + 70}px 0, ${w * 2}px 100%, 0 100%)`,
+        background: `linear-gradient(180deg, ${hexA(color, 0.3 * p)} 0%, ${hexA(color, 0.08 * p)} 100%)`,
+        filter: 'blur(26px)',
+        mixBlendMode: 'screen',
+      }}
+    />
+    <Glow x={x} y={y} rx={w * 0.95} ry={70} color={color} a={0.55 * p} blur={16} />
+  </>
+);

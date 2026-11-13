@@ -9,7 +9,7 @@
     "render": "remotion render JakubeeCommercial out/JAKUBEE_Toothpaste_Commercial_9x16.mp4 --codec=h264 --crf=17",
     "render:preview":"remotion render JakubeeCommercial out/JAKUBEE_preview.mp4 --codec=h264 --scale=0.5",
     "still": "node scripts/render-stills.mjs",
-    "soundtrack": "python3 scripts/generate_soundtrack.py",
+    "soundtrack": "node scripts/generate-commercial-soundtrack.mjs",
     "render:cinematic": "remotion render JakubeeCinematic out/JAKUBEE_Cinematic_9x16.mp4 --codec=h264 --crf=16",
     "soundtrack:cinematic": "node scripts/generate-cinematic-soundtrack.mjs",
     "still:cinematic": "node scripts/render-stills.mjs cinematic",

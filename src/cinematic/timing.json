@@ -1,16 +1,14 @@
 {
-  "_note": "Cinematic theme master clock. Durations are seconds start-to-start; a transition overlaps the end of the previous scene. scripts/generate-cinematic-soundtrack.mjs reads this file, so the music and sound effects always follow the picture.",
+  "_note": "Cinematic theme master clock — content follows 'Jakubee Toothpaste script (source)' in README.md. Durations are seconds start-to-start; a transition overlaps the end of the previous scene. 40 s cut on a 90 BPM grid: every duration is a whole number of beats (2/3 s = 20 frames), so every scene change lands on the beat. Scenes play at their authored speed (smooth camera moves); the cut only trims the hold at the end of each scene. 'speed' > 1 would play a scene faster. scripts/generate-cinematic-soundtrack.mjs reads this file, so the music and sound effects always follow the picture.",
   "scenes": [
-    { "id": "c01-hero", "duration": 5.0 },
-    { "id": "c02-blue-edition", "duration": 5.4, "transition": { "kind": "liquid", "duration": 0.9 } },
-    { "id": "c03-macro", "duration": 4.2, "transition": { "kind": "focusPush", "duration": 0.7 } },
-    { "id": "c04-green-edition", "duration": 5.4, "transition": { "kind": "colorShift", "duration": 1.1 } },
-    { "id": "c05-benefits", "duration": 6.6, "transition": { "kind": "lightSweep", "duration": 0.8 } },
-    { "id": "c06-fresh", "duration": 4.8, "transition": { "kind": "iris", "duration": 0.8 } },
-    { "id": "c07-price", "duration": 4.4, "transition": { "kind": "blurSlide", "duration": 0.7 } },
-    { "id": "c08-bundle", "duration": 6.0, "transition": { "kind": "focusPush", "duration": 0.7 } },
-    { "id": "c09-wholesale", "duration": 4.4, "transition": { "kind": "liquid", "duration": 0.8 } },
-    { "id": "c10-guarantee", "duration": 3.8, "transition": { "kind": "iris", "duration": 0.7 } },
-    { "id": "c11-finale", "duration": 6.8, "transition": { "kind": "lightSweep", "duration": 0.8 } }
+    { "id": "c01-hero", "duration": 4.0, "speed": 1 },
+    { "id": "c02-blue-edition", "duration": 4.6667, "speed": 1, "transition": { "kind": "liquid", "duration": 0.9 } },
+    { "id": "c04-green-edition", "duration": 4.6667, "speed": 1, "transition": { "kind": "colorShift", "duration": 1.2 } },
+    { "id": "c06-fresh", "duration": 4.0, "speed": 1, "transition": { "kind": "iris", "duration": 0.8 } },
+    { "id": "c07-whitening", "duration": 4.6667, "speed": 1, "transition": { "kind": "blurSlide", "duration": 0.7 } },
+    { "id": "c08-tartar", "duration": 5.3333, "speed": 1, "transition": { "kind": "focusPush", "duration": 0.8 } },
+    { "id": "c09-fluoride", "duration": 4.0, "speed": 1, "transition": { "kind": "liquid", "duration": 0.8 } },
+    { "id": "c10-gums", "duration": 4.0, "speed": 1, "transition": { "kind": "iris", "duration": 0.8 } },
+    { "id": "c11-finale", "duration": 4.6667, "speed": 1, "transition": { "kind": "lightSweep", "duration": 0.9 } }
   ]
 }

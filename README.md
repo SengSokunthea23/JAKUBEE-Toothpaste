@@ -1,6 +1,6 @@
 # JAKUBEE Toothpaste — Premium Commercial (React + Remotion)
 
-A 9:16 vertical ad (1080×1920, 30 fps: Commercial 39 s, Cinematic 40 s, Editorial 35 s) for the Zesty Lemon (Blue Edition) and Herbal Mint (Green Edition) toothpastes. All three themes follow the **Jakubee Toothpaste script (source)** below: product benefits only, with no prices, delivery, wholesale or guarantee offers. Each has Khmer on-screen text, motion graphics and an original soundtrack. Every frame is a React component, rendered to MP4 by [Remotion](https://www.remotion.dev).
+A 9:16 vertical ad (1080×1920, 30 fps: Commercial 39 s, Cinematic 40 s, Editorial 35 s, Futuristic 45 s) for the Zesty Lemon (Blue Edition) and Herbal Mint (Green Edition) toothpastes. All three themes follow the **Jakubee Toothpaste script (source)** below: product benefits only, with no prices, delivery, wholesale or guarantee offers. Each has Khmer on-screen text, motion graphics and an original soundtrack. Every frame is a React component, rendered to MP4 by [Remotion](https://www.remotion.dev).
 
 ## Quick start
 
@@ -190,6 +190,41 @@ JAKUBEE ZESTY LEMON TOOTHPASTE
 🌿​ជួយ​ឲ្យ​ខ្យល់​ដង្ហើម​ស្រស់ស្រាយ​ នឹង​ ផ្ដល់​អារម្មណ៍​ស្រស់​ថ្លា​ក្នុង​មាត់​🍊
 🌿​ជួយ​រក្សា​អនាម័យ​មាត់​ធ្មេញ​បាន​ល្អ​🍊
 🌿​ស័ក្ដិសម​សម្រាប់​ការ​ប្រើប្រាស់​ជា​ប្រចាំ​ថ្ងៃ​🍊
+
+## Theme 04: Futuristic Dental Science × Cinematic Product Motion (`JakubeeFuturistic`)
+
+A dark, high-tech **JAKUBEE Zesty Lemon** film in 13 chapters that follow the Khmer script line by line. It's in Remotion Studio under the **Futuristic** folder. **45 seconds**, 1080×1920, 30 fps.
+
+```bash
+npm run dev                     # Studio → Futuristic / JakubeeFuturistic
+npm run render:futuristic       # → out/JAKUBEE_Futuristic_9x16.mp4 (H.264, CRF 16)
+npm run still:futuristic        # → out/stills-futuristic/*.png (one frame per chapter)
+npm run soundtrack:futuristic   # rebuild public/audio/futuristic-soundtrack.wav (add --cues for the cue sheet)
+```
+
+**Look:** obsidian-black sets with soft coloured light pools, a perspective grid, fine scanlines and film grain. Neon green (#A8F044) is used only for graphic accents, while the real tube keeps its silver, lemon-yellow and cyan. Elements include a metallic 3D tooth with a neon rim, dark glassmorphism cards, orbiting particles, air trails, water droplets, lemon slices, ice and mint, plus minimal data graphics (a ring indicator, thin pointers and technical labels). The data graphics show no numbers, percentages or lab results. Headlines use kinetic word reveals with tightening letter-spacing and a short, controlled glitch. Each Khmer script line sits in a dark glass caption bar. Its words fade up from a soft blur and are never split or masked.
+
+**Transitions:** controlled glitch (RGB-split slices and scanlines), particle dissolve, blur-to-focus, zoom-through, neon light sweep and a directional push with motion blur.
+
+| # | Start | Narration (script) | Visual | Transition in |
+|---|---|---|---|---|
+| 01 | 0:00.0 | ជាប្រភេទថ្នាំដុសធ្មេញប្រហើរក្លិននៃក្រូចឆ្មា (Zesty Lemon) | Lemon slice turning in the dark, droplets, yellow-green light sweep, the tube rises; ZESTY LEMON glitches in | — |
+| 02 | 0:03.5 | ជួយសម្អាតធ្មេញ និងបំបាត់បញ្ហាក្លិនមាត់បានយ៉ាងមានប្រសិទ្ធភាព | Metallic 3D tooth, orbiting cleansing particles, air trails, glass card CLEAN TEETH · FRESH BREATH | Particle dissolve |
+| 03 | 0:07.0 | ជួយកាត់បន្ថយស្នាម ឬ ស្ចឹមលឿង និងស្នាម ឬស្ចឹមប្រឡាក់លើផ្ទៃធ្មេញ | Abstract surface spots cleared by a scan line, pointers, STAIN CARE | Glitch |
+| 04 | 0:10.5 | ជួយថែរក្សា និងការពារធ្មេញឱ្យរឹងមាំ | Tooth inside assembling hexagonal protective layers, STRONGER-LOOKING TEETH | Blur-to-focus |
+| 05 | 0:13.5 | ជួយឱ្យធ្មេញសស្អាតរឹងមាំ និងភ្លឺរលោងជាងមុន | Cinematic tooth close-up, reflection sweep, sparkles, CLEAN. BRIGHT. FRESH. | Zoom-through |
+| 06 | 0:16.5 | ជួយសម្អាតកំណកកំបោរ (Tartar) ធ្មេញដែលបង្កពីបារី តែ និងកាហ្វេ បានស្អាតល្អ | Cigarette, tea and coffee glass cards shed stain particles, clean scan, then the tube | Glitch |
+| 07 | 0:20.5 | ជួយបង្ការធ្មេញពុកដោយមានសារធាតុ Fluoride | FLUORIDE, luminous particles gather into a protective ring, ring indicator | Neon light sweep |
+| 08 | 0:23.5 | ជួយពង្រឹងស្រទាប់ Enamel និងថែរក្សាសុខភាពធ្មេញ | Stylised cross-section (enamel, dentin, pulp), enamel band lights up, thin pointers | Particle dissolve |
+| 09 | 0:27.0 | ជួយកាត់បន្ថយបញ្ហាស្រៀវធ្មេញ ឈាមចេញតាមអញ្ចាញធ្មេញ | Clean, non-graphic gumline under three teeth, green highlight traces it, glass card | Push |
+| 10 | 0:30.0 | ជួយថែរក្សាអញ្ចាញធ្មេញ កាត់បន្ថយបាក់តេរីដែលបណ្តាលឱ្យមានក្លិនមាត់ | Abstract microscopic particles disperse in clean airflow, the tube takes the frame | Glitch |
+| 11 | 0:33.5 | ជួយឱ្យខ្យល់ដង្ហើមស្រស់ស្រាយ និងផ្តល់អារម្មណ៍ស្រស់ថ្លាក្នុងមាត់ | Camera orbit: lemon slices circle the tube, cyan particles, mint, air trails | Particle dissolve |
+| 12 | 0:36.5 | ជួយរក្សាអនាម័យមាត់ធ្មេញបានល្អ · ស័ក្តិសមសម្រាប់ការប្រើប្រាស់ជាប្រចាំថ្ងៃ | Floating product card: tube, ORAL HYGIENE, DAILY USE, a week of tooth icons lighting up | Blur-to-focus |
+| 13 | 0:40.0 | ប្រហើរក្លិននៃក្រូចឆ្មា (Zesty Lemon) ផ្តល់នូវខ្យល់ដង្ហើមស្រស់ស្រាយ បំបាត់អារម្មណ៍ធ្ងន់ក្នុងមាត់ និងជួយឱ្យ មាត់មានអារម្មណ៍ស្អាត បន្ទាប់ពីដុសធ្មេញរួច។ | Lemon environment, droplets, ice, mint, oversized ZESTY LEMON behind the tube, JAKUBEE glitch reveal and light sweep | Neon light sweep |
+
+**Audio:** an original 120 BPM dark electronic bed (Am9 · Fmaj9 · Cmaj7 · G6) with sub bass, a pulsing filtered saw arp, tight kick/snap/hats and sidechain. Every chapter lasts a whole number of beats (0.5 s), so every cut lands on the beat and gets a kick. The drums thin to hats for the fluoride and enamel chapters, and the finale resolves on a held chord. The sound effects are synthesised and timed to the animation: glitch accents, digital whooshes, risers, deep impacts, neon sweeps, scanner tones, UI clicks, particle ticks, electronic pulses, water droplets and a lemon splash. There is no narration audio in the project. To add one, render with `--props='{"voiceover":"audio/voiceover.mp3"}'`: the music and effects drop to 30% under it.
+
+**Code:** `src/futuristic/`: `ui/Stage.tsx` (sets, grid, scanlines, particles, camera), `ui/Objects.tsx` (the real tube on a dark set, tooth, cross-section, glass, data graphics, particles), `ui/Type.tsx` (kinetic, glitch, caption), `ui/Frame.tsx`, `transitions.tsx`, `copy.ts` (Khmer from the script), `timing.json`, `scenes/F01–F13`.
 
 ## Product integrity
 

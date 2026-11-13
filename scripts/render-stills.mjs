@@ -2,6 +2,7 @@
 //   node scripts/render-stills.mjs             → commercial theme → out/stills/
 //   node scripts/render-stills.mjs cinematic   → cinematic theme → out/stills-cinematic/
 //   node scripts/render-stills.mjs editorial   → theme 03        → out/stills-editorial/
+//   node scripts/render-stills.mjs futuristic  → theme 04        → out/stills-futuristic/
 import { execSync } from 'node:child_process';
 import { mkdirSync, readFileSync } from 'node:fs';
 
@@ -10,6 +11,7 @@ const THEMES = {
   commercial: { comp: 'JakubeeCommercial', timing: 'src/timing.json', dir: 'out/stills' },
   cinematic: { comp: 'JakubeeCinematic', timing: 'src/cinematic/timing.json', dir: 'out/stills-cinematic' },
   editorial: { comp: 'JakubeeEditorial', timing: 'src/editorial/timing.json', dir: 'out/stills-editorial' },
+  futuristic: { comp: 'JakubeeFuturistic', timing: 'src/futuristic/timing.json', dir: 'out/stills-futuristic' },
 };
 const cfg = THEMES[theme];
 if (!cfg) throw new Error(`Unknown theme "${theme}" (use: ${Object.keys(THEMES).join(', ')})`);

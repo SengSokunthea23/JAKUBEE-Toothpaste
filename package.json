@@ -7,7 +7,7 @@
     "start": "remotion studio",
     "dev": "remotion studio",
     "render": "remotion render JakubeeCommercial out/JAKUBEE_Toothpaste_Commercial_9x16.mp4 --codec=h264 --crf=17",
-    "render:preview":"remotion render JakubeeCommercial out/JAKUBEE_preview.mp4 --codec=h264 --scale=0.5",
+    "render:preview": "remotion render JakubeeCommercial out/JAKUBEE_preview.mp4 --codec=h264 --scale=0.5",
     "still": "node scripts/render-stills.mjs",
     "soundtrack": "node scripts/generate-commercial-soundtrack.mjs",
     "render:cinematic": "remotion render JakubeeCinematic out/JAKUBEE_Cinematic_9x16.mp4 --codec=h264 --crf=16",
@@ -16,6 +16,9 @@
     "render:editorial": "remotion render JakubeeEditorial out/JAKUBEE_Editorial_9x16.mp4 --codec=h264 --crf=16",
     "soundtrack:editorial": "node scripts/generate-editorial-soundtrack.mjs",
     "still:editorial": "node scripts/render-stills.mjs editorial",
+    "render:futuristic": "remotion render JakubeeFuturistic out/JAKUBEE_Futuristic_9x16.mp4 --codec=h264 --crf=16",
+    "soundtrack:futuristic": "node scripts/generate-futuristic-soundtrack.mjs",
+    "still:futuristic": "node scripts/render-stills.mjs futuristic",
     "typecheck": "tsc --noEmit",
     "upgrade": "remotion upgrade"
   },

@@ -5,6 +5,8 @@ import { Cinematic, CinematicProps } from './cinematic/Cinematic';
 import { CINE_SCENES, CINE_TOTAL_FRAMES } from './cinematic/timeline';
 import { Editorial, EditorialProps } from './editorial/Editorial';
 import { ED_SCENES, ED_TOTAL_FRAMES } from './editorial/timeline';
+import { Futuristic, FuturisticProps } from './futuristic/Futuristic';
+import { FUT_SCENES, FUT_TOTAL_FRAMES } from './futuristic/timeline';
 import { loadBrandFonts } from './lib/fonts';
 import { FPS, HEIGHT, WIDTH } from './lib/theme';
 import { SCENES, TOTAL_FRAMES } from './timeline';
@@ -15,6 +17,7 @@ loadBrandFonts();
 const defaults: CommercialProps = { voiceover: undefined, musicVolume: undefined };
 const cineDefaults: CinematicProps = { voiceover: undefined, musicVolume: undefined };
 const edDefaults: EditorialProps = { voiceover: undefined, musicVolume: undefined };
+const futDefaults: FuturisticProps = { voiceover: undefined, musicVolume: undefined };
 
 export const RemotionRoot: React.FC = () => (
   <>
@@ -59,6 +62,15 @@ export const RemotionRoot: React.FC = () => (
         <Composition key={s.id} id={`Ed-${s.id}`} component={s.component} durationInFrames={frames(s.duration)} fps={FPS} width={WIDTH} height={HEIGHT} />
       ))}
       <Still id="EditorialThumbnail" component={ED_SCENES[ED_SCENES.length - 1].component} width={WIDTH} height={HEIGHT} />
+    </Folder>
+
+    {/* ───── Theme 04 — Futuristic Dental Science × Cinematic Product Motion (Zesty Lemon) ───── */}
+    <Folder name="Futuristic">
+      <Composition id="JakubeeFuturistic" component={Futuristic} durationInFrames={FUT_TOTAL_FRAMES} fps={FPS} width={WIDTH} height={HEIGHT} defaultProps={futDefaults} />
+      {FUT_SCENES.map((s) => (
+        <Composition key={s.id} id={`Fut-${s.id}`} component={s.component} durationInFrames={frames(s.duration)} fps={FPS} width={WIDTH} height={HEIGHT} />
+      ))}
+      <Still id="FuturisticThumbnail" component={FUT_SCENES[FUT_SCENES.length - 1].component} width={WIDTH} height={HEIGHT} />
     </Folder>
   </>
 );

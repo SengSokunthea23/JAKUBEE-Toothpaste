@@ -3,11 +3,14 @@
 import React from 'react';
 import { Img, staticFile } from 'remotion';
 
-export type Shot = 'tube' | 'pack';
+/** tube / pack = Zesty Lemon (Blue Edition); herbal-tube / herbal-pack = Herbal Mint (Green Edition). */
+export type Shot = 'tube' | 'pack' | 'herbal-tube' | 'herbal-pack';
 
 const SHOTS: Record<Shot, { file: string; aspect: number }> = {
   tube: { file: 'products/zesty-lemon-tube.png', aspect: 695 / 1721 },
   pack: { file: 'products/zesty-lemon-pack.png', aspect: 480 / 964 },
+  'herbal-tube': { file: 'products/herbal-mint-tube.png', aspect: 480 / 1217 },
+  'herbal-pack': { file: 'products/herbal-mint-pack.png', aspect: 481 / 964 },
 };
 
 export const shotWidth = (s: Shot, h: number) => h * SHOTS[s].aspect;

@@ -1,4 +1,4 @@
-// ALL on-screen copy for Theme 03 — JAKUBEE Zesty Lemon Toothpaste.
+// ALL on-screen copy for Theme 03 — JAKUBEE Zesty Lemon + Herbal Mint Toothpaste.
 // Khmer lines are taken word-for-word from the client script (spelling kept as supplied).
 // English lines are short supporting keywords; the four pack claims are printed on the tube.
 // No claim appears here that is not in the script or on the packaging.
@@ -76,12 +76,23 @@ export const T = {
     days: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
     en: 'DAILY ORAL CARE',
   },
+  // Herbal Mint (Green Edition): the Zesty Lemon script has no Herbal lines, so this uses only
+  // the copy already approved in src/lib/copy.ts and the text printed on the Herbal pack.
+  herbal: {
+    eyebrow: 'VARIANT 02  ·  GREEN EDITION',
+    title: 'Herbal Mint',
+    kh1: 'រុក្ខជាតិ',
+    kh2: 'ក្លិនជីអង្កាមស្រស់',
+    chip1: 'FLUORIDE 1500PPM',
+    chip2: 'FRESH MINT',
+    pack: ['TARTAR REMOVAL', 'FRESH BREATH'], // printed on the Herbal pack
+  },
   end: {
-    eyebrow: 'JAKUBEE  ·  ZESTY LEMON TOOTHPASTE',
+    eyebrow: 'JAKUBEE  ·  ZESTY LEMON  ·  HERBAL MINT',
     kh1: 'ប្រហើរក្លិននៃក្រូចឆ្មា (Zesty Lemon)',
     kh2: 'ផ្តល់នូវខ្យល់ដង្ហើមស្រស់ស្រាយ បំបាត់អារម្មណ៍ធ្ងន់ក្នុងមាត់',
     kh3: 'និងជួយឱ្យ មាត់មានអារម្មណ៍ស្អាត បន្ទាប់ពីដុសធ្មេញរួច។',
-    claims: ['WHITENING', 'ANTI-CAVITY', 'ANTI-SENSITIVITY', 'ANTI-PLAQUE'], // printed on the tube
+    claims: ['WHITENING', 'ANTI-CAVITY', 'ANTI-SENSITIVITY', 'ANTI-PLAQUE'], // printed on both tubes
     cta: 'កុម្ម៉ង់ឥឡូវនេះ',
   },
 };

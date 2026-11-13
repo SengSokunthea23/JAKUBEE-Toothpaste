@@ -1,4 +1,4 @@
-// Original soundtrack + UI sound design for Theme 03 — JAKUBEE Zesty Lemon Toothpaste.
+// Original soundtrack + UI sound design for Theme 03 — JAKUBEE Zesty Lemon + Herbal Mint Toothpaste.
 // Reads src/editorial/timing.json so every cue follows the picture.
 // Run: npm run soundtrack:editorial   (add --cues to print the cue sheet)
 //
@@ -35,6 +35,8 @@ const drumLevel = (t) => {
   if (t < T('t04-stains-whitening', 0.3)) return 0.5; // search typing: hats only, keystrokes lead
   if (t < T('t08-fresh-breath')) return 1;
   if (t < T('t09-daily-care', 0.3)) return 0; // fresh breath: breathing room
+  if (t < T('t10-herbal-mint', 0.9)) return 1;
+  if (t < T('t10-herbal-mint', 1.2)) return 0.5; // colour morph: lift the groove briefly
   if (t < TOTAL - 1.6) return 1;
   return 0;
 };
@@ -194,16 +196,25 @@ S('Chip pop', K.pop(780), T('t09-daily-care', 2.35), 0.08, -0.6);
 S('Chip pop', K.pop(880), T('t09-daily-care', 2.65), 0.08, 0.6);
 S('Caption pop', K.pop(700), T('t09-daily-care', 2.95), 0.09);
 
-// 10 — finale
-S('Riser into finale', K.riser(1.0), T('t10-finale', -0.9), 0.2, 0, 0.3);
-S('Light-leak swell', K.swell([64, 71, 75, 78], 0.9), T('t10-finale', -0.3), 0.05, 0, 0.6);
-[0.1, 0.9, 1.0, 1.1, 1.2].forEach((d, i) => S('Geometric piece snaps in', K.pop(600 + i * 90), T('t10-finale', d + 0.25), 0.07, -0.6 + i * 0.3));
-S('Premium hero impact', K.impact(1.05), T('t10-finale', 0.8), 0.5);
-S('Elegant shimmer', K.shimmer([80, 83, 87, 92, 95, 99]), T('t10-finale', 0.85), 0.065, 0, 0.8);
-[0, 1, 2, 3].forEach((i) => S(`Pack claim ${i + 1}`, K.pop(650 + i * 100), T('t10-finale', 1.85 + i * 0.15), 0.08, -0.6 + i * 0.4));
-S('CTA click', K.click(1400), T('t10-finale', 3.05), 0.15, 0, 0);
-S('CTA accent', K.impact(0.4), T('t10-finale', 3.1), 0.18);
-S('CTA shimmer', K.shimmer([88, 92, 95, 100]), T('t10-finale', 3.1), 0.05, 0, 0.7);
+// 10 — herbal mint (blue → green colour morph)
+S('Riser into colour change', K.riser(0.9), T('t10-herbal-mint', -0.75), 0.14, 0, 0.4);
+W('Colour-morph sweep', K.whoosh(1.2, 200, 1800), T('t10-herbal-mint', 0.0), 0.2, 0.5, -0.5);
+S('Shimmer — green light', K.shimmer([76, 80, 83, 87, 90]), T('t10-herbal-mint', 0.5), 0.06, 0, 0.7);
+S('Herbal reveal impact', K.impact(0.75), T('t10-herbal-mint', 0.85), 0.32);
+S('Airy leaf texture', K.filter(K.make(2.4, (t) => K.noise() * Math.sin((Math.PI * t) / 2.4) ** 2), 'bp', (t) => 900 + 600 * Math.sin(t * 2), 0.6), T('t10-herbal-mint', 0.6), 0.04, 0, 0.3);
+[1.4, 1.65, 2.0].forEach((d, i) => S('Label card pop', K.pop(700 + i * 100), T('t10-herbal-mint', d), 0.08, 0.4));
+S('Caption pop', K.pop(760), T('t10-herbal-mint', 2.35), 0.08);
+
+// 11 — finale
+S('Riser into finale', K.riser(1.0), T('t11-finale', -0.9), 0.2, 0, 0.3);
+S('Light-leak swell', K.swell([64, 71, 75, 78], 0.9), T('t11-finale', -0.3), 0.05, 0, 0.6);
+[0.1, 0.9, 1.0, 1.1, 1.2].forEach((d, i) => S('Geometric piece snaps in', K.pop(600 + i * 90), T('t11-finale', d + 0.25), 0.07, -0.6 + i * 0.3));
+S('Premium hero impact', K.impact(1.05), T('t11-finale', 0.8), 0.5);
+S('Elegant shimmer', K.shimmer([80, 83, 87, 92, 95, 99]), T('t11-finale', 0.85), 0.065, 0, 0.8);
+[0, 1, 2, 3].forEach((i) => S(`Pack claim ${i + 1}`, K.pop(650 + i * 100), T('t11-finale', 1.85 + i * 0.15), 0.08, -0.6 + i * 0.4));
+S('CTA click', K.click(1400), T('t11-finale', 3.05), 0.15, 0, 0);
+S('CTA accent', K.impact(0.4), T('t11-finale', 3.1), 0.18);
+S('CTA shimmer', K.shimmer([88, 92, 95, 100]), T('t11-finale', 3.1), 0.05, 0, 0.7);
 S('Final resolve chord', K.make(3.0, (t) => ([64, 68, 71, 75, 80].reduce((a, m) => a + Math.sin(2 * Math.PI * mtof(m) * t), 0) / 5) * clamp(t / 0.05) * Math.exp(-t * 0.9)), TOTAL - 2.0, 0.08, 0, 0.8);
 
 

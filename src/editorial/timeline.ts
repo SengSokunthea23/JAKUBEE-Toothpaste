@@ -1,4 +1,4 @@
-// Theme 03 timeline — JAKUBEE Zesty Lemon Toothpaste. Timing lives in timing.json
+// Theme 03 timeline — JAKUBEE Zesty Lemon + Herbal Mint Toothpaste. Timing lives in timing.json
 // (shared with the soundtrack generator).
 import React from 'react';
 import { frames } from '../lib/anim';
@@ -13,7 +13,8 @@ import { T06FluorideEnamel } from './scenes/T06FluorideEnamel';
 import { T07SensitivityGums } from './scenes/T07SensitivityGums';
 import { T08FreshBreath } from './scenes/T08FreshBreath';
 import { T09DailyCare } from './scenes/T09DailyCare';
-import { T10Finale } from './scenes/T10Finale';
+import { T10HerbalMint } from './scenes/T10HerbalMint';
+import { T11Finale } from './scenes/T11Finale';
 
 const COMPONENTS: Record<string, React.FC> = {
   't01-intro': T01Intro,
@@ -25,7 +26,8 @@ const COMPONENTS: Record<string, React.FC> = {
   't07-sensitivity-gums': T07SensitivityGums,
   't08-fresh-breath': T08FreshBreath,
   't09-daily-care': T09DailyCare,
-  't10-finale': T10Finale,
+  't10-herbal-mint': T10HerbalMint,
+  't11-finale': T11Finale,
 };
 
 export type EdScene = { id: string; component: React.FC; duration: number; transition?: { kind: EdTransition; duration: number } };

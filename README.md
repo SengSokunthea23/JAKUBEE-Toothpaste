@@ -123,7 +123,7 @@ npm run soundtrack:cinematic   # rebuild public/audio/cinematic-soundtrack.wav (
 
 ## Theme 03: Cinematic Editorial × Premium Digital (`JakubeeEditorial`)
 
-A **JAKUBEE Zesty Lemon Toothpaste** ad (one product only). The scene order and all on-screen Khmer follow the Zesty Lemon script below. It uses the real product photos `zesty-lemon-tube.png` and `zesty-lemon-pack.png`. It's in Remotion Studio under the **Editorial** folder. 62.5 seconds, 1080×1920, 30 fps.
+A **JAKUBEE toothpaste** ad with both editions: **Zesty Lemon** (Blue) and **Herbal Mint** (Green). Scenes 01–09 follow the Zesty Lemon script below, scene 10 introduces Herbal Mint, and scene 11 shows both together. It uses the real product photos in `public/products/`. It's in Remotion Studio under the **Editorial** folder. 68.5 seconds, 1080×1920, 30 fps.
 
 ```bash
 npm run dev                     # Studio → Editorial / JakubeeEditorial
@@ -136,7 +136,7 @@ npm run soundtrack:editorial    # rebuild public/audio/editorial-soundtrack.wav 
 
 | # | Start | Script line | Visual and technique | Transition in | Sound |
 |---|---|---|---|---|---|
-| 01 | 0:00.0 | JAKUBEE ZESTY LEMON TOOTHPASTE · ជាប្រភេទថ្នាំដុសធ្មេញ ប្រហើរក្លិននៃក្រូចឆ្មា | Warm lemon gradient intro, camera pull-back, tube and pack in floating cards, geometric pieces lock into place, lemon underline | — | Swell, card whooshes, soft impact, pops, shimmer |
+| 01 | 0:00.0 | JAKUBEE ZESTY LEMON TOOTHPASTE · ជាប្រភេទថ្នាំដុសធ្មេញ ប្រហើរក្លិននៃក្រូចឆ្មា | Warm lemon gradient intro, camera pull-back, Zesty Lemon and Herbal Mint tubes in floating cards, geometric pieces lock into place, lemon underline | — | Swell, card whooshes, soft impact, pops, shimmer |
 | 02 | 0:06.0 | ប្រហើរក្លិននៃក្រូចឆ្មា (Zesty Lemon) | Lemon slices and water beads at several depths, hero tube turns into place, "FLUORIDE 1500PPM" and "FRESH LEMON" label cards | Circle mask | Whoosh, reveal impact, droplets |
 | 03 | 0:11.5 | ជួយសម្អាតធ្មេញ និងបំបាត់បញ្ហាក្លិនមាត់បានយ៉ាងមានប្រសិទ្ធភាព | Search bar types CLEAN TEETH → FRESH BREATH → ZESTY LEMON, then a result card opens | Gradient wipe | Keystrokes, enter click (drums drop to hats) |
 | 04 | 0:18.0 | ជួយកាត់បន្ថយស្នាម ឬ ស្ចឹមលឿង… · ជួយឱ្យធ្មេញសស្អាតរឹងមាំ និងភ្លឺរលោងជាងមុន | Illustrated tooth: yellow stains fade, a light sweeps the enamel, Khmer keywords highlighted one by one | Floating card | Soft fizz, shine shimmer, highlight clicks |
@@ -145,9 +145,10 @@ npm run soundtrack:editorial    # rebuild public/audio/editorial-soundtrack.wav 
 | 07 | 0:37.0 | សៀវធ្មេញ · ឈាមចេញតាមអញ្ចាញធ្មេញ · ថែរក្សាអញ្ចាញធ្មេញ · បាក់តេរីក្លិនមាត់ | Floating icon ecosystem around the tube, four benefit panels | Floating card | Icon pops, panel pops |
 | 08 | 0:44.0 | ជួយឱ្យខ្យល់ដង្ហើមស្រស់ស្រាយ និងផ្តល់អារម្មណ៍ស្រស់ថ្លាក្នុងមាត់ | "Fresh breath" headline, airy breath ribbons, lemon and water, glow halo | Light leak | Swell, air, glow impact, droplets (drums out) |
 | 09 | 0:49.5 | ស័ក្តិសមសម្រាប់ការប្រើប្រាស់ជាប្រចាំថ្ងៃ · ជួយរក្សាអនាម័យមាត់ធ្មេញបានល្អ | Floating phone with a week of daily checkmarks, floating chips | Circle mask | Phone whoosh and thump, a tick for each day |
-| 10 | 0:55.5 | ប្រហើរក្លិននៃក្រូចឆ្មា… មាត់មានអារម្មណ៍ស្អាត បន្ទាប់ពីដុសធ្មេញរួច។ | Geometric finale: pack and tube, lemon slices, the four claims printed on the pack, Khmer CTA | Light leak | Riser, hero impact, shimmer, CTA click, final chord |
+| 10 | 0:55.5 | (Herbal Mint, no script lines) រុក្ខជាតិ · ក្លិនជីអង្កាមស្រស់ | Blue light changes to green, botanical leaves, Herbal tube and pack, "FLUORIDE 1500PPM", "FRESH MINT" and the pack's "TARTAR REMOVAL · FRESH BREATH" | Color morph | Riser, color sweep, shimmer, reveal impact, leaf air, pops |
+| 11 | 1:01.5 | ប្រហើរក្លិននៃក្រូចឆ្មា… មាត់មានអារម្មណ៍ស្អាត បន្ទាប់ពីដុសធ្មេញរួច។ | Geometric finale: Zesty Lemon and Herbal Mint tubes, lemon slice and mint leaf, the four claims printed on both tubes, Khmer CTA | Light leak | Riser, hero impact, shimmer, CTA click, final chord |
 
-**Copy:** all text is in `src/editorial/copy.ts`, taken word for word from the Zesty Lemon script. Please have a native speaker proofread it, especially **សៀវធ្មេញ** (the usual spelling is ស្រៀវធ្មេញ) and **ស្ចឹម**. The English supporting words are short labels that match the script or what's printed on the pack. The closing CTA "កុម្ម៉ង់ឥឡូវនេះ" is not in the script. Remove it in `copy.ts` and `scenes/T10Finale.tsx` if you don't want it. There are no prices in this theme, because the script has none.
+**Copy:** all text is in `src/editorial/copy.ts`, taken word for word from the Zesty Lemon script. Please have a native speaker proofread it, especially **សៀវធ្មេញ** (the usual spelling is ស្រៀវធ្មេញ) and **ស្ចឹម**. The English supporting words are short labels that match the script or what's printed on the pack. The closing CTA "កុម្ម៉ង់ឥឡូវនេះ" is not in the script. Remove it in `copy.ts` and `scenes/T10Finale.tsx` if you don't want it. The Herbal Mint scene has no lines in the script, so its Khmer (រុក្ខជាតិ · ក្លិនជីអង្កាមស្រស់) comes from the copy already used in the original ad (`src/lib/copy.ts`), and its English labels are printed on the Herbal pack. There are no prices in this theme, because the script has none.
 
 **Music:** an original 110 BPM bed (Emaj9 · C#m9 · Amaj9 · B6/9) with airy pads, soft keys through an echo delay, light kick, snap and hats, and gentle bass. The music dips briefly under each kick. The drums drop out for the search typing and the fresh-breath scene. The sound effects are generated in code and timed to the picture.
 
@@ -158,7 +159,7 @@ npm run soundtrack:editorial    # rebuild public/audio/editorial-soundtrack.wav 
 - `timing.json`: scene durations and transitions
 - `ui/`: backdrop, cards, product photos, typography, search bar, phone, isometric objects, lemon slices, tooth
 - `transitions.tsx`
-- `scenes/T01…T10`
+- `scenes/T01…T11`
 
 ### Zesty Lemon script (source)
 

@@ -8,12 +8,13 @@ import { Glyph } from '../ui/Interface';
 import { LemonSlice3D } from '../ui/Lemon';
 import { Disc, Ring, Square } from '../ui/Objects';
 import { Product } from '../ui/Product';
+import { Leaf } from '../../components/Decor';
 import { At, Eyebrow, KhLine, khmer, latin } from '../ui/Type';
 import { BLUE, INK, SHADOW, ease } from '../theme';
 import { LEMON } from './T01Intro';
 
-/** 10 — Geometric brand finale: shapes assemble around pack + tube; the closing script line; Khmer CTA. */
-export const T10Finale: React.FC = () => {
+/** 11 — Geometric brand finale: shapes assemble around both editions; the closing script line; Khmer CTA. */
+export const T11Finale: React.FC = () => {
   const t = useTime();
   const c = T.end;
   const g = (a: number) => prog(t, a, a + 0.8);
@@ -32,9 +33,11 @@ export const T10Finale: React.FC = () => {
         <Disc x={190} y={680} r={42} p={g(0.9)} fill={`linear-gradient(135deg, ${BLUE.aqua}, ${BLUE.royal})`} shadow />
         <Square x={900} y={1150} s={52} p={g(1.1)} fill="#FFFFFF" rotate={12} />
         <LemonSlice3D x={880} y={640} d={150 * ease.outExpo(g(1.0))} rotate={t * 12} tilt={30} />
-        <LemonSlice3D x={200} y={1170} d={120 * ease.outExpo(g(1.2))} rotate={-t * 10} tilt={45} />
-        <Product shot="pack" x={640} y={900 + 120 * (1 - enter)} height={600} opacity={enter} sweep={prog(t, 1.8, 2.6)} />
-        <Product shot="tube" x={430} y={930 + 140 * (1 - enter)} height={600} rotate={-5} opacity={enter} sweep={prog(t, 1.6, 2.4)} />
+        <div style={{ opacity: ease.outExpo(g(1.2)) }}>
+          <Leaf x={205} y={1165} length={150} rotate={-30 + 6 * Math.sin(t * 1.2)} />
+        </div>
+        <Product shot="tube" x={425} y={920 + 140 * (1 - enter)} height={620} rotate={-6} opacity={enter} sweep={prog(t, 1.6, 2.4)} />
+        <Product shot="herbal-tube" x={655} y={930 + 140 * (1 - enter)} height={610} rotate={6} opacity={enter} sweep={prog(t, 1.75, 2.55)} />
       </Cam>
       <At x={540} y={250}>
         <Eyebrow text={c.eyebrow} p={prog(t, 0.2, 0.9)} dash={LEMON} />

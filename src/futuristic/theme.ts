@@ -13,6 +13,9 @@ export const F = {
   soft: '#F7F8FA',
   // warm lemon from the tube's printed lemon (kept recognisable throughout)
   zest: '#FFD43B',
+  // Herbal Mint green (from the Herbal pack)
+  mint: '#7EDB5A',
+  herb: '#2E9E55',
   mist: 'rgba(247,248,250,0.62)',
 };
 
@@ -21,7 +24,7 @@ export const hexA = (hex: string, a: number) => {
   return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${a})`;
 };
 
-export const FONT = { latin: 'Manrope, sans-serif', khmer: '"Kantumruy Pro", sans-serif' };
+export const FONT = { latin: 'Manrope, "Kantumruy Pro", sans-serif', khmer: '"Kantumruy Pro", sans-serif' };
 
 export const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 

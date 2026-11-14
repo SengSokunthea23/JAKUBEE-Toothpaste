@@ -7,7 +7,7 @@ import { F, ease, hexA } from '../theme';
 import { Frame } from '../ui/Frame';
 import { AirTrails, Glass, Orbit, Tooth } from '../ui/Objects';
 import { Cam, Particles } from '../ui/Stage';
-import { latin } from '../ui/Type';
+import { label } from '../ui/Type';
 
 /** 02 — Clean teeth & fresh breath: a metallic 3D tooth, cleansing particles in orbit, fresh air, a dark glass card. */
 export const F02Clean: React.FC = () => {
@@ -19,7 +19,7 @@ export const F02Clean: React.FC = () => {
     { icon: 'wind', text: c.en2, at: 1.1, color: F.neon },
   ];
   return (
-    <Frame t={t} label={chapter(2, c.label)} kh={c.kh} khAt={1.0} glows={[{ x: 540, y: 760, r: 520, color: F.ice, a: 0.18 }, { x: 540, y: 820, r: 300, color: F.neon, a: 0.14 }]}>
+    <Frame t={t} label={chapter(3, c.label)} kh={c.kh} khAt={0.55} khSize={34} khY={1660} glows={[{ x: 540, y: 760, r: 520, color: F.ice, a: 0.18 }, { x: 540, y: 820, r: 300, color: F.neon, a: 0.14 }]}>
       <Cam t={t} dur={3.5} from={1} to={1.05}>
         <Particles t={t} seed={21} n={18} p={0.7} colors={[F.ice, F.white]} />
         <Orbit t={t} cx={540} cy={760} rx={400} ry={130} n={10} p={prog(t, 0.3, 1.2)} speed={0.9} colors={[F.neon, F.ice, F.white]} size={14} />
@@ -35,7 +35,7 @@ export const F02Clean: React.FC = () => {
                 <div style={{ width: 70, height: 70, borderRadius: 20, background: hexA(r.color, 0.1), border: `1px solid ${hexA(r.color, 0.4)}`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <Glyph name={r.icon} size={40} color={r.color} stroke={2} />
                 </div>
-                <span style={latin(34, 800, r.color, 3)}>{r.text}</span>
+                <span style={label(r.text, 34, 800, r.color, 3)}>{r.text}</span>
               </div>
             );
           })}

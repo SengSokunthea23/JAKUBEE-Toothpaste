@@ -5,14 +5,18 @@ import React from 'react';
 import { Img, staticFile } from 'remotion';
 import { clamp, seeded } from '../../lib/anim';
 import { F, ease, hexA } from '../theme';
+import { latinStack } from '../../lib/theme';
 
 /* ───────────────────────── product ───────────────────────── */
 
-const TUBE = { file: 'products/zesty-lemon-tube.png', aspect: 695 / 1721 };
-const PACK = { file: 'products/zesty-lemon-pack.png', aspect: 480 / 964 };
+const SHOTS = {
+  lemon: { tube: { file: 'products/zesty-lemon-tube.png', aspect: 695 / 1721 }, pack: { file: 'products/zesty-lemon-pack.png', aspect: 480 / 964 } },
+  herbal: { tube: { file: 'products/herbal-mint-tube.png', aspect: 480 / 1217 }, pack: { file: 'products/herbal-mint-pack.png', aspect: 481 / 964 } },
+};
+export type Flavour = keyof typeof SHOTS;
 
 /**
- * The real JAKUBEE Zesty Lemon tube (or pack), never redrawn: positioned, rim-lit with neon/lemon,
+ * The real JAKUBEE tube (or pack), Zesty Lemon or Herbal Mint, never redrawn: positioned, rim-lit with neon/lemon,
  * reflected on a dark floor and swept with light.
  */
 export const Hero: React.FC<{
@@ -20,6 +24,7 @@ export const Hero: React.FC<{
   y: number;
   height: number;
   pack?: boolean;
+  flavour?: Flavour;
   rotate?: number;
   opacity?: number;
   blur?: number;
@@ -27,9 +32,9 @@ export const Hero: React.FC<{
   rim?: string;
   rimA?: number;
   reflect?: boolean;
-}> = ({ x, y, height, pack = false, rotate = 0, opacity = 1, blur = 0, sweep = -1, rim = F.neon, rimA = 0.55, reflect = true }) => {
+}> = ({ x, y, height, pack = false, flavour = 'lemon', rotate = 0, opacity = 1, blur = 0, sweep = -1, rim = F.neon, rimA = 0.55, reflect = true }) => {
   if (opacity <= 0) return null;
-  const a = pack ? PACK : TUBE;
+  const a = pack ? SHOTS[flavour].pack : SHOTS[flavour].tube;
   const w = height * a.aspect;
   const src = staticFile(a.file);
   const mask: React.CSSProperties = { WebkitMaskImage: `url(${src})`, maskImage: `url(${src})`, WebkitMaskSize: '100% 100%', maskSize: '100% 100%' };
@@ -232,7 +237,7 @@ export const RingIndicator: React.FC<{ x: number; y: number; r: number; p: numbe
       </svg>
       {label && (
         <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <span style={{ fontFamily: 'Manrope', fontWeight: 800, fontSize: r * 0.2, letterSpacing: r * 0.03, color: F.white }}>{label}</span>
+          <span style={{ fontFamily: latinStack(r * 0.2), fontWeight: 800, fontSize: r * 0.2, letterSpacing: /[\u1780-\u17FF]/.test(label) ? 0 : r * 0.03, color: F.white }}>{label}</span>
         </div>
       )}
     </div>
@@ -273,7 +278,7 @@ export const Pointer: React.FC<{ x: number; y: number; tx: number; ty: number; p
         <polyline points={`${x},${y} ${x + (tx - x) * 0.35 * e},${ey} ${ex},${ey}`} fill="none" stroke={hexA(color, 0.8)} strokeWidth={1.6} />
       </svg>
       <div style={{ position: 'absolute', left: tx, top: ty, transform: `translate(${align === 'right' ? '12px' : 'calc(-100% - 12px)'}, -50%)`, opacity: clamp((p - 0.35) * 2.5), whiteSpace: 'nowrap' }}>
-        <span style={{ fontFamily: 'Manrope', fontWeight: 800, fontSize: 20, letterSpacing: 5, color: F.white }}>{label}</span>
+        <span style={{ fontFamily: latinStack(20), fontWeight: 800, fontSize: 20, letterSpacing: /[\u1780-\u17FF]/.test(label) ? 0 : 5, color: F.white }}>{label}</span>
       </div>
     </>
   );

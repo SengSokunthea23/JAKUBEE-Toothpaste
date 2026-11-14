@@ -69,10 +69,10 @@ export const C02BlueEdition: React.FC = () => {
         <TitleIn text={c.title2} t={t} at={1.05} size={150} trackFrom={30} trackTo={2} fill={GRAD.ice} />
       </Pos>
       <Pos x={90} y={1400} align="left">
-        <KhIn text={c.kh[0]} t={t} at={1.7} size={70} />
+        <KhIn text={c.khShort[0]} t={t} at={1.7} size={70} />
       </Pos>
       <Pos x={90} y={1500} align="left">
-        <KhIn text={c.kh[1]} t={t} at={1.95} size={56} weight={600} color={BLUE.ice} />
+        <KhIn text={c.khShort[1]} t={t} at={1.95} size={56} weight={600} color={BLUE.ice} />
       </Pos>
     </AbsoluteFill>
   );

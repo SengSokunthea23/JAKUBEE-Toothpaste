@@ -437,6 +437,13 @@ S('Final resolve chord', make(3.2, (t) => [57, 64, 68, 71, 76].reduce((a, m) => 
   put(SFX, air.map((x, i) => x * clamp(i / SR / 1.5)), 0, 0.012, 0);
 }
 
+// lead-in: a soft riser into every cut that has none yet, so no scene change arrives out of silence
+for (const sc of timing.scenes.slice(1)) {
+  const c = START[sc.id];
+  if (cue.some(([t, l]) => /riser|swell/i.test(l) && t > c - 1.4 && t < c)) continue;
+  S('Soft riser into cut', riser(0.7), c - 0.75, 0.06, 0, 0.35);
+}
+
 /* ---------------- reverb (Freeverb-style) ---------------- */
 const reverb = (inp, spread) => {
   const sc = SR / 44100;

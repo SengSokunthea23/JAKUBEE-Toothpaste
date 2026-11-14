@@ -3,9 +3,11 @@
 import React from 'react';
 import { clamp, prog } from '../../lib/anim';
 import { F, FONT, ease, hexA } from '../theme';
+import { KH_LINE, hasKh } from '../../lib/kh';
+import { latinStack } from '../../lib/theme';
 
 export const latin = (size: number, weight: 500 | 700 | 800 = 800, color: string = F.white, tracking = 0): React.CSSProperties => ({
-  fontFamily: FONT.latin,
+  fontFamily: latinStack(size),
   fontSize: size,
   fontWeight: weight,
   color,
@@ -13,6 +15,13 @@ export const latin = (size: number, weight: 500 | 700 | 800 = 800, color: string
   lineHeight: 1.04,
   whiteSpace: 'nowrap',
 });
+
+/**
+ * Small label style for copy that may be Khmer or Latin: Latin keeps its letter-spacing, Khmer gets
+ * none (spacing pulls Khmer letters apart) and a comfortable line-height.
+ */
+export const label = (text: string, size: number, weight: 500 | 700 | 800 = 800, color: string = F.white, tracking = 0): React.CSSProperties =>
+  hasKh(text) ? { ...latin(size, weight, color, 0), lineHeight: 1.4 } : latin(size, weight, color, tracking);
 
 export const khmer = (size: number, weight: 500 | 600 | 700 = 600, color: string = F.white): React.CSSProperties => ({
   fontFamily: FONT.khmer,
@@ -66,12 +75,13 @@ export const Kinetic: React.FC<{
   const k = ease.outExpo(prog(t, at, at + 1.1));
   const tracking = size * (track[0] + (track[1] - track[0]) * k);
   return (
-    <span style={{ display: 'inline-flex', gap: size * 0.26 }}>
+    // mixed Khmer + Latin headlines share one line-height and baseline, so the words sit level
+    <span style={{ display: 'inline-flex', gap: size * 0.26, alignItems: 'baseline' }}>
       {text.split(' ').map((w, i) => {
         const hot = accent.includes(w);
         const c = hot ? accentColor : color;
         return (
-          <Rise key={i} p={(t - at - i * stagger) / 0.6} style={latin(size, weight, c, tracking)} glow={hot ? hexA(accentColor, 0.5) : undefined}>
+          <Rise key={i} p={(t - at - i * stagger) / 0.6} style={hasKh(text) ? { ...latin(size, weight, c, 0), lineHeight: KH_LINE } : latin(size, weight, c, tracking)} glow={hot ? hexA(accentColor, 0.5) : undefined}>
             {w}
           </Rise>
         );
@@ -84,7 +94,8 @@ export const Kinetic: React.FC<{
  * Controlled glitch on a single line: RGB-split ghosts and a sliced offset that only fire in a short window
  * after `at` (and lightly on a few later frames), then settle to clean type.
  */
-export const GlitchText: React.FC<{ text: string; t: number; at: number; style: React.CSSProperties; window?: number }> = ({ text, t, at, style, window = 0.45 }) => {
+export const GlitchText: React.FC<{ text: string; t: number; at: number; style: React.CSSProperties; window?: number }> = ({ text, t, at, style: st, window = 0.45 }) => {
+  const style: React.CSSProperties = hasKh(text) ? { ...st, letterSpacing: 0, lineHeight: KH_LINE } : st;
   const local = t - at;
   if (local < 0) return null;
   const on = local < window || (local > 1.6 && local < 1.7);
@@ -111,7 +122,7 @@ export const TechLabel: React.FC<{ text: string; p: number; color?: string; dot?
   return (
     <span style={{ display: 'inline-flex', alignItems: 'center', gap: 14, opacity: e, transform: `translateY(${10 * (1 - e)}px)` }}>
       <span style={{ width: 34 * e, height: 2, background: dot, boxShadow: `0 0 10px ${dot}` }} />
-      <span style={{ ...latin(19, 700, color, 6) }}>{text}</span>
+      <span style={hasKh(text) ? { ...latin(23, 700, color, 0), lineHeight: KH_LINE } : latin(19, 700, color, 6)}>{text}</span>
     </span>
   );
 };

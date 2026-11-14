@@ -1,18 +1,78 @@
 {
-  "_note": "Theme 04 master clock (seconds, start-to-start) — JAKUBEE Zesty Lemon toothpaste, 13 chapters in script order. 45 s on a 120 BPM grid: every duration is a whole number of beats (0.5 s = 15 frames), so every scene change lands on the beat. Scenes play at their authored speed. scripts/generate-futuristic-soundtrack.mjs reads this file.",
+  "_note": "Theme 04 master clock (seconds, start-to-start) — JAKUBEE Zesty Lemon + Herbal Mint, 9 chapters in the structure of the Commercial theme. Every line of the Khmer script is kept in the captions. 25 s on a 120 BPM grid: every duration is a whole number of beats (0.5 s), so every cut lands on the beat. speed > 1 plays a chapter faster than authored (kept at 1.35 or below so nothing feels rushed). scripts/generate-futuristic-soundtrack.mjs reads this file.",
   "scenes": [
-    { "id": "f01-intro", "duration": 3.5 },
-    { "id": "f02-clean", "duration": 3.5, "transition": { "kind": "dissolve", "duration": 0.5 } },
-    { "id": "f03-stains", "duration": 3.5, "transition": { "kind": "glitch", "duration": 0.4 } },
-    { "id": "f04-strong", "duration": 3.0, "transition": { "kind": "focus", "duration": 0.5 } },
-    { "id": "f05-bright", "duration": 3.0, "transition": { "kind": "zoom", "duration": 0.5 } },
-    { "id": "f06-tartar", "duration": 4.0, "transition": { "kind": "glitch", "duration": 0.4 } },
-    { "id": "f07-fluoride", "duration": 3.0, "transition": { "kind": "lightSweep", "duration": 0.5 } },
-    { "id": "f08-enamel", "duration": 3.5, "transition": { "kind": "dissolve", "duration": 0.5 } },
-    { "id": "f09-gums", "duration": 3.0, "transition": { "kind": "push", "duration": 0.5 } },
-    { "id": "f10-bacteria", "duration": 3.5, "transition": { "kind": "glitch", "duration": 0.4 } },
-    { "id": "f11-breath", "duration": 3.0, "transition": { "kind": "dissolve", "duration": 0.5 } },
-    { "id": "f12-daily", "duration": 3.5, "transition": { "kind": "focus", "duration": 0.5 } },
-    { "id": "f13-finale", "duration": 5.0, "transition": { "kind": "lightSweep", "duration": 0.8 } }
+    {
+      "id": "f01-intro",
+      "duration": 2.5,
+      "speed": 1.15
+    },
+    {
+      "id": "f01b-herbal",
+      "duration": 2.5,
+      "speed": 1.1,
+      "transition": {
+        "kind": "lightSweep",
+        "duration": 0.5
+      }
+    },
+    {
+      "id": "f02-clean",
+      "duration": 3,
+      "transition": {
+        "kind": "dissolve",
+        "duration": 0.5
+      }
+    },
+    {
+      "id": "f03-stains",
+      "duration": 3,
+      "transition": {
+        "kind": "glitch",
+        "duration": 0.4
+      }
+    },
+    {
+      "id": "f06-tartar",
+      "duration": 3,
+      "speed": 1.35,
+      "transition": {
+        "kind": "zoom",
+        "duration": 0.5
+      }
+    },
+    {
+      "id": "f07-fluoride",
+      "duration": 3,
+      "transition": {
+        "kind": "lightSweep",
+        "duration": 0.5
+      }
+    },
+    {
+      "id": "f09-gums",
+      "duration": 3,
+      "transition": {
+        "kind": "push",
+        "duration": 0.5
+      }
+    },
+    {
+      "id": "f12-daily",
+      "duration": 2,
+      "speed": 1.35,
+      "transition": {
+        "kind": "focus",
+        "duration": 0.5
+      }
+    },
+    {
+      "id": "f13-finale",
+      "duration": 3,
+      "speed": 1.15,
+      "transition": {
+        "kind": "lightSweep",
+        "duration": 0.8
+      }
+    }
   ]
 }

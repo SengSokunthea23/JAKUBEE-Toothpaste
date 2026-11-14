@@ -1,6 +1,7 @@
 import React from 'react';
-import { BRAND_GRADIENT, FONTS } from '../lib/theme';
+import { BRAND_GRADIENT, FONTS, latinStack } from '../lib/theme';
 import { easeOut } from '../lib/anim';
+import { KH_LINE, hasKh } from '../lib/kh';
 
 type LatinProps = {
   size: number;
@@ -14,14 +15,17 @@ type LatinProps = {
 };
 
 /** Latin display type (Manrope). */
-export const Latin: React.FC<LatinProps> = ({ size, weight = 800, color = '#252A30', tracking = 0, outline, gradient, children, style }) => (
+export const Latin: React.FC<LatinProps> = ({ size, weight = 800, color = '#252A30', tracking: tr = 0, outline, gradient, children, style }) => {
+  const kh = hasKh(children);
+  const tracking = kh ? 0 : tr;
+  return (
   <span
     style={{
-      fontFamily: FONTS.latin,
+      fontFamily: latinStack(size),
       fontSize: size,
       fontWeight: weight,
       letterSpacing: tracking,
-      lineHeight: 1,
+      lineHeight: kh ? KH_LINE : 1,
       color: outline || gradient ? 'transparent' : color,
       WebkitTextStroke: outline ? `3px ${outline}` : undefined,
       backgroundImage: gradient,
@@ -36,7 +40,8 @@ export const Latin: React.FC<LatinProps> = ({ size, weight = 800, color = '#252A
   >
     {children}
   </span>
-);
+  );
+};
 
 /** Gradient-filled Latin type; `shine` (0→1) runs a light sweep across the letters. */
 export const GradientLatin: React.FC<Omit<LatinProps, 'gradient'> & { from?: string; to?: string; shine?: number }> = ({ from, to, shine = -1, ...p }) => {
@@ -59,9 +64,9 @@ export const Khmer: React.FC<{ size: number; weight?: 500 | 600 | 700; color?: s
   </span>
 );
 
-/** Small uppercase tracked label. */
+/** Small uppercase tracked label. Khmer labels are drawn 4 px larger so they stay easy to read. */
 export const Label: React.FC<{ children: React.ReactNode; color?: string; size?: number; tracking?: number }> = ({ children, color = '#6B7178', size = 24, tracking = 9 }) => (
-  <Latin size={size} weight={700} color={color} tracking={tracking}>
+  <Latin size={hasKh(children) ? size + 4 : size} weight={700} color={color} tracking={tracking}>
     {children}
   </Latin>
 );

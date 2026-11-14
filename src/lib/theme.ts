@@ -2,7 +2,8 @@
 
 export const WIDTH = 1080;
 export const HEIGHT = 1920;
-export const FPS = 30;
+/** Every theme renders at 60 fps. Timing is authored in seconds, so changing this keeps picture and soundtrack in sync. */
+export const FPS = 60;
 
 export const COLORS = {
   // Blue Edition — Zesty Lemon
@@ -30,8 +31,12 @@ export const COLORS = {
   lemonPith: '#FFF6CF',
 } as const;
 
+/** Latin font stack; small sizes fall back to the enlarged Khmer label face for Khmer characters. */
+export const latinStack = (size: number) =>
+  size <= 30 ? "'Manrope', 'Kantumruy Pro Label', 'Kantumruy Pro', 'Inter', sans-serif" : "'Manrope', 'Kantumruy Pro', 'Inter', 'Helvetica Neue', sans-serif";
+
 export const FONTS = {
-  latin: "'Manrope', 'Inter', 'Helvetica Neue', sans-serif",
+  latin: "'Manrope', 'Kantumruy Pro', 'Inter', 'Helvetica Neue', sans-serif",
   khmer: "'Kantumruy Pro', 'Noto Sans Khmer', sans-serif",
 } as const;
 

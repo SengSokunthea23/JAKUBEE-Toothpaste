@@ -49,21 +49,20 @@ export const C06Fresh: React.FC = () => {
         <Foam t={t} seed={63} n={150} y={1440} grow={foam} />
       </Plane>
       <Pos x={540} y={400}>
-        <TitleIn text={c.line1} t={t} at={0.4} size={190} trackFrom={36} trackTo={4} />
+        <TitleIn text={c.line1} t={t} at={0.4} size={136} trackFrom={36} trackTo={4} />
       </Pos>
       <Pos x={540} y={575}>
-        <TitleIn text={c.line2} t={t} at={0.65} size={190} trackFrom={36} trackTo={4} fill={GRAD.brand} />
+        <TitleIn text={c.line2} t={t} at={0.65} size={136} trackFrom={36} trackTo={4} fill={GRAD.brand} />
       </Pos>
       <Pos x={540} y={735}>
-        <KhIn text={c.kh} t={t} at={1.3} size={60} />
+        <KhIn text={c.kh} t={t} at={1.3} size={37} />
       </Pos>
-      <Glass x={540} y={880} w={780} h={104} p={pill} radius={52} tint={BLUE.ice}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
-          <Lt size={26} weight={800} color="#FFFFFF" tracking={4}>
+      <Glass x={540} y={890} w={900} h={132} p={pill} radius={52} tint={BLUE.ice}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 0 }}>
+          <Lt size={24} weight={800} color="#FFFFFF" tracking={4}>
             {c.pillEn}
           </Lt>
-          <div style={{ width: 2, height: 36, background: 'rgba(255,255,255,0.35)' }} />
-          <Kh size={36} weight={600} color={BLUE.pale}>
+          <Kh size={32} weight={600} color={BLUE.pale}>
             {c.pillKh}
           </Kh>
         </div>

@@ -33,7 +33,7 @@ export const T01Intro: React.FC = () => {
           <div style={{ position: 'absolute', bottom: 22, left: 0, right: 0, display: 'flex', justifyContent: 'center' }}>
             <Pill size={18}>
               <span style={{ width: 13, height: 13, borderRadius: 7, background: GREEN.botanical }} />
-              <span style={latin(18, 800, INK.charcoal, 3)}>HERBAL MINT</span>
+              <span style={latin(18, 800, INK.charcoal, 3)}>Herbal Mint</span>
             </Pill>
           </div>
         </Card>
@@ -42,7 +42,7 @@ export const T01Intro: React.FC = () => {
           <div style={{ position: 'absolute', bottom: 22, left: 0, right: 0, display: 'flex', justifyContent: 'center' }}>
             <Pill size={18}>
               <span style={{ width: 13, height: 13, borderRadius: 7, background: LEMON }} />
-              <span style={latin(18, 800, INK.charcoal, 3)}>ZESTY LEMON</span>
+              <span style={latin(18, 800, INK.charcoal, 3)}>Zesty Lemon</span>
             </Pill>
           </div>
         </Card>
@@ -60,7 +60,7 @@ export const T01Intro: React.FC = () => {
         <span style={{ display: 'inline-flex', gap: 18, alignItems: 'baseline' }}>
           <KhLine text={c.kh1} t={t} at={1.2} size={44} weight={600} color={INK.slate} />
           <span style={{ opacity: clamp((t - 1.5) / 0.4) }}>
-            <Underline p={prog(t, 2.0, 2.6)} color={LEMON} thickness={8} offset={8}>
+            <Underline p={prog(t, 2.0, 2.6)} color={LEMON} thickness={8}>
               <span style={khmer(44, 700, INK.charcoal)}>{c.kh2}</span>
             </Underline>
           </span>

@@ -33,25 +33,25 @@ export const S05FreshBreath: React.FC = () => {
           const y = 1500 - ((b.speed * 2.2 * (t - 0.6) + b.phase * 60) % 1300);
           return <Bubble key={i} x={b.x + 10 * Math.sin(t * 2 + b.phase)} y={y} r={b.r} opacity={0.55 * b.a} />;
         })}
-      <Reveal x={540} y={310} p={prog(t, 0.3, 0.9)}>
-        <Latin size={176} color={COLORS.charcoal} tracking={4}>
+      <Reveal x={540} y={300} p={prog(t, 0.3, 0.9)}>
+        <Latin size={124} color={COLORS.charcoal} tracking={4}>
           {c.line1}
         </Latin>
       </Reveal>
-      <Reveal x={540} y={465} p={prog(t, 0.45, 1.05)}>
-        <GradientLatin size={176} tracking={4} shine={prog(t, 1.2, 2.0)}>
+      <Reveal x={540} y={455} p={prog(t, 0.45, 1.05)}>
+        <GradientLatin size={124} tracking={4} shine={prog(t, 1.2, 2.0)}>
           {c.line2}
         </GradientLatin>
       </Reveal>
-      <Reveal x={540} y={590} p={prog(t, 0.8, 1.4)}>
-        <Khmer size={60}>{c.kh}</Khmer>
+      <Reveal x={540} y={598} p={prog(t, 0.8, 1.4)}>
+        <Khmer size={37}>{c.kh}</Khmer>
       </Reveal>
-      <GlassCard x={540} y={py} w={640} h={120} radius={60} opacity={pill} fill="rgba(255,255,255,0.92)" />
-      <GradientDot x={290} y={py} d={76} opacity={pill} gradient={`linear-gradient(90deg, ${COLORS.aqua}, ${COLORS.freshGreen})`}>
+      <GlassCard x={540} y={py} w={880} h={120} radius={60} opacity={pill} fill="rgba(255,255,255,0.92)" />
+      <GradientDot x={170} y={py} d={76} opacity={pill} gradient={`linear-gradient(90deg, ${COLORS.aqua}, ${COLORS.freshGreen})`}>
         <Icon name="bubbles" size={40} />
       </GradientDot>
       {pill > 0 && (
-        <div style={{ position: 'absolute', left: 350, top: py - 50, opacity: pill }}>
+        <div style={{ position: 'absolute', left: 230, top: py - 50, opacity: pill }}>
           <Latin size={28} color={COLORS.charcoal} tracking={3}>
             {c.pillEn}
           </Latin>

@@ -7,20 +7,21 @@ import { F, ease, hexA } from '../theme';
 import { Frame } from '../ui/Frame';
 import { Glass, Hero } from '../ui/Objects';
 import { Cam } from '../ui/Stage';
-import { At, Kinetic, latin } from '../ui/Type';
+import { At, Kinetic, label } from '../ui/Type';
 
-/** 12 — Daily oral hygiene: a floating product information card — the tube, two benefit rows and a week of tooth icons lighting up. */
+/** 12 — Daily oral hygiene: a floating product information card — both tubes, two benefit rows and a week of tooth icons lighting up. */
 export const F12Daily: React.FC = () => {
   const t = useTime();
   const c = FUT.daily;
   const card = prog(t, 0.2, 0.9);
-  const [a, b] = [c.en.split(' ').slice(0, 2).join(' '), c.en.split(' ').slice(2).join(' ')];
+  const [a, b] = [c.en1, c.en2];
   return (
-    <Frame t={t} label={chapter(12, c.label)} kh={c.kh} khAt={1.0} glows={[{ x: 540, y: 960, r: 560, color: F.neon, a: 0.12 }, { x: 300, y: 960, r: 300, color: F.lemon, a: 0.1 }]}>
+    <Frame t={t} label={chapter(8, c.label)} kh={c.kh} khAt={1.0} glows={[{ x: 540, y: 960, r: 560, color: F.neon, a: 0.12 }, { x: 300, y: 960, r: 300, color: F.lemon, a: 0.1 }]}>
       <Cam t={t} dur={3.5} from={1} to={1.03}>
         <Glass x={540} y={960} w={920} h={560} p={card} radius={40}>
           <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: 360, background: `radial-gradient(circle at 50% 55%, ${hexA(F.lemon, 0.16)}, transparent 70%)` }} />
-          <Hero x={190} y={280} height={480} rotate={-4} sweep={prog(t, 1.0, 1.8)} rim={F.lemon} reflect={false} opacity={ease.outExpo(prog(t, 0.4, 1.1))} />
+          <Hero x={125} y={285} height={440} rotate={-6} sweep={prog(t, 1.0, 1.8)} rim={F.lemon} reflect={false} opacity={ease.outExpo(prog(t, 0.4, 1.1))} />
+          <Hero flavour="herbal" x={250} y={290} height={430} rotate={6} sweep={prog(t, 1.15, 1.95)} rim={F.mint} reflect={false} opacity={ease.outExpo(prog(t, 0.55, 1.25))} />
           <div style={{ position: 'absolute', left: 380, top: 0, bottom: 0, right: 40, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 26 }}>
             {c.items.map((it, i) => {
               const e = ease.outExpo(prog(t, 0.7 + i * 0.2, 1.3 + i * 0.2));
@@ -29,7 +30,7 @@ export const F12Daily: React.FC = () => {
                   <div style={{ width: 64, height: 64, borderRadius: 18, background: hexA(F.neon, 0.1), border: `1px solid ${hexA(F.neon, 0.4)}`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <Glyph name={i ? 'calendar' : 'tooth'} size={36} color={F.neon} stroke={2} />
                   </div>
-                  <span style={latin(30, 800, F.white, 3)}>{it}</span>
+                  <span style={label(it, 30, 800, F.white, 3)}>{it}</span>
                 </div>
               );
             })}
@@ -51,7 +52,7 @@ export const F12Daily: React.FC = () => {
         <Kinetic text={a} t={t} at={0.1} size={100} />
       </At>
       <At x={540} y={408}>
-        <Kinetic text={b} t={t} at={0.3} size={100} accent={b.split(' ')} />
+        <Kinetic text={b} t={t} at={0.3} size={100} accent={[b]} />
       </At>
     </Frame>
   );

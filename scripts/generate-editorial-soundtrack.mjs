@@ -154,14 +154,29 @@ S('Khmer pill pop', K.pop(800), T('t02-zesty-lemon', 2.65), 0.07, 0);
 // 03 — clean & fresh: search interface
 W('Gradient-wipe sweep', K.whoosh(0.6, 600, 4200), TR('t04-clean-fresh', -0.05), 0.18, -0.7, 0.7);
 cardWhoosh('Search bar slides in', T('t04-clean-fresh', 0.5));
-['CLEAN TEETH', 'FRESH BREATH', 'ZESTY LEMON'].forEach((q, qi) => {
-  for (let c = 0; c < q.length; c++) if (q[c] !== ' ') S('Keystroke', K.key(), T('t04-clean-fresh', 0.95 + qi * 0.9 + c * 0.045), 0.09, 0.1, 0);
-});
-S('Search enter click', K.click(1400), T('t04-clean-fresh', 3.05), 0.16, 0, 0);
-cardWhoosh('Result card rises', T('t04-clean-fresh', 3.15));
-S('Result lands', K.impact(0.45), T('t04-clean-fresh', 3.5), 0.22);
-[0, 1, 2].forEach((i) => S('Khmer line', K.pop(680 + i * 90), T('t04-clean-fresh', 3.65 + i * 0.2), 0.06, 0.3));
-[0, 1].forEach((i) => S('Keyword pill pop', K.pop(760 + i * 120), T('t04-clean-fresh', 4.65 + i * 0.12), 0.07, -0.2 + i * 0.4));
+// same schedule as SearchBar / searchSchedule in src/editorial/ui/Interface.tsx (queries from src/editorial/copy.ts)
+{
+  const queries = ['ថ្នាំដុសធ្មេញល្អ', 'ថ្នាំដុសធ្មេញណាល្អបំផុត?', 'JAKUBEE Toothpaste'];
+  const start = 0.95, until = 3.85, hold = 0.35, erase = 0.18;
+  const rate = Math.max(0.02, (until - start - (queries.length - 1) * (hold + erase)) / queries.reduce((a, q) => a + q.length, 0));
+  let s = start;
+  queries.forEach((q, qi) => {
+    // one key sound per visible keystroke (Khmer marks join the letter before them), at most every 70 ms
+    let lastKey = -1;
+    for (let c = 0; c < q.length; c++) {
+      const tt = s + c * rate;
+      if (q[c] === ' ' || /[឴-៓]/.test(q[c]) || tt - lastKey < 0.07) continue;
+      S('Keystroke', K.key(), T('t04-clean-fresh', tt), 0.09, 0.1, 0); lastKey = tt;
+    }
+    if (qi < queries.length - 1) S('Clear search', K.click(2600), T('t04-clean-fresh', s + q.length * rate + hold), 0.05, 0.1, 0);
+    s += q.length * rate + (qi < queries.length - 1 ? hold + erase : 0);
+  });
+}
+S('Search enter click', K.click(1400), T('t04-clean-fresh', 3.95), 0.16, 0, 0);
+cardWhoosh('Result card rises', T('t04-clean-fresh', 4.05));
+S('Result lands', K.impact(0.45), T('t04-clean-fresh', 4.4), 0.22);
+[0, 1, 2].forEach((i) => S('Khmer line', K.pop(680 + i * 90), T('t04-clean-fresh', 4.55 + i * 0.2), 0.06, 0.3));
+[0, 1].forEach((i) => S('Keyword pill pop', K.pop(760 + i * 120), T('t04-clean-fresh', 5.55 + i * 0.12), 0.07, -0.2 + i * 0.4));
 
 // 04 — stains & whitening (floating card)
 W('Card transition — layered whoosh', K.whoosh(0.6, 250, 2200), TR('t05-stains-whitening', -0.05), 0.22, 0.2, -0.2);
@@ -211,11 +226,19 @@ S('Khmer line', K.pop(700), T('t11-finale', 0.35), 0.06, 0);
 S('Premium hero impact', K.impact(1.05), T('t11-finale', 0.7), 0.5);
 S('Elegant shimmer', K.shimmer([80, 83, 87, 92, 95, 99]), T('t11-finale', 0.85), 0.065, 0, 0.8);
 [0, 1, 2, 3].forEach((i) => S(`Pack claim ${i + 1}`, K.pop(650 + i * 100), T('t11-finale', 1.85 + i * 0.15), 0.08, -0.6 + i * 0.4));
-S('CTA click', K.click(1400), T('t11-finale', 3.05), 0.15, 0, 0);
-S('CTA accent', K.impact(0.4), T('t11-finale', 3.1), 0.18);
-S('CTA shimmer', K.shimmer([88, 92, 95, 100]), T('t11-finale', 3.1), 0.05, 0, 0.7);
+S('CTA click', K.click(1400), T('t11-finale', 2.05), 0.15, 0, 0);
+S('CTA accent', K.impact(0.4), T('t11-finale', 2.1), 0.18);
+S('CTA shimmer', K.shimmer([88, 92, 95, 100]), T('t11-finale', 2.1), 0.05, 0, 0.7);
+S('CTA light sweep', K.shimmer([86, 90, 93, 98]), T('t11-finale', 3.6), 0.04, 0, 0.6);
 S('Final resolve chord', K.make(3.0, (t) => ([64, 68, 71, 75, 80].reduce((a, m) => a + Math.sin(2 * Math.PI * mtof(m) * t), 0) / 5) * clamp(t / 0.05) * Math.exp(-t * 0.9)), T('t11-finale', 3.1), 0.08, 0, 0.8); // resolves with the CTA
 
+
+// lead-in: a soft riser into every cut that has none yet, so no scene change arrives out of silence
+for (const sc of timing.scenes.slice(1)) {
+  const c = START[sc.id];
+  if (cue.some(([t, l]) => /riser|swell/i.test(l) && t > c - 1.4 && t < c)) continue;
+  S('Soft riser into cut', K.riser(0.7), c - 0.75, 0.06, 0, 0.35);
+}
 
 // very quiet air bed
 put(SFX, K.filter(K.make(TOTAL, () => K.noise()), 'bp', (t) => 600 + 300 * Math.sin(t * 0.3), 0.5).map((x, i) => x * clamp(i / SR / 1.5)), 0, 0.01);

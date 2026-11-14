@@ -14,7 +14,7 @@ export const F07Fluoride: React.FC = () => {
   const c = FUT.fluoride;
   const enter = ease.outExpo(prog(t, 0.1, 0.9));
   return (
-    <Frame t={t} label={chapter(7, c.label)} kh={c.kh} khAt={0.9} glows={[{ x: 540, y: 980, r: 520, color: F.cyan, a: 0.2 }, { x: 540, y: 980, r: 260, color: F.neon, a: 0.12 }]}>
+    <Frame t={t} label={chapter(6, c.label)} kh={c.kh} khAt={0.6} khSize={34} glows={[{ x: 540, y: 980, r: 520, color: F.cyan, a: 0.2 }, { x: 540, y: 980, r: 260, color: F.neon, a: 0.12 }]}>
       <Cam t={t} dur={3} from={1.04} to={1}>
         <RingIndicator x={540} y={980} r={300} p={prog(t, 0.7, 2.0)} t={t} color={F.ice} />
         <Converge t={t} seed={77} n={44} p={prog(t, 0, 1.4)} cx={540} cy={980} rx={360} ry={360} />

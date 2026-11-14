@@ -102,6 +102,8 @@ S('Title accent', K.pop(800), T('05-fresh-breath', 0.5), 0.08);
 S('Khmer line', K.pop(840), T('05-fresh-breath', 0.85), 0.08);
 S('Shine', K.shimmer([84, 88, 91, 96]), T('05-fresh-breath', 1.2), 0.05, 0, 0.6);
 S('Clean-teeth pill', K.pop(820), T('05-fresh-breath', 2.0), 0.1);
+S('Rising bubbles', fizz(1.6), T('05-fresh-breath', 2.4), 0.06, 0, 0.1);
+for (let k = 0; k < 3; k++) S('Bubble pop', K.pop(900 + k * 140), T('05-fresh-breath', 2.7 + k * 0.3), 0.05, -0.4 + k * 0.4);
 
 // 07 — whitening
 S('Title accent', K.pop(700), T('07-whitening', 0.25), 0.07);
@@ -116,7 +118,18 @@ S('Caption card', K.pop(760), T('07-whitening', 2.9), 0.1);
 S('Title accent', K.pop(700), T('08-tartar', 0.25), 0.07);
 S('Khmer line', K.pop(820), T('08-tartar', 0.6), 0.07);
 for (let i = 0; i < 3; i++) S(`Cause card ${i + 1}`, K.pop(620 + i * 100), T('08-tartar', 0.75 + i * 0.2), 0.1, -0.5 + i * 0.5);
-W('Cleansing sweep', K.whoosh(0.9, 500, 5000), T('08-tartar', 2.5), 0.14, -0.8, 0.8);
+W('Water rises', K.whoosh(1.0, 200, 1400), T('08-tartar', 0.3), 0.07, -0.4, 0.4);
+S('Tooth appears', K.impact(0.45), T('08-tartar', 0.7), 0.18);
+for (let k = 0; k < 7; k++) S('Stain speck drifts onto the tooth', K.droplet(380 + rnd() * 260), T('08-tartar', 1.3 + k * 0.14), 0.05, rnd() * 1.2 - 0.6, 0.3);
+S('Stains settle', fizz(0.9), T('08-tartar', 1.9), 0.05, 0, 0.1);
+// cleaning moment: a fresh ripple burst from the tooth (a clean drop, an airy bloom, rising sparkle)
+S('Fresh ripple — clean drop', K.droplet(560), T('08-tartar', 2.5), 0.2, 0, 0.5);
+S('Fresh ripple — bloom', K.impact(0.5), T('08-tartar', 2.52), 0.14, 0, 0.4);
+W('Cards pushed away', K.whoosh(0.7, 600, 4200), T('08-tartar', 2.55), 0.09, 0, 0);
+S('Sparkle burst', K.shimmer([88, 91, 95, 98, 100]), T('08-tartar', 2.6), 0.07, 0, 0.7);
+S('Tooth clean — sparkle', K.shimmer([86, 90, 93, 98]), T('08-tartar', 3.0), 0.06, 0, 0.6);
+S('Water clears — splash', K.droplet(700), T('08-tartar', 2.8), 0.12, 0, 0.4);
+for (let k = 0; k < 4; k++) S('Fresh water bubble', K.droplet(1000 + rnd() * 500), T('08-tartar', 3.1 + k * 0.2), 0.04, rnd() * 1.2 - 0.6, 0.4);
 S('Bubbles', fizz(1.4), T('08-tartar', 3.0), 0.06, 0, 0.1);
 S('Tubes rise — impact', K.impact(0.7), T('08-tartar', 3.2), 0.3);
 S('Tube light sweep', K.shimmer([86, 90, 93, 98]), T('08-tartar', 3.8), 0.04, 0, 0.6);
@@ -126,6 +139,7 @@ S('Label accent', K.pop(700), T('09-fluoride', 0.2), 0.07);
 S('1500 badge impact', K.impact(0.8), T('09-fluoride', 0.4), 0.32);
 S('Badge shimmer', K.shimmer([88, 92, 95]), T('09-fluoride', 1.2), 0.05, 0, 0.6);
 for (let i = 0; i < 3; i++) S(`Benefit row ${i + 1}`, K.pop(680 + i * 90), T('09-fluoride', 1.05 + i * 0.35), 0.1);
+S('Tubes light sweep', K.shimmer([84, 88, 91, 96]), T('09-fluoride', 2.3), 0.05, 0, 0.6);
 
 // 10 — sensitivity & gums
 S('Label accent', K.pop(700), T('10-gums', 0.25), 0.07);
@@ -133,6 +147,7 @@ W('Tubes rise', K.whoosh(0.6, 400, 2400), T('10-gums', 0.2), 0.08, -0.5, 0.5);
 S('Panel pop', K.pop(700), T('10-gums', 1.35), 0.1, -0.2);
 S('Panel pop', K.pop(820), T('10-gums', 1.85), 0.1, 0.2);
 S('Tube light sweep', K.shimmer([84, 88, 91, 96]), T('10-gums', 1.6), 0.05, 0, 0.7);
+S('Shield glint', K.shimmer([88, 91, 95]), T('10-gums', 2.5), 0.05, 0, 0.6);
 
 // 11 — end card
 S('Hero impact', K.impact(0.8), T('11-end-card', 0.4), 0.3);
@@ -142,6 +157,17 @@ S('Tube light sweep', K.shimmer([84, 88, 91, 96]), T('11-end-card', 1.4), 0.04, 
 S('Hygiene line', K.pop(820), T('11-end-card', 1.95), 0.08);
 S('CTA click', K.click(1400), T('11-end-card', 2.15), 0.14, 0, 0);
 S('CTA chime', K.shimmer([79, 83, 86, 91]), T('11-end-card', 2.2), 0.06, 0, 0.6);
+S('CTA pulse', K.pop(760), T('11-end-card', 3.0), 0.05);
+S('Final resolve chord', K.make(3.0, (t) => ([53, 60, 64, 67, 72].reduce((a, m) => a + Math.sin(2 * Math.PI * mtof(m) * t), 0) / 5) * clamp(t / 0.05) * Math.exp(-t * 0.9)), T('11-end-card', 2.6), 0.08, 0, 0.8);
+
+// lead-in: a soft riser into every cut that has none yet, so no scene change arrives out of silence
+for (const sc of timing.scenes.slice(1)) {
+  const c = START[sc.id];
+  if (cue.some(([t, l]) => /riser|swell/i.test(l) && t > c - 1.4 && t < c)) continue;
+  S('Soft riser into cut', K.riser(0.7), c - 0.75, 0.06, 0, 0.35);
+}
+
+
 
 /* ---------------- reverb + master ---------------- */
 const REV = [K.filter(K.reverb(SEND[0], 0), 'hp', 200), K.filter(K.reverb(SEND[1], 23), 'hp', 200)];

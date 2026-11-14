@@ -2,7 +2,8 @@
 // sheen price figures. Khmer is never split below word level (keeps shaping intact).
 import React from 'react';
 import { clamp, easeOut } from '../../lib/anim';
-import { FONTS } from '../../lib/theme';
+import { FONTS, latinStack } from '../../lib/theme';
+import { KH_LINE, hasKh } from '../../lib/kh';
 import { ease, lerp } from '../theme';
 
 type Align = 'center' | 'left' | 'right';
@@ -43,7 +44,7 @@ export const Focus: React.FC<{ p: number; children: React.ReactNode; blur?: numb
 type LatinStyle = { size: number; weight?: 500 | 700 | 800; color?: string; fill?: string; stroke?: string };
 
 const latinCss = ({ size, weight = 800, color = '#FFFFFF', fill, stroke }: LatinStyle): React.CSSProperties => ({
-  fontFamily: FONTS.latin,
+  fontFamily: latinStack(size),
   fontSize: size,
   fontWeight: weight,
   lineHeight: 1,
@@ -64,6 +65,22 @@ export const TitleIn: React.FC<
   const total = clamp((t - at) / (dur + stagger * text.length));
   if (t < at) return null;
   const track = lerp(trackFrom, trackTo, ease.outExpo(total));
+  if (hasKh(text)) {
+    // Khmer: whole words sharpen from blur (never split inside a word), no tracking
+    return (
+      <span style={{ display: 'inline-flex', gap: st.size * 0.28, alignItems: 'baseline', opacity: 1 - clamp(out), filter: out > 0 ? `blur(${12 * out}px)` : undefined }}>
+        {text.split(' ').map((w, i) => {
+          const p = clamp((t - at - i * stagger * 3) / dur);
+          const e = ease.outQuint(p);
+          return (
+            <span key={i} style={{ ...latinCss(st), lineHeight: KH_LINE, display: 'inline-block', whiteSpace: 'nowrap', opacity: clamp(p * 2), filter: e < 0.99 ? `blur(${14 * (1 - e)}px)` : undefined, transform: `translateY(${30 * (1 - e)}px)` }}>
+              {w}
+            </span>
+          );
+        })}
+      </span>
+    );
+  }
   return (
     <span style={{ display: 'inline-block', letterSpacing: track, marginRight: -track, opacity: 1 - clamp(out), filter: out > 0 ? `blur(${12 * out}px)` : undefined }}>
       {Array.from(text).map((ch, i) => {
@@ -90,9 +107,13 @@ export const TitleIn: React.FC<
 };
 
 /** Static Latin text in the theme style. */
-export const Lt: React.FC<LatinStyle & { children: React.ReactNode; tracking?: number; style?: React.CSSProperties }> = ({ children, tracking = 0, style, ...st }) => (
-  <span style={{ ...latinCss(st), letterSpacing: tracking, marginRight: -tracking, display: 'inline-block', whiteSpace: 'nowrap', ...style }}>{children}</span>
-);
+export const Lt: React.FC<LatinStyle & { children: React.ReactNode; tracking?: number; style?: React.CSSProperties }> = ({ children, tracking: tr = 0, style, ...st }) => {
+  const kh = hasKh(children);
+  const tracking = kh ? 0 : tr;
+  return (
+  <span style={{ ...latinCss(st), ...(kh ? { lineHeight: KH_LINE } : null), letterSpacing: tracking, marginRight: -tracking, display: 'inline-block', whiteSpace: 'nowrap', ...style }}>{children}</span>
+  );
+};
 
 /** Small tracked label with a hairline on each side. */
 export const Eyebrow: React.FC<{ text: string; p: number; color?: string; size?: number; lines?: boolean }> = ({ text, p, color = 'rgba(255,255,255,0.8)', size = 24, lines = true }) => {
@@ -102,7 +123,7 @@ export const Eyebrow: React.FC<{ text: string; p: number; color?: string; size?:
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 22, opacity: clamp(p * 2) }}>
       {lines && <div style={{ width: lw, height: 1.5, background: `linear-gradient(90deg, transparent, ${color})` }} />}
-      <Lt size={size} weight={700} color={color} tracking={lerp(22, 9, e)}>
+      <Lt size={hasKh(text) ? size + 4 : size} weight={700} color={color} tracking={lerp(22, 9, e)}>
         {text}
       </Lt>
       {lines && <div style={{ width: lw, height: 1.5, background: `linear-gradient(90deg, ${color}, transparent)` }} />}

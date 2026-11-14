@@ -8,7 +8,7 @@ import { Card } from '../ui/Card';
 import { GlyphName, IconBadge } from '../ui/Interface';
 import { IsoBlock, IsoShadow } from '../ui/Objects';
 import { Product } from '../ui/Product';
-import { At, Eyebrow, khmer, latin } from '../ui/Type';
+import { At, Eyebrow, khmer, label as labelStyle } from '../ui/Type';
 import { BLUE, INK, SHADOW, ease } from '../theme';
 import { LEMON } from './T01Intro';
 
@@ -69,7 +69,7 @@ const LayerCallout: React.FC<{ t: number; at: number; ax: number; y: number; col
         }}
       >
         <span style={{ width: 24, height: 24, borderRadius: 12, background: `linear-gradient(135deg, #FFFFFF, ${color})`, border: '1.5px solid rgba(8,121,201,0.25)' }} />
-        <span style={latin(17, 800, BLUE.navy, 3)}>{label}</span>
+        <span style={labelStyle(label, 17, 800, BLUE.navy, 3)}>{label}</span>
       </div>
     </>
   );
@@ -108,8 +108,8 @@ export const T07FluorideEnamel: React.FC = () => {
         <Card key={l.en} x={540} y={1300 + i * 120} w={920} h={104} p={prog(t, 2.6 + i * 0.35, 3.3 + i * 0.35)} t={t} float={3} radius={52} padding="0 26px" align="start">
           <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
             <IconBadge name={ICONS[i]} size={64} color={BLUE.royal} bg={BLUE.pale} />
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <span style={latin(16, 800, BLUE.royal, 3)}>{l.en}</span>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+              <span style={labelStyle(l.en, 16, 800, BLUE.royal, 3)}>{l.en}</span>
               <span style={{ ...khmer(30, 700, INK.charcoal), lineHeight: 1.45 }}>{l.kh}</span>
             </div>
           </div>

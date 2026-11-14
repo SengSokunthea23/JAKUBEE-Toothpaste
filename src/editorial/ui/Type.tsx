@@ -2,7 +2,8 @@
 // highlighting, Khmer word-level reveals (never split inside a word).
 import React from 'react';
 import { clamp } from '../../lib/anim';
-import { FONTS } from '../../lib/theme';
+import { FONTS, latinStack } from '../../lib/theme';
+import { KH_LINE, hasKh } from '../../lib/kh';
 import { INK, ease, lerp } from '../theme';
 
 type Align = 'center' | 'left' | 'right';
@@ -24,7 +25,7 @@ export const At: React.FC<{ x: number; y: number; align?: Align; children: React
 );
 
 export const latin = (size: number, weight: 500 | 700 | 800 = 800, color: string = INK.charcoal, tracking = 0): React.CSSProperties => ({
-  fontFamily: FONTS.latin,
+  fontFamily: latinStack(size),
   fontSize: size,
   fontWeight: weight,
   color,
@@ -32,6 +33,13 @@ export const latin = (size: number, weight: 500 | 700 | 800 = 800, color: string
   lineHeight: 1.02,
   whiteSpace: 'nowrap',
 });
+
+/**
+ * Small label style for copy that may be Khmer or Latin: Latin keeps its letter-spacing, Khmer gets
+ * none (spacing pulls Khmer letters apart) and a comfortable line-height.
+ */
+export const label = (text: string, size: number, weight: 500 | 700 | 800 = 800, color: string = INK.charcoal, tracking = 0): React.CSSProperties =>
+  hasKh(text) ? { ...latin(size, weight, color, 0), lineHeight: 1.4 } : latin(size, weight, color, tracking);
 
 export const khmer = (size: number, weight: 500 | 600 | 700 = 700, color: string = INK.charcoal): React.CSSProperties => ({
   fontFamily: FONTS.khmer,
@@ -66,9 +74,9 @@ export const Headline: React.FC<{ text: string; t: number; at: number; size: num
   tracking = -size * 0.02,
   gap,
 }) => (
-  <span style={{ display: 'inline-flex', gap: gap ?? size * 0.24 }}>
+  <span style={{ display: 'inline-flex', gap: gap ?? size * 0.24, alignItems: 'baseline' }}>
     {text.split(' ').map((w, i) => (
-      <MaskWord key={i} p={(t - at - i * stagger) / 0.7} style={latin(size, weight, color, tracking)}>
+      <MaskWord key={i} p={(t - at - i * stagger) / 0.7} style={hasKh(text) ? { ...latin(size, weight, color, 0), lineHeight: KH_LINE } : latin(size, weight, color, tracking)}>
         {w}
       </MaskWord>
     ))}
@@ -95,14 +103,18 @@ export const KhLine: React.FC<{ text: string; t: number; at: number; size: numbe
 );
 
 /** Animated underline that draws beneath content (reference-style accent rule). */
-export const Underline: React.FC<{ p: number; color: string; children: React.ReactNode; thickness?: number; offset?: number }> = ({ p, color, children, thickness = 8, offset = 4 }) => (
+/**
+ * Marker underline that draws in from the left. It sits at the bottom edge of the text box, i.e. below
+ * the deepest Khmer subscript, so it never cuts through letters; `gap` moves it further down (px).
+ */
+export const Underline: React.FC<{ p: number; color: string; children: React.ReactNode; thickness?: number; gap?: number }> = ({ p, color, children, thickness = 8, gap = 0 }) => (
   <span style={{ position: 'relative', display: 'inline-block' }}>
     {children}
     <span
       style={{
         position: 'absolute',
         left: 0,
-        bottom: offset,
+        top: `calc(100% + ${gap - thickness / 2}px)`,
         height: thickness,
         width: `${100 * ease.outExpo(clamp(p))}%`,
         background: color,
@@ -177,7 +189,7 @@ export const Eyebrow: React.FC<{ text: string; p: number; color?: string; dash?:
   return (
     <span style={{ display: 'inline-flex', alignItems: 'center', gap: 16, opacity: clamp(p * 2) }}>
       {dash && <span style={{ width: 44 * e, height: 4, borderRadius: 2, background: dash }} />}
-      <span style={latin(size, 700, color, lerp(14, 6, e))}>{text}</span>
+      <span style={hasKh(text) ? { ...latin(size + 4, 700, color, 0), lineHeight: KH_LINE } : latin(size, 700, color, lerp(14, 6, e))}>{text}</span>
     </span>
   );
 };

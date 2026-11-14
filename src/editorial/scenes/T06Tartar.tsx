@@ -1,14 +1,14 @@
 import React from 'react';
+import { CauseIcon } from '../../components/CauseIcon';
 import { AbsoluteFill } from 'remotion';
 import { prog } from '../../lib/anim';
 import { useTime } from '../../lib/useTime';
 import { T } from '../copy';
 import { Backdrop, Cam } from '../ui/Backdrop';
 import { Card } from '../ui/Card';
-import { GlyphName, IconBadge } from '../ui/Interface';
 import { BeadField } from '../ui/Objects';
 import { Product } from '../ui/Product';
-import { At, Eyebrow, KhLine, Underline, khmer, latin } from '../ui/Type';
+import { At, Eyebrow, KhLine, Underline, khmer } from '../ui/Type';
 import { BLUE, INK, ease } from '../theme';
 import { LEMON } from './T01Intro';
 
@@ -40,9 +40,8 @@ export const T06Tartar: React.FC = () => {
         return (
           <Card key={cause.en} x={x} y={720} w={300} h={260} p={prog(t, 0.9 + i * 0.25, 1.6 + i * 0.25)} out={clear} t={t} float={6} radius={36}>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
-              <IconBadge name={cause.icon as GlyphName} size={96} color={INK.slate} bg="rgba(28,34,48,0.06)" />
+              <CauseIcon kind={cause.icon} size={118} t={t} variant="editorial" />
               <span style={khmer(40, 700, INK.charcoal)}>{cause.kh}</span>
-              <span style={latin(16, 800, INK.mist, 3)}>{cause.en}</span>
             </div>
           </Card>
         );
@@ -64,7 +63,7 @@ export const T06Tartar: React.FC = () => {
       )}
       <At x={540} y={740}>
         <span style={{ opacity: prog(t, 3.8, 4.3) }}>
-          <Underline p={prog(t, 4.2, 4.8)} color={LEMON} thickness={10} offset={10}>
+          <Underline p={prog(t, 4.2, 4.8)} color={LEMON} thickness={10}>
             <KhLine text={c.kh3} t={t} at={3.8} size={72} color={BLUE.navy} />
           </Underline>
         </span>

@@ -1,4 +1,4 @@
-// Original soundtrack + sound design for Theme 04 — Futuristic Dental Science (JAKUBEE Zesty Lemon).
+// Original soundtrack + sound design for Theme 04 — Futuristic Dental Science (JAKUBEE Zesty Lemon + Herbal Mint, 9 chapters).
 // Reads src/futuristic/timing.json so every cue follows the picture. All sounds are synthesised here.
 // Run: npm run soundtrack:futuristic   (add --cues to print the cue sheet)
 //
@@ -175,7 +175,7 @@ timing.scenes.forEach((s, i) => {
 
 /* ---------------- scene cues (dt = authored animation time) ---------------- */
 // narration bar: a soft UI click as each Khmer caption arrives
-const KH_AT = { 'f01-intro': 1.5, 'f02-clean': 1.0, 'f03-stains': 1.0, 'f04-strong': 0.9, 'f05-bright': 0.9, 'f06-tartar': 1.0, 'f07-fluoride': 0.9, 'f08-enamel': 1.0, 'f09-gums': 0.9, 'f10-bacteria': 1.0, 'f11-breath': 0.9, 'f12-daily': 1.0, 'f13-finale': 1.6 };
+const KH_AT = { 'f01-intro': 1.5, 'f01b-herbal': 1.3, 'f02-clean': 0.55, 'f03-stains': 0.6, 'f06-tartar': 0.8, 'f07-fluoride': 0.6, 'f09-gums': 0.6, 'f12-daily': 1.0, 'f13-finale': 1.3 };
 for (const [id, at] of Object.entries(KH_AT)) S('Caption UI click', K.click(1500), T(id, at - 0.1), 0.06, 0, 0);
 
 // 01 — cinematic lemon intro
@@ -188,6 +188,14 @@ S('Elegant product reveal impact', K.impact(0.9), T('f01-intro', 1.05), 0.42);
 S('Headline glitch', glitch(0.3), T('f01-intro', 1.1), 0.1, 0, 0.1);
 S('Subtitle tick', tick(2400), T('f01-intro', 1.4), 0.08);
 S('Tube light sweep', K.shimmer([81, 84, 88, 91]), T('f01-intro', 1.9), 0.05, 0, 0.6);
+
+// 01b — Herbal Mint (Green Edition)
+for (let k = 0; k < 4; k++) S('Leaf air', K.droplet(1000 + rnd() * 600), T('f01b-herbal', 0.15 + k * 0.16), 0.04, rnd() * 1.2 - 0.6, 0.4);
+W('Green light sweep', neonSweep(0.8), T('f01b-herbal', 0.3), 0.08, -0.8, 0.8);
+S('Elegant product reveal impact', K.impact(0.85), T('f01b-herbal', 0.65), 0.4);
+S('Headline glitch', glitch(0.3), T('f01b-herbal', 0.7), 0.1, 0, 0.1);
+S('Subtitle tick', tick(2400), T('f01b-herbal', 1.0), 0.08);
+S('Tube light sweep', K.shimmer([81, 84, 88, 91]), T('f01b-herbal', 1.6), 0.05, 0, 0.6);
 
 // 02 — clean teeth & fresh breath
 S('Tooth appears — pulse', pulse(130), T('f02-clean', 0.1), 0.25);
@@ -206,17 +214,6 @@ S('Pointer tick', tick(2200), T('f03-stains', 0.65), 0.08, -0.5);
 S('Pointer tick', tick(2600), T('f03-stains', 0.85), 0.08, 0.5);
 S('Clean scan', scanner(1.4, 700, 1500), T('f03-stains', 1.0), 0.05, 0, 0.3);
 
-// 04 — strong teeth
-S('Headline accent', K.pop(620), T('f04-strong', 0.2), 0.07);
-S('Headline accent', K.pop(760), T('f04-strong', 0.35), 0.08);
-[0, 1, 2].forEach((i) => S(`Protective layer ${i + 1}`, pulse(90 + i * 30), T('f04-strong', 0.45 + i * 0.15), 0.22, 0, 0.1));
-S('Metallic shield shimmer', K.shimmer([79, 83, 86, 91]), T('f04-strong', 1.3), 0.05, 0, 0.6);
-
-// 05 — clean, bright, smooth
-['CLEAN', 'BRIGHT', 'FRESH'].forEach((w, i) => S(`Word "${w}"`, K.pop(640 + i * 120), T('f05-bright', 0.25 + i * 0.22), 0.08, -0.3 + i * 0.3));
-S('Light reflection sweep', K.shimmer([86, 90, 93, 98]), T('f05-bright', 0.6), 0.06, 0, 0.7);
-for (let k = 0; k < 8; k++) S('Sparkle particle', tick(3000 + rnd() * 2000), T('f05-bright', 0.7 + k * 0.1), 0.035, rnd() * 1.4 - 0.7, 0.5);
-
 // 06 — tartar & stains
 S('Headline accent', K.pop(700), T('f06-tartar', 0.2), 0.07);
 [0, 1, 2].forEach((i) => S(`Cause card ${i + 1}`, K.pop(600 + i * 100), T('f06-tartar', 0.3 + i * 0.18), 0.08, -0.6 + i * 0.6));
@@ -234,33 +231,12 @@ S('Ring indicator sweep', scanner(1.3, 600, 1600), T('f07-fluoride', 0.7), 0.04,
 S('Technical label', K.click(2200), T('f07-fluoride', 1.25), 0.08, 0, 0);
 S('Protective shimmer', K.shimmer([83, 87, 90, 95]), T('f07-fluoride', 1.45), 0.05, 0, 0.7);
 
-// 08 — enamel care
-S('Cross-section builds', K.swell([64, 69, 76], 0.9), T('f08-enamel', 0.1), 0.05, 0, 0.5);
-[0, 1, 2].forEach((i) => S(`Layer ${i + 1}`, pulse(80 + i * 40), T('f08-enamel', 0.25 + i * 0.25), 0.16, 0, 0.1));
-S('Enamel lights up — electric pulse', neonSweep(0.5), T('f08-enamel', 1.15), 0.07, 0, 0.3);
-[0, 1, 2].forEach((i) => S(`Pointer ${i + 1}`, tick(2000 + i * 300), T('f08-enamel', 1.25 + i * 0.2), 0.08, 0.5));
-
 // 09 — gum care
 S('Teeth settle — pulse', pulse(110), T('f09-gums', 0.1), 0.2);
 S('Gumline highlight traces', scanner(1.0, 500, 900), T('f09-gums', 0.6), 0.04, -0.4, 0.3);
 S('Glass card in', K.pop(700), T('f09-gums', 0.85), 0.07);
 S('Check', K.click(1800), T('f09-gums', 1.05), 0.08, -0.3, 0);
 S('Check', K.click(2100), T('f09-gums', 1.2), 0.08, 0.3, 0);
-
-// 10 — bacteria & bad breath
-for (let k = 0; k < 8; k++) S('Microscopic particle', K.droplet(260 + rnd() * 200), T('f10-bacteria', 0.05 + k * 0.08), 0.06, rnd() * 1.4 - 0.7, 0.3);
-W('Clean airflow', K.whoosh(1.4, 250, 2200), T('f10-bacteria', 0.9), 0.16, -0.9, 0.9);
-S('Particles disperse', atmos(1.2), T('f10-bacteria', 1.1), 0.05, 0, 0.3);
-S('Product reveal impact', K.impact(0.75), T('f10-bacteria', 1.55), 0.34);
-S('Tube light sweep', K.shimmer([81, 84, 88, 91]), T('f10-bacteria', 2.2), 0.04, 0, 0.6);
-
-// 11 — fresh breath (orbit)
-S('Headline accent', K.pop(660), T('f11-breath', 0.2), 0.07);
-S('Headline accent', K.pop(800), T('f11-breath', 0.4), 0.07);
-W('Orbit whoosh', K.whoosh(1.6, 300, 2000), T('f11-breath', 0.1), 0.09, 0.8, -0.8);
-W('Air trails', K.whoosh(1.2, 600, 3000), T('f11-breath', 0.35), 0.08, -0.8, 0.8);
-S('Fresh shimmer', K.shimmer([83, 87, 90, 95, 99]), T('f11-breath', 0.8), 0.05, 0, 0.7);
-for (let k = 0; k < 4; k++) S('Water droplet', K.droplet(900 + rnd() * 600), T('f11-breath', 1.0 + k * 0.35), 0.04, rnd() * 1.2 - 0.6, 0.4);
 
 // 12 — daily oral hygiene
 S('Product card in', K.pop(680), T('f12-daily', 0.25), 0.08);
@@ -279,6 +255,23 @@ S('ZESTY LEMON type swell', K.swell([69, 76, 81], 1.0), T('f13-finale', 0.5), 0.
 S('JAKUBEE glitch reveal', glitch(0.3), T('f13-finale', 1.0), 0.1, 0, 0.1);
 S('Brand light sweep', K.shimmer([81, 85, 88, 93, 96]), T('f13-finale', 1.7), 0.06, 0, 0.8);
 S('Elegant audio ending', make(3.4, (t) => ([57, 64, 67, 71, 76].reduce((a, m) => a + Math.sin(2 * Math.PI * mtof(m) * t), 0) / 5) * clamp(t / 0.05) * Math.exp(-t * 0.8)), T('f13-finale', 2.5), 0.09, 0, 0.8);
+
+S('CTA reveal', K.pop(900), T('f13-finale', 2.45), 0.1, 0, 0.2);
+S('CTA click', K.click(1600), T('f13-finale', 2.9), 0.09, 0, 0);
+
+// caption-reading moments: quiet movement so the long captions never sit in silence
+for (let k = 0; k < 4; k++) S('Orbit particle', tick(2600 + k * 260), T('f02-clean', 1.7 + k * 0.22), 0.035, -0.5 + k * 0.33, 0.4);
+W('Air trail', K.whoosh(0.9, 600, 3200), T('f02-clean', 1.9), 0.06, 0.6, -0.6);
+S('Scan complete', K.click(2600), T('f03-stains', 2.2), 0.06, 0.3, 0);
+S('Clean shimmer', K.shimmer([86, 90, 93, 98]), T('f03-stains', 2.3), 0.04, 0, 0.6);
+S('Gumline glow', K.shimmer([83, 87, 90, 95]), T('f09-gums', 1.5), 0.04, 0, 0.6);
+
+// lead-in: a soft riser into every cut that has none yet, so no scene change arrives out of silence
+for (const sc of timing.scenes.slice(1)) {
+  const c = START[sc.id];
+  if (cue.some(([t, l]) => /riser|swell/i.test(l) && t > c - 1.4 && t < c)) continue;
+  S('Soft riser into cut', K.riser(0.7), c - 0.75, 0.06, 0, 0.35);
+}
 
 // very quiet atmospheric bed
 put(SFX, filter(make(TOTAL, () => noise()), 'bp', (t) => 500 + 300 * Math.sin(t * 0.3), 0.5).map((x, i) => x * clamp(i / SR / 1.5)), 0, 0.012);

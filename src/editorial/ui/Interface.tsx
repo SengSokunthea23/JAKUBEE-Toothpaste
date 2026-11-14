@@ -3,6 +3,7 @@ import React from 'react';
 import { clamp } from '../../lib/anim';
 import { INK, SHADOW, ease, lerp } from '../theme';
 import { latin } from './Type';
+import { safeSlice } from '../../lib/kh';
 
 export type GlyphName =
   | 'drop'
@@ -150,21 +151,40 @@ export const IconBadge: React.FC<{ name: GlyphName; size: number; color: string;
 );
 
 /**
- * Search interface: the bar slides in, each query types out with a caret,
- * then is cleared for the next. `queries` cycle over the given window.
+ * When each search query types, holds and clears: typing time is shared by query length (Khmer needs
+ * more characters than Latin), each query is held so it can be read, and the last one stays.
+ * Also used by scripts/generate-editorial-soundtrack.mjs for the keystrokes (keep the two in step).
  */
-export const SearchBar: React.FC<{ t: number; at: number; queries: string[]; x: number; y: number; w: number; accent: string; per?: number }> = ({ t, at, queries, x, y, w, accent, per = 1.1 }) => {
+export const searchSchedule = (queries: string[], start: number, until: number, hold = 0.35, erase = 0.18) => {
+  const total = queries.reduce((a, q) => a + q.length, 0);
+  const rate = Math.max(0.02, (until - start - (queries.length - 1) * (hold + erase)) / total);
+  let s = start;
+  return queries.map((q, i) => {
+    const type = q.length * rate;
+    const item = { start: s, type, rate, hold, erase };
+    s += type + (i < queries.length - 1 ? hold + erase : 0);
+    return item;
+  });
+};
+
+/**
+ * Search interface: the bar slides in, each query types out with a caret, is held, then is cleared
+ * for the next; the last query is fully typed by `until`.
+ */
+export const SearchBar: React.FC<{ t: number; at: number; queries: string[]; x: number; y: number; w: number; accent: string; until: number }> = ({ t, at, queries, x, y, w, accent, until }) => {
   const p = clamp((t - at) / 0.6);
   if (p <= 0) return null;
   const e = ease.outExpo(p);
-  const local = t - at - 0.45;
-  const idx = Math.max(0, Math.min(queries.length - 1, Math.floor(local / per)));
+  const plan = searchSchedule(queries, at + 0.45, until);
+  let idx = 0;
+  plan.forEach((s, i) => { if (t >= s.start) idx = i; });
   const q = queries[idx];
-  const inQ = local - idx * per;
+  const sc = plan[idx];
   const last = idx === queries.length - 1;
-  const typed = Math.max(0, Math.min(q.length, Math.floor(inQ / 0.045)));
-  const erasing = !last && inQ > per - 0.22;
-  const shown = erasing ? q.slice(0, Math.max(0, Math.floor(q.length * (1 - (inQ - (per - 0.22)) / 0.22)))) : q.slice(0, typed);
+  const typed = Math.max(0, Math.min(q.length, Math.floor((t - sc.start) / sc.rate)));
+  const eraseAt = sc.start + sc.type + sc.hold;
+  const erasing = !last && t > eraseAt;
+  const shown = erasing ? safeSlice(q, Math.floor(q.length * (1 - (t - eraseAt) / sc.erase))) : safeSlice(q, typed);
   const caret = Math.floor(t * 2.2) % 2 === 0;
   const h = 118;
   return (

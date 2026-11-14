@@ -1,6 +1,6 @@
 import React from 'react';
 import { AbsoluteFill } from 'remotion';
-import { Glyph, GlyphName } from '../../editorial/ui/Interface';
+import { CauseIcon } from '../../components/CauseIcon';
 import { clamp, prog } from '../../lib/anim';
 import { COPY } from '../../lib/copy';
 import { useTime } from '../../lib/useTime';
@@ -8,7 +8,7 @@ import { Dust, FloorRipple, MicroBubbles } from '../fx/Elements';
 import { HeroProduct } from '../fx/HeroProduct';
 import { Glass } from '../fx/Panels';
 import { Bokeh, Glow, Plane, Stage } from '../fx/Stage';
-import { Eyebrow, Kh, KhIn, Lt, Pos } from '../fx/Type';
+import { Eyebrow, Kh, KhIn, Pos } from '../fx/Type';
 import { BLUE, GREEN, ease } from '../theme';
 
 /** 08 — Cleans tartar caused by cigarettes, tea and coffee: cause panels are swept away, both tubes land. */
@@ -35,11 +35,8 @@ export const C08Tartar: React.FC = () => {
             <div key={cause.en} style={{ opacity: 1 - out, filter: out > 0 ? `blur(${14 * out}px)` : undefined, transform: `translateY(${-70 * out}px)` }}>
               <Glass x={x} y={790} w={290} h={270} p={q} radius={36}>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
-                  <Glyph name={cause.icon as GlyphName} size={64} color="#FFFFFF" stroke={1.6} />
+                  <CauseIcon kind={cause.icon} size={118} t={t} variant="cinematic" />
                   <Kh size={40}>{cause.kh}</Kh>
-                  <Lt size={18} weight={700} color="rgba(255,255,255,0.7)" tracking={3}>
-                    {cause.en}
-                  </Lt>
                 </div>
               </Glass>
             </div>

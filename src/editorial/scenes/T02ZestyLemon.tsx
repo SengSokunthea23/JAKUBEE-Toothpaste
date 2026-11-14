@@ -8,7 +8,7 @@ import { Card, LiveDot, Pill } from '../ui/Card';
 import { LemonField, LemonSlice3D } from '../ui/Lemon';
 import { BeadField } from '../ui/Objects';
 import { Product } from '../ui/Product';
-import { At, Eyebrow, Headline, KhLine, latin } from '../ui/Type';
+import { At, Eyebrow, Headline, KhLine, label } from '../ui/Type';
 import { BLUE, INK, ease } from '../theme';
 import { LEMON } from './T01Intro';
 
@@ -38,13 +38,13 @@ export const T02ZestyLemon: React.FC = () => {
       <Card x={250} y={760} w={350} h={92} p={prog(t, 1.4, 2.1)} t={t} float={5} radius={46}>
         <span style={{ display: 'inline-flex', alignItems: 'center', gap: 14 }}>
           <LiveDot t={t} color={BLUE.royal} />
-          <span style={latin(20, 800, BLUE.navy, 3)}>{c.chip1}</span>
+          <span style={label(c.chip1, 20, 800, BLUE.navy, 3)}>{c.chip1}</span>
         </span>
       </Card>
       <Card x={240} y={1240} w={330} h={92} p={prog(t, 1.8, 2.5)} t={t} float={5} radius={46}>
         <span style={{ display: 'inline-flex', alignItems: 'center', gap: 14 }}>
           <span style={{ width: 14, height: 14, borderRadius: 7, background: LEMON }} />
-          <span style={latin(20, 800, INK.charcoal, 3)}>{c.chip2}</span>
+          <span style={label(c.chip2, 20, 800, INK.charcoal, 3)}>{c.chip2}</span>
         </span>
       </Card>
       <At x={540} y={1470}>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { AbsoluteFill, Audio, staticFile } from 'remotion';
+import { AbsoluteFill, Audio, staticFile, useVideoConfig } from 'remotion';
 import { linearTiming, TransitionSeries } from '@remotion/transitions';
 import { frames } from './lib/anim';
 import { ripple, softFade, split, wave, wipe } from './transitions/presentations';
@@ -21,6 +21,7 @@ export type CommercialProps = {
 };
 
 export const Commercial: React.FC<CommercialProps> = ({ voiceover, musicVolume }) => {
+  const { fps } = useVideoConfig();
   const music = musicVolume ?? (voiceover ? 0.35 : 1);
   return (
     <AbsoluteFill style={{ backgroundColor: '#F5F5F2' }}>
@@ -28,14 +29,14 @@ export const Commercial: React.FC<CommercialProps> = ({ voiceover, musicVolume }
         {SCENES.map((scene, i) => {
           const next = SCENES[i + 1];
           // Pad each scene by the next transition so scene starts stay on the master clock.
-          const length = frames(scene.duration) + (next?.transition ? frames(next.transition.duration) : 0);
+          const length = frames(scene.duration, fps) + (next?.transition ? frames(next.transition.duration, fps) : 0);
           const Scene = scene.component;
           return (
             <React.Fragment key={scene.id}>
               {scene.transition && (
                 <TransitionSeries.Transition
                   presentation={PRESENTATIONS[scene.transition.kind]()}
-                  timing={linearTiming({ durationInFrames: frames(scene.transition.duration) })}
+                  timing={linearTiming({ durationInFrames: frames(scene.transition.duration, fps) })}
                 />
               )}
               <TransitionSeries.Sequence durationInFrames={length} name={scene.id}>

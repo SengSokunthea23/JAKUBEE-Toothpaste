@@ -1,0 +1,18 @@
+{
+  "_note": "Theme 05 master clock (seconds, start-to-start) — Lavender Editorial × Symbolic 3D Storytelling. JAKUBEE Zesty Lemon hero + Herbal Mint, 13 scenes in script order. 40.5 s on a 120 BPM grid: every duration is a whole number of beats (0.5 s = 30 frames at 60 fps), so every cut lands on the beat. scripts/generate-lavender-soundtrack.mjs reads this file.",
+  "scenes": [
+    { "id": "l01-intro", "duration": 3.5 },
+    { "id": "l02-clean", "duration": 3.0, "transition": { "kind": "shape", "duration": 0.7 } },
+    { "id": "l03-stains", "duration": 3.0, "transition": { "kind": "focus", "duration": 0.5 } },
+    { "id": "l04-strong", "duration": 2.5, "transition": { "kind": "fade", "duration": 0.5 } },
+    { "id": "l05-bright", "duration": 2.5, "transition": { "kind": "lightSweep", "duration": 0.6 } },
+    { "id": "l06-tartar", "duration": 3.5, "transition": { "kind": "shape", "duration": 0.7 } },
+    { "id": "l07-fluoride", "duration": 2.5, "transition": { "kind": "grid", "duration": 0.6 } },
+    { "id": "l08-enamel", "duration": 3.0, "transition": { "kind": "focus", "duration": 0.5 } },
+    { "id": "l09-gums", "duration": 3.0, "transition": { "kind": "push", "duration": 0.6 } },
+    { "id": "l10-bacteria", "duration": 3.0, "transition": { "kind": "fade", "duration": 0.5 } },
+    { "id": "l11-breath", "duration": 3.0, "transition": { "kind": "shape", "duration": 0.7 } },
+    { "id": "l12-daily", "duration": 3.5, "transition": { "kind": "grid", "duration": 0.6 } },
+    { "id": "l13-finale", "duration": 4.5, "transition": { "kind": "lightSweep", "duration": 0.8 } }
+  ]
+}

@@ -8,7 +8,7 @@ import { Card, LiveDot, Pill } from '../ui/Card';
 import { Glyph } from '../ui/Interface';
 import { BeadField, LeafCloud } from '../ui/Objects';
 import { Product } from '../ui/Product';
-import { At, Eyebrow, Headline, KhLine, khmer, latin } from '../ui/Type';
+import { At, Eyebrow, Headline, KhLine, label } from '../ui/Type';
 import { GREEN, INK, ease } from '../theme';
 
 /** 03 — Herbal Mint (Green Edition): botanical environment, hero tube with its pack, floating labels. */
@@ -38,13 +38,13 @@ export const T03HerbalMint: React.FC = () => {
       <Card x={820} y={720} w={330} h={92} p={prog(t, 1.3, 2.0)} t={t} float={5} radius={46}>
         <span style={{ display: 'inline-flex', alignItems: 'center', gap: 14 }}>
           <LiveDot t={t} color={GREEN.botanical} />
-          <span style={latin(20, 800, GREEN.forest, 3)}>{c.chip1}</span>
+          <span style={label(c.chip1, 20, 800, GREEN.forest, 3)}>{c.chip1}</span>
         </span>
       </Card>
       <Card x={850} y={850} w={270} h={92} p={prog(t, 1.55, 2.25)} t={t} float={5} radius={46}>
         <span style={{ display: 'inline-flex', alignItems: 'center', gap: 14 }}>
           <Glyph name="leaf" size={26} color={GREEN.botanical} />
-          <span style={latin(20, 800, INK.charcoal, 3)}>{c.chip2}</span>
+          <span style={label(c.chip2, 20, 800, INK.charcoal, 3)}>{c.chip2}</span>
         </span>
       </Card>
       <Card x={850} y={1300} w={300} h={150} p={prog(t, 1.9, 2.6)} t={t} float={5} radius={36}>
@@ -52,19 +52,17 @@ export const T03HerbalMint: React.FC = () => {
           {c.pack.map((p) => (
             <span key={p} style={{ display: 'inline-flex', alignItems: 'center', gap: 10 }}>
               <Glyph name="check" size={22} color={GREEN.botanical} stroke={2.6} />
-              <span style={latin(18, 800, INK.charcoal, 2)}>{p}</span>
+              <span style={label(p, 18, 800, INK.charcoal, 2)}>{p}</span>
             </span>
           ))}
         </div>
       </Card>
       <At x={540} y={1560}>
         <Pill size={24} style={{ opacity: prog(t, 2.3, 2.7) }}>
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 18 }}>
-            <KhLine text={c.kh1} t={t} at={2.3} size={36} color={GREEN.forest} />
-            <span style={{ width: 8, height: 8, borderRadius: 4, background: GREEN.fresh }} />
-            <span style={khmer(36, 700, GREEN.forest)}>
-              <KhLine text={c.kh2} t={t} at={2.45} size={36} color={GREEN.forest} />
-            </span>
+          {/* script line 9 in full, stacked on two lines */}
+          <span style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center' }}>
+            <KhLine text={c.kh1} t={t} at={2.3} size={34} color={GREEN.forest} />
+            <KhLine text={c.kh2} t={t} at={2.45} size={30} weight={600} color={GREEN.forest} />
           </span>
         </Pill>
       </At>

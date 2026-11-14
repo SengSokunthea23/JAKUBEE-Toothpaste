@@ -14,8 +14,9 @@ export const easeBack = (x: number, s = 1.25) => {
   return 1 + c3 * Math.pow(x - 1, 3) + s * Math.pow(x - 1, 2);
 };
 
-export const sec = (frame: number) => frame / FPS;
-export const frames = (seconds: number) => Math.round(seconds * FPS);
+export const sec = (frame: number, fps: number = FPS) => frame / fps;
+/** Seconds → frames at the given frame rate (30 by default; the Commercial theme renders at 60). */
+export const frames = (seconds: number, fps: number = FPS) => Math.round(seconds * fps);
 
 /** Deterministic pseudo-random generator so every render is identical. */
 export const seeded = (seed: number) => {

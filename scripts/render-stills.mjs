@@ -12,6 +12,7 @@ const THEMES = {
   cinematic: { comp: 'JakubeeCinematic', timing: 'src/cinematic/timing.json', dir: 'out/stills-cinematic' },
   editorial: { comp: 'JakubeeEditorial', timing: 'src/editorial/timing.json', dir: 'out/stills-editorial' },
   futuristic: { comp: 'JakubeeFuturistic', timing: 'src/futuristic/timing.json', dir: 'out/stills-futuristic' },
+  lavender: { comp: 'JakubeeLavender', timing: 'src/lavender/timing.json', dir: 'out/stills-lavender' },
 };
 const cfg = THEMES[theme];
 if (!cfg) throw new Error(`Unknown theme "${theme}" (use: ${Object.keys(THEMES).join(', ')})`);
@@ -22,8 +23,9 @@ const { scenes } = JSON.parse(readFileSync(cfg.timing, 'utf8'));
 const moments = {};
 let f = 0;
 for (const sc of scenes) {
-  const len = Math.round(sc.duration * 30);
-  if (!only || sc.id.includes(only)) moments[sc.id] = f + len - 12;
+  const fps = 60; // every theme renders at 60 fps (FPS in src/lib/theme.ts)
+  const len = Math.round(sc.duration * fps);
+  if (!only || sc.id.includes(only)) moments[sc.id] = f + len - Math.round(0.4 * fps);
   f += len;
 }
 

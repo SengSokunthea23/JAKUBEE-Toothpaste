@@ -1,7 +1,7 @@
 // Cinematic environments: graded backdrop, volumetric beams, studio floor,
 // caustics, bokeh, vignette and film grain. Everything is deterministic.
 import React from 'react';
-import { AbsoluteFill, useCurrentFrame } from 'remotion';
+import { AbsoluteFill, useCurrentFrame, useVideoConfig } from 'remotion';
 import { seeded } from '../../lib/anim';
 import { HEIGHT, WIDTH } from '../../lib/theme';
 import { LIGHT, Tone } from '../theme';
@@ -144,7 +144,9 @@ export const Vignette: React.FC<{ strength?: number }> = ({ strength = 0.6 }) =>
 
 /** Fine animated film grain. */
 export const Grain: React.FC<{ opacity?: number }> = ({ opacity = 0.07 }) => {
-  const frame = useCurrentFrame();
+  // grain pattern changes 30 times a second whatever the frame rate, like real film grain
+  const { fps } = useVideoConfig();
+  const frame = Math.floor((useCurrentFrame() * 30) / fps);
   return (
     <AbsoluteFill style={{ opacity, mixBlendMode: 'overlay', pointerEvents: 'none' }}>
       <svg width={WIDTH} height={HEIGHT}>

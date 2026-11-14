@@ -1,5 +1,5 @@
 {
-  "_note": "Theme 03 master clock (seconds, start-to-start) — JAKUBEE Zesty Lemon + Herbal Mint toothpaste, 35 s cut on a 120 BPM grid: every duration is a whole number of beats (0.5 s = 15 frames), so every scene change lands on the beat. 'speed' plays a scene's animation faster than authored (1 = original timing); each scene ends soon after its last animation, so no hold is wasted. Order: intro, both editions, the benefits of the 'JAKUBEE Toothpaste' script with both tubes, finale. scripts/generate-editorial-soundtrack.mjs reads this file.",
+  "_note": "Theme 03 master clock (seconds, start-to-start) — JAKUBEE Zesty Lemon + Herbal Mint toothpaste, 36.5 s cut on a 120 BPM grid: every duration is a whole number of beats (0.5 s = 30 frames at 60 fps), so every scene change lands on the beat. 'speed' plays a scene's animation faster than authored (1 = original timing); each scene ends soon after its last animation, so no hold is wasted. Order: intro, both editions, the benefits of the 'JAKUBEE Toothpaste' script with both tubes, finale. scripts/generate-editorial-soundtrack.mjs reads this file.",
   "scenes": [
     {
       "id": "t01-intro",
@@ -10,49 +10,73 @@
       "id": "t02-zesty-lemon",
       "duration": 3.5,
       "speed": 1.31,
-      "transition": { "kind": "circle", "duration": 0.5 }
+      "transition": {
+        "kind": "circle",
+        "duration": 0.5
+      }
     },
     {
       "id": "t03-herbal-mint",
       "duration": 3.5,
       "speed": 1.29,
-      "transition": { "kind": "colorMorph", "duration": 1 }
+      "transition": {
+        "kind": "colorMorph",
+        "duration": 1
+      }
     },
     {
       "id": "t04-clean-fresh",
-      "duration": 4.5,
-      "speed": 1.33,
-      "transition": { "kind": "gradientWipe", "duration": 0.5 }
+      "duration": 6,
+      "speed": 1.15,
+      "transition": {
+        "kind": "gradientWipe",
+        "duration": 0.5
+      }
     },
     {
       "id": "t05-stains-whitening",
       "duration": 4.5,
       "speed": 1.29,
-      "transition": { "kind": "card", "duration": 0.5 }
+      "transition": {
+        "kind": "card",
+        "duration": 0.5
+      }
     },
     {
       "id": "t06-tartar",
       "duration": 4,
       "speed": 1.4,
-      "transition": { "kind": "push", "duration": 0.5 }
+      "transition": {
+        "kind": "push",
+        "duration": 0.5
+      }
     },
     {
       "id": "t07-fluoride-enamel",
       "duration": 4,
       "speed": 1.3,
-      "transition": { "kind": "focus", "duration": 0.5 }
+      "transition": {
+        "kind": "focus",
+        "duration": 0.5
+      }
     },
     {
       "id": "t08-sensitivity-gums",
       "duration": 4,
       "speed": 1.3,
-      "transition": { "kind": "card", "duration": 0.5 }
+      "transition": {
+        "kind": "card",
+        "duration": 0.5
+      }
     },
     {
       "id": "t11-finale",
       "duration": 4,
       "speed": 1.25,
-      "transition": { "kind": "lightLeak", "duration": 1 }
+      "transition": {
+        "kind": "lightLeak",
+        "duration": 1
+      }
     }
   ]
 }

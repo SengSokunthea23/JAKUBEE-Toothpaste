@@ -19,8 +19,8 @@ export const T11Finale: React.FC = () => {
   const c = T.end;
   const g = (a: number) => prog(t, a, a + 0.8);
   const enter = ease.outExpo(prog(t, 0.4, 1.4));
-  const cta = prog(t, 3.0, 3.6);
-  const live = Math.max(0, t - 3.6);
+  const cta = prog(t, 2.0, 2.6); // CTA comes in with the pack claims and stays until the end of the ad
+  const live = Math.max(0, t - 2.6);
   const sw = (live % 2.2) / 0.9;
   const pos = -25 + 150 * sw;
   return (
